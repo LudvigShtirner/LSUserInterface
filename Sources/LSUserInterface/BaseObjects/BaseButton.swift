@@ -40,10 +40,12 @@ open class BaseButton: UIButton {
     }
     
     // MARK: - Public methods
+    @discardableResult
     public func shouldDo(on action: UIControl.Event,
-                         _ closure: @escaping VoidBlock) {
+                         _ closure: @escaping VoidBlock) -> Self {
         let key = String(describing: action)
         actions[key] = closure
+        return self
     }
     
     // MARK: - Internal methods

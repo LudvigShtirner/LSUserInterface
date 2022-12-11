@@ -1,5 +1,5 @@
 //
-//  BackgroundColorTests.swift
+//  DesignedViewBackgroundColorTests.swift
 //  
 //
 //  Created by Алексей Филиппов on 04.12.2022.
@@ -10,17 +10,17 @@ import SupportCode
 // Apple
 import XCTest
 
-final class BackgroundColorTests: XCTestCase {
+final class DesignedViewBackgroundColorTests: XCTestCase {
     // MARK: - Data
-    private var view: BaseDesignedView! = nil
-    private var model: BackgroundColor! = nil
+    private var view: DesignedView! = nil
+    private var model: DesignedViewBackgroundColor! = nil
     
     // MARK: - Overrides
     override func setUpWithError() throws {
-        view = BaseDesignedView()
+        view = DesignedView()
         let colorMap = ColorMap(lightColor: .red,
                                 darkColor: .blue)
-        model = BackgroundColor(colorMap: colorMap)
+        model = DesignedViewBackgroundColor(colorMap: colorMap)
     }
 
     override func tearDownWithError() throws {

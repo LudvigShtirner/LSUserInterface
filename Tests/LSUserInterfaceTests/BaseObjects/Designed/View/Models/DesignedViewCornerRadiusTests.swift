@@ -1,5 +1,5 @@
 //
-//  CornerRadiusTests.swift
+//  DesignedViewCornerRadiusTests.swift
 //  
 //
 //  Created by Алексей Филиппов on 04.12.2022.
@@ -11,15 +11,15 @@ import XCTest
 
 private let kCornerRadius: CGFloat = 4.0
 
-final class CornerRadiusTests: XCTestCase {
+final class DesignedViewCornerRadiusTests: XCTestCase {
     // MARK: - Data
-    private var view: BaseDesignedView! = nil
-    private var model: CornerRadius! = nil
+    private var view: DesignedView! = nil
+    private var model: DesignedViewCornerRadius! = nil
     
     // MARK: - Overrides
     override func setUpWithError() throws {
-        view = BaseDesignedView()
-        model = CornerRadius(value: kCornerRadius)
+        view = DesignedView()
+        model = DesignedViewCornerRadius(value: kCornerRadius)
     }
 
     override func tearDownWithError() throws {

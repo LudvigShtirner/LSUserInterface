@@ -1,5 +1,5 @@
 //
-//  Border.swift
+//  DesignedViewBorder.swift
 //  
 //
 //  Created by Алексей Филиппов on 04.12.2022.
@@ -10,7 +10,7 @@ import SupportCode
 import UIKit
 
 /// Свойство границы отображения
-struct Border: BaseDesignedViewParameter {
+struct DesignedViewBorder: BaseDesignedViewParameter {
     // MARK: - Data
     private var width: CGFloat
     private var colorMap: ColorMap
@@ -25,7 +25,7 @@ struct Border: BaseDesignedViewParameter {
     // MARK: - BaseDesignedViewParameter
     typealias Parameter = (CGFloat, ColorMap)
     
-    public func apply(to view: BaseDesignedView) {
+    public func apply(to view: UIView) {
         view.layer.borderWidth = width
         view.layer.borderColor = colorMap.color(for: view).cgColor
     }

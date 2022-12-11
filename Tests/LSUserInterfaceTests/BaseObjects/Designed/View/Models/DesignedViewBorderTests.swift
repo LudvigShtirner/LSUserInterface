@@ -1,5 +1,5 @@
 //
-//  BorderTests.swift
+//  DesignedViewBorderTests.swift
 //  
 //
 //  Created by Алексей Филиппов on 04.12.2022.
@@ -12,18 +12,18 @@ import XCTest
 
 private let kBorderWidth: CGFloat = 4.0
 
-final class BorderTests: XCTestCase {
+final class DesignedViewBorderTests: XCTestCase {
     // MARK: - Data
-    private var view: BaseDesignedView! = nil
-    private var model: Border! = nil
+    private var view: DesignedView! = nil
+    private var model: DesignedViewBorder! = nil
     
     // MARK: - Overrides
     override func setUpWithError() throws {
-        view = BaseDesignedView()
+        view = DesignedView()
         let colorMap = ColorMap(lightColor: .red,
                                 darkColor: .blue)
-        model = Border(width: kBorderWidth,
-                       colorMap: colorMap)
+        model = DesignedViewBorder(width: kBorderWidth,
+                                   colorMap: colorMap)
     }
 
     override func tearDownWithError() throws {

@@ -1,15 +1,15 @@
 //
-//  CornerRadius.swift
+//  DesignedViewCornerRadius.swift
 //  
 //
 //  Created by Алексей Филиппов on 04.12.2022.
 //
 
 // Apple
-import CoreGraphics
+import UIKit
 
 /// Свойство скругления ототбражения
-struct CornerRadius: BaseDesignedViewParameter {
+struct DesignedViewCornerRadius: BaseDesignedViewParameter {
     // MARK: - Data
     private var value: CGFloat
     
@@ -21,7 +21,7 @@ struct CornerRadius: BaseDesignedViewParameter {
     // MARK: - BaseDesignedViewParameter
     typealias Parameter = CGFloat
     
-    public func apply(to view: BaseDesignedView) {
+    public func apply(to view: UIView) {
         view.layer.cornerRadius = value
     }
 }
