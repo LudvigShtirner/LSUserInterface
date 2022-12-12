@@ -5,14 +5,14 @@
 //  Created by Алексей Филиппов on 10.12.2022.
 //
 
-// Own
+// SPM
 import SupportCode
 // Apple
 import UIKit
 
 open class BaseButton: UIButton {
     // MARK: - Data
-    private var actions: [String: VoidBlock] = [:]
+    private var listeners: [String: ButtonListener] = [:]
     
     // MARK: - Life cycle
     public init() {
@@ -30,7 +30,7 @@ open class BaseButton: UIButton {
     }
     
     deinit {
-        actions = [:]
+        listeners = [:]
     }
     
     // MARK: - Overrides
@@ -43,17 +43,15 @@ open class BaseButton: UIButton {
     @discardableResult
     public func shouldDo(on action: UIControl.Event,
                          _ closure: @escaping VoidBlock) -> Self {
-        let key = String(describing: action)
-        actions[key] = closure
+        let listener = ButtonListener(button: self,
+                                      event: action,
+                                      action: closure)
+        listeners[listener.key] = listener
         return self
     }
     
     // MARK: - Internal methods
     open func setupUI() {
-        addTarget(self,
-                  action: #selector(handle(sender:forEvent:)),
-                  for: .allTouchEvents)
-        
         setupColors()
         setupConstraints()
     }
@@ -65,11 +63,25 @@ open class BaseButton: UIButton {
     open func setupConstraints() {
         
     }
+}
+
+fileprivate final class ButtonListener {
+    // MARK: - Data
+    private let event: UIControl.Event
+    private let action: VoidBlock
+    var key: String { String(describing: event) }
     
-    // MARK: - Actions
-    @objc private func handle(sender: Any,
-                              forEvent event: UIControl.Event) {
-        let key = String(describing: event)
-        actions[key]?()
+    // MARK: - Life cycle
+    init(button: UIButton,
+         event: UIControl.Event,
+         action: @escaping VoidBlock) {
+        self.event = event
+        self.action = action
+        
+        button.addTarget(self, action: #selector(handle), for: event)
+    }
+    
+    @objc private func handle() {
+        action()
     }
 }
