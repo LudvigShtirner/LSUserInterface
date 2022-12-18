@@ -25,16 +25,16 @@ open class BaseViewController: UIViewController {
     }
     
     // MARK: - Internal methods
-    public func setupUI() {
+    open func setupUI() {
         setupColors()
         setupConstraints()
     }
     
-    public func setupColors() {
+    open func setupColors() {
         
     }
     
-    public func setupConstraints() {
+    open func setupConstraints() {
         
     }
 }
