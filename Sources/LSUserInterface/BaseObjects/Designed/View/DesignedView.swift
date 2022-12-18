@@ -10,7 +10,7 @@ import UIKit
 
 open class DesignedView: BaseView, DesignedViewConfigurator {
     // MARK: - DesignedViewConfigurable
-    var internalViewParameters = InternalBaseDesignedViewParameters()
+    var internalViewParameters = InternalDesignedViewParameters()
     var viewParameters = DesignedViewParameters.makeDefault()
     
     // MARK: - Overrides

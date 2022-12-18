@@ -11,7 +11,7 @@ import SupportCode
 import UIKit
 
 /// Свойство цвета заднего фона отображения с обработкой изменения стиля
-struct DesignedViewBackgroundColor: BaseDesignedViewParameter {
+struct DesignedViewBackgroundColor: DesignedViewParameter {
     // MARK: - Data
     private var colorMap: ColorMap
     

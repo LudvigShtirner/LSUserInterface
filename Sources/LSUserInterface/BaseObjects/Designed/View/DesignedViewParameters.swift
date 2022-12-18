@@ -23,14 +23,14 @@ public struct DesignedViewParameters {
     }
 }
 
-struct InternalBaseDesignedViewParameters {
+struct InternalDesignedViewParameters {
     var cornerRadius: DesignedViewCornerRadius?
     var backgroundColor: DesignedViewBackgroundColor?
     var border: DesignedViewBorder?
 }
 
 /// Базовый протокол свойства
-public protocol BaseDesignedViewParameter {
+public protocol DesignedViewParameter {
     associatedtype Parameter
     func apply(to view: UIView)
 }

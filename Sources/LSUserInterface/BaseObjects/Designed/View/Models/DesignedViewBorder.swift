@@ -10,7 +10,7 @@ import SupportCode
 import UIKit
 
 /// Свойство границы отображения
-struct DesignedViewBorder: BaseDesignedViewParameter {
+struct DesignedViewBorder: DesignedViewParameter {
     // MARK: - Data
     private var width: CGFloat
     private var colorMap: ColorMap

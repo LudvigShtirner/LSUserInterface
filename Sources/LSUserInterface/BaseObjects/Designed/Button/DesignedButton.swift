@@ -16,7 +16,7 @@ open class DesignedButton: BaseButton, DesignedViewConfigurator, DesignedButtonC
                                                     titleSet: .init(normalText: "", font: .systemFont(ofSize: 14.0)))
     
     // MARK: - DesignedViewConfigurable
-    var internalViewParameters = InternalBaseDesignedViewParameters()
+    var internalViewParameters = InternalDesignedViewParameters()
     var viewParameters = DesignedViewParameters.makeDefault()
     
     // MARK: - Overrides

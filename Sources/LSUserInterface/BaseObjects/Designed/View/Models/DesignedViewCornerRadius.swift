@@ -9,7 +9,7 @@
 import UIKit
 
 /// Свойство скругления ототбражения
-struct DesignedViewCornerRadius: BaseDesignedViewParameter {
+struct DesignedViewCornerRadius: DesignedViewParameter {
     // MARK: - Data
     private var value: CGFloat
     

@@ -9,6 +9,6 @@
 import UIKit
 
 protocol DesignedViewConfigurable: UIView {
-    var internalViewParameters: InternalBaseDesignedViewParameters { get set }
+    var internalViewParameters: InternalDesignedViewParameters { get set }
     var viewParameters: DesignedViewParameters { get set }
 }
