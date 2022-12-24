@@ -6,7 +6,7 @@
 //
 
 // SPM
-@testable import LSUserInterface
+import LSUserInterface
 // Apple
 import XCTest
 

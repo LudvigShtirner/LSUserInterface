@@ -6,9 +6,12 @@
 //
 
 // Apple
-import Foundation
+import UIKit
 
-protocol DesignedViewConfigurator: DesignedViewConfigurable {
+protocol DesignedViewConfigurator: UIView {
+    var internalViewParameters: InternalDesignedViewParameters { get set }
+    var viewParameters: DesignedViewParameters { get set }
+    
     @discardableResult
     func addParameter<T>(_ parameter: WritableKeyPath<DesignedViewParameters, T>, with value: T) -> Self
 }

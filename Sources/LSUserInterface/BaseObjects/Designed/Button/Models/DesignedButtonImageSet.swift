@@ -8,26 +8,22 @@
 // Apple
 import UIKit
 
-struct DesignedButtonImageSet: DesignedButtonParameter {
+public struct DesignedButtonImageSet: DesignedButtonParameter, DesignedButtonParameterApplyable {
     // MARK: - Data
-    var normalImage: UIImage
-    var highlightImage: UIImage?
-    var disabledImage: UIImage?
+    private let imageSet: ImageSet
     
     // MARK: - Life cycle
-    init(normalImage: UIImage,
-         highlightImage: UIImage? = nil,
-         disabledImage: UIImage? = nil) {
-        self.normalImage = normalImage
-        self.highlightImage = highlightImage
-        self.disabledImage = disabledImage
+    init(imageSet: ImageSet) {
+        self.imageSet = imageSet
     }
     
     // MARK: - DesignedButtonParameter
-    typealias Parameter = DesignedButtonImageSet
-    func apply(to button: UIButton) {
-        button.setImage(normalImage, for: .normal)
-        button.setImage(highlightImage, for: .highlighted)
-        button.setImage(disabledImage, for: .disabled)
+    public typealias Parameter = ImageSet
+    
+    // MARK: - DesignedButtonParameterApplyable
+    public func apply(to button: UIButton) {
+        button.setImage(imageSet.normalImage, for: .normal)
+        button.setImage(imageSet.highlightImage, for: .highlighted)
+        button.setImage(imageSet.disabledImage, for: .disabled)
     }
 }

@@ -9,7 +9,7 @@
 import UIKit
 
 /// Свойство скругления ототбражения
-struct DesignedViewCornerRadius: DesignedViewParameter {
+public struct DesignedViewCornerRadius: DesignedViewParameter, DesignedViewParameterApplyable {
     // MARK: - Data
     private var value: CGFloat
     
@@ -19,9 +19,10 @@ struct DesignedViewCornerRadius: DesignedViewParameter {
     }
     
     // MARK: - BaseDesignedViewParameter
-    typealias Parameter = CGFloat
+    public typealias Parameter = CGFloat
     
-    public func apply(to view: UIView) {
+    // MARK: - DesignedViewParameterApplyable
+    func apply(to view: UIView) {
         view.layer.cornerRadius = value
     }
 }

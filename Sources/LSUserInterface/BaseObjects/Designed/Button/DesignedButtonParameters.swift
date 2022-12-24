@@ -9,10 +9,10 @@
 import UIKit
 
 public struct DesignedButtonParameters {
-    var tintColor: DesignedButtonTintColor.Parameter
-    var titleColor: DesignedButtonTitleColor.Parameter
-    var imageSet: DesignedButtonImageSet.Parameter
-    var titleSet: DesignedButtonTitleSet.Parameter
+    public var tintColor: DesignedButtonTintColor.Parameter
+    public var titleColor: DesignedButtonTitleColor.Parameter
+    public var imageSet: DesignedButtonImageSet.Parameter
+    public var titleSet: DesignedButtonTitleSet.Parameter
 }
 
 struct InternalDesignedButtonParameters {
@@ -23,5 +23,8 @@ struct InternalDesignedButtonParameters {
 /// Базовый протокол свойства
 public protocol DesignedButtonParameter {
     associatedtype Parameter
+}
+
+protocol DesignedButtonParameterApplyable {
     func apply(to button: UIButton)
 }

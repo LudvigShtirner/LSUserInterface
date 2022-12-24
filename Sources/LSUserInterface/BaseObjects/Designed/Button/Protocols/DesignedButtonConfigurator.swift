@@ -6,9 +6,12 @@
 //
 
 // Apple
-import Foundation
+import UIKit
 
-protocol DesignedButtonConfigurator: DesignedButtonConfigurable {
+protocol DesignedButtonConfigurator: UIButton {
+    var internalButtonParameters: InternalDesignedButtonParameters { get set }
+    var buttonParameters: DesignedButtonParameters { get set }
+    
     @discardableResult
     func addParameter<T>(_ parameter: WritableKeyPath<DesignedButtonParameters, T>, with value: T) -> Self
 }
@@ -23,7 +26,8 @@ extension DesignedButtonConfigurator {
             internalButtonParameters.tintColor = tintColor
             tintColor.apply(to: self)
         case \.imageSet:
-            buttonParameters.imageSet.apply(to: self)
+            let imageSet = DesignedButtonImageSet(imageSet: buttonParameters.imageSet)
+            imageSet.apply(to: self)
         case \.titleSet:
             let titleSet = DesignedButtonTitleSet(titleSet: buttonParameters.titleSet)
             titleSet.apply(to: self)

@@ -10,7 +10,7 @@ import SupportCode
 // Apple
 import UIKit
 
-struct DesignedButtonTintColor: DesignedButtonParameter {
+public struct DesignedButtonTintColor: DesignedButtonParameter, DesignedButtonParameterApplyable {
     // MARK: - Data
     private var colorMap: ColorMap
     
@@ -20,8 +20,9 @@ struct DesignedButtonTintColor: DesignedButtonParameter {
     }
     
     // MARK: - DesignedButtonParameter
-    typealias Parameter = ColorMap
+    public typealias Parameter = ColorMap
     
+    // MARK: - DesignedButtonParameterApplyable
     func apply(to button: UIButton) {
         button.tintColor = colorMap.color(for: button)
     }

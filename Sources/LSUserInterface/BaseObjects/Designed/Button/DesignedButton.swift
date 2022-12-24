@@ -13,7 +13,8 @@ open class DesignedButton: BaseButton, DesignedViewConfigurator, DesignedButtonC
     var buttonParameters = DesignedButtonParameters(tintColor: .init(color: .clear),
                                                     titleColor: .init(color: .clear),
                                                     imageSet: .init(normalImage: .add),
-                                                    titleSet: .init(normalText: "", font: .systemFont(ofSize: 14.0)))
+                                                    titleSet: .init(normalText: "",
+                                                                    font: .systemFont(ofSize: 14.0)))
     
     // MARK: - DesignedViewConfigurable
     var internalViewParameters = InternalDesignedViewParameters()

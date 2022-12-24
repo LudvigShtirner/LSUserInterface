@@ -10,9 +10,9 @@ import SupportCode
 // Apple
 import UIKit
 
-struct DesignedButtonTitleColor: DesignedButtonParameter {
+public struct DesignedButtonTitleColor: DesignedButtonParameter, DesignedButtonParameterApplyable {
     // MARK: - Data
-    var titleColor: ColorMap
+    private var titleColor: ColorMap
     
     // MARK: - Life cycle
     init(titleColor: ColorMap) {
@@ -20,7 +20,9 @@ struct DesignedButtonTitleColor: DesignedButtonParameter {
     }
     
     // MARK: - DesignedButtonParameter
-    typealias Parameter = ColorMap
+    public typealias Parameter = ColorMap
+    
+    // MARK: - DesignedButtonParameterApplyable
     func apply(to button: UIButton) {
         button.setTitleColor(titleColor.color(for: button), for: .normal)
     }

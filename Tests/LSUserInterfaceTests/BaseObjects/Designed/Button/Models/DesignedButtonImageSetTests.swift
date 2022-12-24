@@ -28,9 +28,9 @@ final class DesignedButtonImageSetTests: XCTestCase {
     // MARK: - Tests
     func testThatImagesApplied() {
         // Given
-        model = DesignedButtonImageSet(normalImage: .remove,
-                                       highlightImage: .checkmark,
-                                       disabledImage: .actions)
+        model = DesignedButtonImageSet(imageSet: .init(normalImage: .remove,
+                                                       highlightImage: .checkmark,
+                                                       disabledImage: .actions))
         // When
         model.apply(to: button)
         // Then
@@ -41,7 +41,7 @@ final class DesignedButtonImageSetTests: XCTestCase {
     
     func testThatNormalImageApplied() {
         // Given
-        model = DesignedButtonImageSet(normalImage: .remove)
+        model = DesignedButtonImageSet(imageSet: .init(normalImage: .remove))
         // When
         model.apply(to: button)
         // Then

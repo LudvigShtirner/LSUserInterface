@@ -12,9 +12,9 @@ import UIKit
 
 /// Типы применяемых свойств
 public struct DesignedViewParameters {
-    var cornerRadius: DesignedViewCornerRadius.Parameter
-    var backgroundColor: DesignedViewBackgroundColor.Parameter
-    var border: DesignedViewBorder.Parameter
+    public var cornerRadius: DesignedViewCornerRadius.Parameter
+    public var backgroundColor: DesignedViewBackgroundColor.Parameter
+    public var border: DesignedViewBorder.Parameter
     
     static func makeDefault() -> DesignedViewParameters {
         return .init(cornerRadius: .zero,
@@ -32,5 +32,8 @@ struct InternalDesignedViewParameters {
 /// Базовый протокол свойства
 public protocol DesignedViewParameter {
     associatedtype Parameter
+}
+
+protocol DesignedViewParameterApplyable {
     func apply(to view: UIView)
 }

@@ -5,12 +5,13 @@
 //  Created by Алексей Филиппов on 04.12.2022.
 //
 
+// SPM
 import SupportCode
 // Apple
 import UIKit
 
 /// Свойство границы отображения
-struct DesignedViewBorder: DesignedViewParameter {
+public struct DesignedViewBorder: DesignedViewParameter, DesignedViewParameterApplyable {
     // MARK: - Data
     private var width: CGFloat
     private var colorMap: ColorMap
@@ -23,9 +24,10 @@ struct DesignedViewBorder: DesignedViewParameter {
     }
     
     // MARK: - BaseDesignedViewParameter
-    typealias Parameter = (CGFloat, ColorMap)
+    public typealias Parameter = (CGFloat, ColorMap)
     
-    public func apply(to view: UIView) {
+    // MARK: - DesignedViewParameterApplyable
+    func apply(to view: UIView) {
         view.layer.borderWidth = width
         view.layer.borderColor = colorMap.color(for: view).cgColor
     }
