@@ -13,6 +13,7 @@ public struct DesignedLabelParameters {
     public var font: DesignedLabelFont.Parameter
     public var numberOfLines: DesignedLabelNumberOfLines.Parameter
     public var text: DesignedLabelText.Parameter
+    public var textAlignment: DesignedLabelTextAlignment.Parameter
 }
 
 struct InternalDesignedLabelParameters {

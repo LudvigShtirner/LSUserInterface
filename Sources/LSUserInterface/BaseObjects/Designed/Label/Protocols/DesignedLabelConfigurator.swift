@@ -34,6 +34,9 @@ extension DesignedLabelConfigurator {
         case \.text:
             let text = DesignedLabelText(text: labelParameters.text)
             text.apply(to: self)
+        case \.textAlignment:
+            let alignment = DesignedLabelTextAlignment(textAlignment: labelParameters.textAlignment)
+            alignment.apply(to: self)
         default:
             fatalError("Describe New Type binding")
         }

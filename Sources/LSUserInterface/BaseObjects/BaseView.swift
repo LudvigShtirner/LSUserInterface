@@ -24,22 +24,22 @@ open class BaseView: UIView {
     }
     
     // MARK: - Overrides
-    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         setupColors()
     }
     
     // MARK: - Internal methods
-    public func setupUI() {
+    open func setupUI() {
         setupColors()
         setupConstraints()
     }
     
-    public func setupColors() {
+    open func setupColors() {
         
     }
     
-    public func setupConstraints() {
+    open func setupConstraints() {
         
     }
 }
