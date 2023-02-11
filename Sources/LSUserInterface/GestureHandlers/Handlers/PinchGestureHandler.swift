@@ -9,7 +9,7 @@ import UIKit
 
 /// Обработчик pinch жестов
 public final class PinchGestureHandler: GestureHandler {
-    // MARK: - Info
+    // MARK: - Data
     private var pinchGR: UIPinchGestureRecognizer!
     private var beganAction: GestureBlock?
     private var changedAction: GestureBlock?
@@ -17,38 +17,44 @@ public final class PinchGestureHandler: GestureHandler {
     private var failedAction: GestureBlock?
     private var cancelledAction: GestureBlock?
     
+    public var handleFailAndCancelWithEnd = false
+    
     // MARK: - Life cycle
-    public init(delegate: UIGestureRecognizerDelegate? = nil) {
+    public init() {
         pinchGR = UIPinchGestureRecognizer(target: self,
                                            action: #selector(handlePinch(_:)))
-        pinchGR.delegate = delegate
     }
     
     // MARK: - GestureHandler
     public typealias GestureType = UIPinchGestureRecognizer
     
-    public var gestureRecognizer: GestureType { return pinchGR }
+    public var gestureRecognizer: GestureType { pinchGR }
     
+    @discardableResult
     public func onStart(_ closure: @escaping GestureBlock) -> Self {
         beganAction = closure
         return self
     }
     
+    @discardableResult
     public func onChange(_ closure: @escaping GestureBlock) -> Self {
         changedAction = closure
         return self
     }
     
+    @discardableResult
     public func onEnd(_ closure: @escaping GestureBlock) -> Self {
         endedAction = closure
         return self
     }
     
+    @discardableResult
     public func onFail(_ closure: @escaping GestureBlock) -> Self {
         failedAction = closure
         return self
     }
     
+    @discardableResult
     public func onCancel(_ closure: @escaping GestureBlock) -> Self {
         cancelledAction = closure
         return self
@@ -65,8 +71,16 @@ public final class PinchGestureHandler: GestureHandler {
         case .ended:
             endedAction?(pinch)
         case .cancelled:
+            if handleFailAndCancelWithEnd {
+                endedAction?(pinch)
+                return
+            }
             cancelledAction?(pinch)
         case .failed:
+            if handleFailAndCancelWithEnd {
+                endedAction?(pinch)
+                return
+            }
             failedAction?(pinch)
         default: break
         }

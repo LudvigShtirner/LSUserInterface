@@ -14,11 +14,10 @@ public final class TapGestureHandler: GestureHandler {
     private var endedAction: GestureBlock?
     
     // MARK: - Life cycle
-    init(delegate: UIGestureRecognizerDelegate? = nil) {
+    public init() {
         tapGR = UITapGestureRecognizer(target: self,
                                        action: #selector(handleTap(_:)))
         tapGR.numberOfTapsRequired = 1
-        tapGR.delegate = delegate
     }
     
     // MARK: - GestureHandler
@@ -26,23 +25,28 @@ public final class TapGestureHandler: GestureHandler {
     
     public var gestureRecognizer: GestureType { tapGR }
     
+    @discardableResult
     public func onStart(_ closure: @escaping GestureBlock) -> Self {
         return self
     }
     
+    @discardableResult
     public func onChange(_ closure: @escaping GestureBlock) -> Self {
         return self
     }
     
+    @discardableResult
     public func onEnd(_ closure: @escaping GestureBlock) -> Self {
         endedAction = closure
         return self
     }
     
+    @discardableResult
     public func onFail(_ closure: @escaping GestureBlock) -> Self {
         return self
     }
     
+    @discardableResult
     public func onCancel(_ closure: @escaping GestureBlock) -> Self {
         return self
     }

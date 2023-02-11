@@ -20,7 +20,8 @@ open class BaseTableViewCell: UITableViewCell {
     }
 
     required public init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+        setupUI()
     }
     
     // MARK: - Overrides

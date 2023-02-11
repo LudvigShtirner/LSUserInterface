@@ -9,7 +9,7 @@ import UIKit
 
 // Обработчик длительных нажатий
 public final class LongTapGestureHandler: GestureHandler {
-    // MARK: - Info
+    // MARK: - Data
     private var longTapGR: UILongPressGestureRecognizer!
     private var beganAction: GestureBlock?
     private var changedAction: GestureBlock?
@@ -32,26 +32,31 @@ public final class LongTapGestureHandler: GestureHandler {
     
     public var gestureRecognizer: GestureType { longTapGR }
     
+    @discardableResult
     public func onStart(_ closure: @escaping GestureBlock) -> Self {
         beganAction = closure
         return self
     }
     
+    @discardableResult
     public func onChange(_ closure: @escaping GestureBlock) -> Self {
         changedAction = closure
         return self
     }
     
+    @discardableResult
     public func onEnd(_ closure: @escaping GestureBlock) -> Self {
         endedAction = closure
         return self
     }
     
+    @discardableResult
     public func onFail(_ closure: @escaping GestureBlock) -> Self {
         failedAction = closure
         return self
     }
     
+    @discardableResult
     public func onCancel(_ closure: @escaping GestureBlock) -> Self {
         cancelledAction = closure
         return self

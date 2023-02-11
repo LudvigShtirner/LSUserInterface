@@ -8,18 +8,13 @@
 import UIKit
 
 open class BaseViewController: UIViewController {
-    // MARK: - Life Cycle
-    public init() {
-        super.init(nibName: nil, bundle: nil)
+    // MARK: - Overrides
+    open override func viewDidLoad() {
+        super.viewDidLoad()
         setupUI()
     }
     
-    public required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: - Overrides
-    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         setupColors()
     }

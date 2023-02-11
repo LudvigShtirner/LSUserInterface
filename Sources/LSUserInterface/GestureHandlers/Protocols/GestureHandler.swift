@@ -9,13 +9,14 @@ import UIKit
 
 // Протокол любого обработчика жестов
 public protocol GestureHandler: AnyObject {
-    associatedtype GestureType
+    associatedtype GestureType: UIGestureRecognizer
     typealias GestureBlock = (GestureType) -> Void
     
     var gestureRecognizer: GestureType { get }
 
     var isEnabled: Bool { get set }
     var isActive: Bool { get }
+    var delegate: UIGestureRecognizerDelegate? { get set }
         
     @discardableResult
     func onStart(_ closure: @escaping GestureBlock) -> Self
@@ -35,25 +36,17 @@ public protocol GestureHandler: AnyObject {
 
 public extension GestureHandler {
     var isActive: Bool {
-        guard let gesRec = gestureRecognizer as? UIGestureRecognizer else {
-            return false
-        }
-        return gesRec.state != .possible
+        return gestureRecognizer.state != .possible
     }
     
     var isEnabled: Bool {
-        get {
-            guard let gesRec = gestureRecognizer as? UIGestureRecognizer else {
-                return false
-            }
-            return gesRec.isEnabled
-        }
-        set {
-            guard let gesRec = gestureRecognizer as? UIGestureRecognizer else {
-                return
-            }
-            gesRec.isEnabled = newValue
-        }
+        get { gestureRecognizer.isEnabled }
+        set { gestureRecognizer.isEnabled = newValue }
+    }
+    
+    var delegate: UIGestureRecognizerDelegate? {
+        get { gestureRecognizer.delegate }
+        set { gestureRecognizer.delegate = newValue }
     }
 }
 

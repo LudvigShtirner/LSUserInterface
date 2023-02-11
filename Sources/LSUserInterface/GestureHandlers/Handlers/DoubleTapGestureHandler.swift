@@ -9,7 +9,7 @@ import UIKit
 
 /// Обработчик двойных нажатий
 public final class DoubleTapGestureHandler: GestureHandler {
-    // MARK: - Info
+    // MARK: - Data
     private var tapGR: UITapGestureRecognizer!
     private var beganAction: GestureBlock?
     private var changedAction: GestureBlock?
@@ -30,26 +30,31 @@ public final class DoubleTapGestureHandler: GestureHandler {
     
     public var gestureRecognizer: GestureType { return tapGR }
     
+    @discardableResult
     public func onStart(_ closure: @escaping GestureBlock) -> Self {
         beganAction = closure
         return self
     }
     
+    @discardableResult
     public func onChange(_ closure: @escaping GestureBlock) -> Self {
         changedAction = closure
         return self
     }
     
+    @discardableResult
     public func onEnd(_ closure: @escaping GestureBlock) -> Self {
         endedAction = closure
         return self
     }
     
+    @discardableResult
     public func onFail(_ closure: @escaping GestureBlock) -> Self {
         failedAction = closure
         return self
     }
     
+    @discardableResult
     public func onCancel(_ closure: @escaping GestureBlock) -> Self {
         cancelledAction = closure
         return self
