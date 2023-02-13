@@ -12,10 +12,10 @@ struct DesignedButtonBehaviour {
     // MARK: - Data
     var internalButtonParameters = InternalDesignedButtonParameters()
     var buttonParameters = DesignedButtonParameters(tintColor: .init(color: .clear),
-                                                    titleColor: .init(color: .clear),
+                                                    titleColor: .init(normal: .init(color: .clear)),
                                                     imageSet: .init(normalImage: .add),
-                                                    titleSet: .init(normalText: "",
-                                                                    font: .systemFont(ofSize: 14.0)))
+                                                    titleSet: .init(normalText: ""),
+                                                    font: .systemFont(ofSize: 14.0))
     
     func traitCollectionDidChange(button: UIButton) {
         internalButtonParameters.tintColor?.apply(to: button)
@@ -38,9 +38,12 @@ struct DesignedButtonBehaviour {
             let titleSet = DesignedButtonTitleSet(titleSet: buttonParameters.titleSet)
             titleSet.apply(to: button)
         case \.titleColor:
-            let titleColor = DesignedButtonTitleColor(titleColor: buttonParameters.titleColor)
+            let titleColor = DesignedButtonTitleColor(titleColorSet: buttonParameters.titleColor)
             internalButtonParameters.titleColor = titleColor
             titleColor.apply(to: button)
+        case \.font:
+            let font = DesignedButtonTitleFont(font: buttonParameters.font)
+            font.apply(to: button)
         default:
             fatalError("Describe New Type binding")
         }

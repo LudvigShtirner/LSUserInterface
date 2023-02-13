@@ -12,6 +12,7 @@ struct DesignedImageViewBehaviour {
     // MARK: - Data
     var internalImageViewParameters = InternalDesignedImageViewParameters()
     var imageViewParameters = DesignedImageViewParameters(image: nil,
+                                                          highlightedImage: nil,
                                                           tintColor: .init(color: .black),
                                                           contentMode: .scaleToFill)
     
@@ -28,6 +29,9 @@ struct DesignedImageViewBehaviour {
         switch parameter {
         case \.image:
             let image = DesignedImageViewImage(image: imageViewParameters.image)
+            image.apply(to: imageView)
+        case \.highlightedImage:
+            let image = DesignedImageViewHighlightedImage(image: imageViewParameters.highlightedImage)
             image.apply(to: imageView)
         case \.tintColor:
             let tintColor = DesignedImageViewTintColor(tintColor: imageViewParameters.tintColor)

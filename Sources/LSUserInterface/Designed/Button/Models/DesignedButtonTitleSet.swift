@@ -26,7 +26,6 @@ public struct DesignedButtonTitleSet: DesignedParameter, DesignedParameterApplya
         element.setTitle(titleSet.normalText, for: .normal)
         element.setTitle(titleSet.highlightText, for: .highlighted)
         element.setTitle(titleSet.disabledText, for: .disabled)
-        element.titleLabel?.font = titleSet.font
         element.titleLabel?.numberOfLines = titleSet.numberOfLines.value
     }
 }

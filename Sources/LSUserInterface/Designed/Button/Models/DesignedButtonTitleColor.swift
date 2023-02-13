@@ -12,19 +12,21 @@ import UIKit
 
 public struct DesignedButtonTitleColor: DesignedParameter, DesignedParameterApplyable {
     // MARK: - Data
-    private var titleColor: ColorMap
+    private var titleColorSet: TitleColorSet
     
     // MARK: - Life cycle
-    init(titleColor: ColorMap) {
-        self.titleColor = titleColor
+    init(titleColorSet: TitleColorSet) {
+        self.titleColorSet = titleColorSet
     }
     
     // MARK: - DesignedParameter
-    public typealias Parameter = ColorMap
+    public typealias Parameter = TitleColorSet
     
     // MARK: - DesignedParameterApplyable
     typealias Element = UIButton
     func apply(to element: Element) {
-        element.setTitleColor(titleColor.color(for: element), for: .normal)
+        element.setTitleColor(titleColorSet.normal.color(for: element), for: .normal)
+        element.setTitleColor(titleColorSet.highlighted?.color(for: element), for: .highlighted)
+        element.setTitleColor(titleColorSet.disabled?.color(for: element), for: .disabled)
     }
 }

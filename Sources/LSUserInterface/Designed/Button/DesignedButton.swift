@@ -7,9 +7,9 @@
 
 import UIKit
 
-open class DesignedButton: BaseButton {
+open class DesignedButton: BaseButton, DesignedViewInterface {
     // MARK: - Data
-    private var viewBehaviour = DesignedViewBehaviour()
+    public var viewBehaviour = DesignedViewBehaviour()
     private var buttonBehaviour = DesignedButtonBehaviour()
     
     // MARK: - Overrides
@@ -33,14 +33,6 @@ open class DesignedButton: BaseButton {
         buttonBehaviour.addParameter(parameter,
                                      with: value,
                                      for: self)
-        return self
-    }
-    
-    @discardableResult
-    public func setParameter<T>(_ parameter: WritableKeyPath<DesignedViewParameters, T>, with value: T) -> Self {
-        viewBehaviour.addParameter(parameter,
-                                   with: value,
-                                   for: self)
         return self
     }
 }

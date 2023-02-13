@@ -13,23 +13,20 @@ import UIKit
 /// Свойство границы отображения
 public struct DesignedViewBorder: DesignedParameter, DesignedParameterApplyable {
     // MARK: - Data
-    private var width: CGFloat
-    private var colorMap: ColorMap
+    private let border: Border
     
     // MARK: - Life cycle
-    init(width: CGFloat,
-         colorMap: ColorMap) {
-        self.width = width
-        self.colorMap = colorMap
+    init(border: Border) {
+        self.border = border
     }
     
     // MARK: - DesignedParameter
-    public typealias Parameter = (CGFloat, ColorMap)
+    public typealias Parameter = Border
     
     // MARK: - DesignedParameterApplyable
     typealias Element = UIView
     func apply(to element: Element) {
-        element.layer.borderWidth = width
-        element.layer.borderColor = colorMap.color(for: element).cgColor
+        element.layer.borderWidth = border.width
+        element.layer.borderColor = border.colorMap.color(for: element).cgColor
     }
 }

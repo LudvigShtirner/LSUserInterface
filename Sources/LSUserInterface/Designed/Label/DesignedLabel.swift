@@ -8,9 +8,9 @@
 // Apple
 import UIKit
 
-open class DesignedLabel: UILabel {
+open class DesignedLabel: UILabel, DesignedViewInterface {
     // MARK: - Data
-    private var viewBehaviour = DesignedViewBehaviour()
+    public var viewBehaviour = DesignedViewBehaviour()
     private var labelBehaviour = DesignedLabelBehaviour()
     
     // MARK: - Overrides
@@ -28,15 +28,6 @@ open class DesignedLabel: UILabel {
     }
     
     // MARK: - Interface methods
-    @discardableResult
-    public func setParameter<T>(_ parameter: WritableKeyPath<DesignedViewParameters, T>,
-                                with value: T) -> Self {
-        viewBehaviour.addParameter(parameter,
-                                   with: value,
-                                   for: self)
-        return self
-    }
-    
     @discardableResult
     public func setParameter<T>(_ parameter: WritableKeyPath<DesignedLabelParameters, T>,
                                 with value: T) -> Self {

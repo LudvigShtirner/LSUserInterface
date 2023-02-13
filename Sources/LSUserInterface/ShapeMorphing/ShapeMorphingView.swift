@@ -34,8 +34,6 @@ final class ShapeMorphingView: BaseView {
         scene.shouldEnableEffects = true
         scene.filter = filter
         skView.presentScene(scene)
-        
-        super.setupUI()
     }
     
     // MARK: - Interface methods

@@ -8,7 +8,7 @@
 // Apple
 import UIKit
 
-struct DesignedViewBehaviour {
+public struct DesignedViewBehaviour {
     var internalViewParameters = InternalDesignedViewParameters()
     var viewParameters = DesignedViewParameters.makeDefault()
     
@@ -27,8 +27,7 @@ struct DesignedViewBehaviour {
         viewParameters[keyPath: parameter] = value
         switch parameter {
         case \.border:
-            let border = DesignedViewBorder(width: viewParameters.border.0,
-                                            colorMap: viewParameters.border.1)
+            let border = DesignedViewBorder(border: viewParameters.border)
             internalViewParameters.border = border
             border.apply(to: view)
         case \.backgroundColor:

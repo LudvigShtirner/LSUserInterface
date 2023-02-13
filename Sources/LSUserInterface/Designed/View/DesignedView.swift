@@ -8,30 +8,47 @@
 // Apple
 import UIKit
 
-open class DesignedView: BaseView {
-    // MARK: - DesignedViewConfigurable
-    private var behaviour = DesignedViewBehaviour()
+open class DesignedView: BaseView, DesignedViewInterface {
+    // MARK: - DesignedViewInterface
+    public var viewBehaviour = DesignedViewBehaviour()
     
     // MARK: - Overrides
-    public override func layoutSubviews() {
+    open override func layoutSubviews() {
         super.layoutSubviews()
         
-        behaviour.layoutSubviews(view: self)
+        viewBehaviour.layoutSubviews(view: self)
     }
     
-    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
-        behaviour.traitCollectionDidChange(view: self)
+        viewBehaviour.traitCollectionDidChange(view: self)
+    }
+}
+
+public protocol DesignedViewInterface: UIView {
+    var viewBehaviour: DesignedViewBehaviour { get set }
+    
+    @discardableResult
+    func setParameter<T>(_ parameter: WritableKeyPath<DesignedViewParameters, T>,
+                         with value: T) -> Self
+    @discardableResult
+    func insert(into view: UIView) -> Self
+}
+
+public extension DesignedViewInterface {
+    @discardableResult
+    func setParameter<T>(_ parameter: WritableKeyPath<DesignedViewParameters, T>,
+                         with value: T) -> Self {
+        viewBehaviour.addParameter(parameter,
+                                   with: value,
+                                   for: self)
+        return self
     }
     
-    // MARK: - Interface methods
     @discardableResult
-    public func setParameter<T>(_ parameter: WritableKeyPath<DesignedViewParameters, T>,
-                                with value: T) -> Self {
-        behaviour.addParameter(parameter,
-                               with: value,
-                               for: self)
+    func insert(into view: UIView) -> Self {
+        view.addSubview(self)
         return self
     }
 }

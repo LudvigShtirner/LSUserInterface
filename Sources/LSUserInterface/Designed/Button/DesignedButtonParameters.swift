@@ -13,6 +13,7 @@ public struct DesignedButtonParameters {
     public var titleColor: DesignedButtonTitleColor.Parameter
     public var imageSet: DesignedButtonImageSet.Parameter
     public var titleSet: DesignedButtonTitleSet.Parameter
+    public var font: DesignedButtonTitleFont.Parameter
 }
 
 struct InternalDesignedButtonParameters {

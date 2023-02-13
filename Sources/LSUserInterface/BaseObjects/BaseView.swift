@@ -9,19 +9,22 @@ import UIKit
 
 open class BaseView: UIView {
     // MARK: - Life cycle
-    public init() {
-        super.init(frame: .zero)
-        setupUI()
+    public convenience init() {
+        self.init(frame: .zero)
     }
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
+        setupColors()
+        setupConstraints()
     }
     
     public required init?(coder: NSCoder) {
         super.init(coder: coder)
         setupUI()
+        setupColors()
+        setupConstraints()
     }
     
     // MARK: - Overrides
@@ -32,8 +35,7 @@ open class BaseView: UIView {
     
     // MARK: - Internal methods
     open func setupUI() {
-        setupColors()
-        setupConstraints()
+        
     }
     
     open func setupColors() {

@@ -8,9 +8,9 @@
 // Apple
 import UIKit
 
-open class DesignedImageView: UIImageView {
+open class DesignedImageView: UIImageView, DesignedViewInterface {
     // MARK: - Data
-    private var viewBehaviour = DesignedViewBehaviour()
+    public var viewBehaviour = DesignedViewBehaviour()
     private var imageViewBehaviour = DesignedImageViewBehaviour()
     
     // MARK: - Overrides
@@ -28,15 +28,6 @@ open class DesignedImageView: UIImageView {
     }
     
     // MARK: - Interface methods
-    @discardableResult
-    public func setParameter<T>(_ parameter: WritableKeyPath<DesignedViewParameters, T>,
-                                with value: T) -> Self {
-        viewBehaviour.addParameter(parameter,
-                                   with: value,
-                                   for: self)
-        return self
-    }
-    
     @discardableResult
     public func setParameter<T>(_ parameter: WritableKeyPath<DesignedImageViewParameters, T>,
                                 with value: T) -> Self {
