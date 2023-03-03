@@ -1,8 +1,8 @@
 //
-//  DesignedViewCornerRadius.swift
+//  DesignedButtonCornerRadius.swift
 //  
 //
-//  Created by Алексей Филиппов on 04.12.2022.
+//  Created by Алексей Филиппов on 15.02.2023.
 //
 
 // SPM
@@ -11,7 +11,7 @@ import SupportCode
 import UIKit
 
 /// Свойство скругления ототбражения
-public struct DesignedViewCornerRadius: DesignedParameter, DesignedParameterApplyable {
+public struct DesignedButtonCornerRadius: DesignedParameter, DesignedParameterApplyable {
     // MARK: - Data
     private var value: CornerRadius
     
@@ -24,7 +24,7 @@ public struct DesignedViewCornerRadius: DesignedParameter, DesignedParameterAppl
     public typealias Parameter = CornerRadius
     
     // MARK: - DesignedParameterApplyable
-    typealias Element = UIView
+    typealias Element = UIButton
     func apply(to element: Element) {
         switch value {
         case .fixed(let cGFloat):
@@ -34,3 +34,4 @@ public struct DesignedViewCornerRadius: DesignedParameter, DesignedParameterAppl
         }
     }
 }
+

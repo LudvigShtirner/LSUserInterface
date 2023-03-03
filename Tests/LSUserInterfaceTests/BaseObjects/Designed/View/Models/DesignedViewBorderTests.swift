@@ -5,6 +5,7 @@
 //  Created by Алексей Филиппов on 04.12.2022.
 //
 
+// SPM
 @testable import LSUserInterface
 import SupportCode
 // Apple
@@ -22,8 +23,8 @@ final class DesignedViewBorderTests: XCTestCase {
         view = DesignedView()
         let colorMap = ColorMap(lightColor: .red,
                                 darkColor: .blue)
-        model = DesignedViewBorder(width: kBorderWidth,
-                                   colorMap: colorMap)
+        model = DesignedViewBorder(border: .init(width: kBorderWidth,
+                                                 colorMap: colorMap))
     }
 
     override func tearDownWithError() throws {

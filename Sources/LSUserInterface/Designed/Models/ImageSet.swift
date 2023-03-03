@@ -10,12 +10,12 @@ import UIKit
 
 public struct ImageSet {
     // MARK: - Data
-    let normalImage: UIImage
+    let normalImage: UIImage?
     let highlightImage: UIImage?
     let disabledImage: UIImage?
     
     // MARK: - Life cycle
-    public init(normalImage: UIImage,
+    public init(normalImage: UIImage? = nil,
                 highlightImage: UIImage? = nil,
                 disabledImage: UIImage? = nil) {
         self.normalImage = normalImage

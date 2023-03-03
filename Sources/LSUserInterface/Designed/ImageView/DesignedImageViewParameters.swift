@@ -9,10 +9,10 @@
 import UIKit
 
 public struct DesignedImageViewParameters {
-    public var image: DesignedImageViewImage.Parameter
-    public var highlightedImage: DesignedImageViewHighlightedImage.Parameter
+    public var image: UIImage?
+    public var highlightedImage: UIImage?
     public var tintColor: DesignedImageViewTintColor.Parameter
-    public var contentMode: DesignedImageViewContentMode.Parameter
+    public var contentMode: UIView.ContentMode
 }
 
 struct InternalDesignedImageViewParameters {

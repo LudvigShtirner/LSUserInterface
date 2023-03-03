@@ -12,15 +12,12 @@ public struct TitleSet {
     let normalText: String
     let highlightText: String?
     let disabledText: String?
-    let numberOfLines: NumberOfLines
     
     public init(normalText: String,
                 highlightText: String? = nil,
-                disabledText: String? = nil,
-                numberOfLines: NumberOfLines = .restricted(1)) {
+                disabledText: String? = nil) {
         self.normalText = normalText
         self.highlightText = highlightText
         self.disabledText = disabledText
-        self.numberOfLines = numberOfLines
     }
 }

@@ -18,7 +18,7 @@ public struct DesignedViewParameters {
     
     static func makeDefault() -> DesignedViewParameters {
         return .init(cornerRadius: CornerRadius.fixed(.zero),
-                     backgroundColor: .init(color: .clear),
+                     backgroundColor: .init(color: .white),
                      border: .init(width: .zero, colorMap: .init(color: .clear)))
     }
 }

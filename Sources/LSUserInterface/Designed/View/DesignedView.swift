@@ -8,7 +8,7 @@
 // Apple
 import UIKit
 
-open class DesignedView: BaseView, DesignedViewInterface {
+open class DesignedView: BaseView, DesignedViewInterface, DesignedElementInsertable {
     // MARK: - DesignedViewInterface
     public var viewBehaviour = DesignedViewBehaviour()
     
@@ -32,8 +32,6 @@ public protocol DesignedViewInterface: UIView {
     @discardableResult
     func setParameter<T>(_ parameter: WritableKeyPath<DesignedViewParameters, T>,
                          with value: T) -> Self
-    @discardableResult
-    func insert(into view: UIView) -> Self
 }
 
 public extension DesignedViewInterface {
@@ -43,12 +41,6 @@ public extension DesignedViewInterface {
         viewBehaviour.addParameter(parameter,
                                    with: value,
                                    for: self)
-        return self
-    }
-    
-    @discardableResult
-    func insert(into view: UIView) -> Self {
-        view.addSubview(self)
         return self
     }
 }

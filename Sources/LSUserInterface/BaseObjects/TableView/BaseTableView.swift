@@ -1,31 +1,25 @@
 //
-//  BaseView.swift
+//  BaseTableView.swift
 //  
 //
-//  Created by Алексей Филиппов on 27.11.2022.
+//  Created by Алексей Филиппов on 17.02.2023.
 //
 
 // Apple
 import UIKit
 
-open class BaseView: UIView {
+open class BaseTableView: UITableView {
     // MARK: - Life cycle
-    public convenience init() {
-        self.init(frame: .zero)
-    }
-    
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
+    public override init(frame: CGRect,
+                         style: UITableView.Style) {
+        super.init(frame: frame, style: style)
         setupUI()
         setupColors()
         setupConstraints()
     }
     
-    public required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setupUI()
-        setupColors()
-        setupConstraints()
+    required public init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - Overrides

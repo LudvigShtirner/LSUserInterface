@@ -12,6 +12,8 @@ open class BaseViewController: UIViewController {
     open override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        setupColors()
+        setupConstraints()
     }
     
     open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -21,8 +23,6 @@ open class BaseViewController: UIViewController {
     
     // MARK: - Internal methods
     open func setupUI() {
-        setupColors()
-        setupConstraints()
     }
     
     open func setupColors() {

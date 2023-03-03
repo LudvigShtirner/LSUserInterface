@@ -5,8 +5,6 @@
 //  Created by Алексей Филиппов on 12.01.2023.
 //
 
-// SPM
-import SupportCode
 // Apple
 import UIKit
 import SpriteKit
@@ -64,14 +62,14 @@ final class ShapeMorphingView: BaseView {
         let fadeDuration = duration * 0.25
         animateBlur(to: 10, duration: fadeDuration)
         
-        DispatchQueue.callOnMainQueueWithDelay(fadeDuration * 0.6) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + fadeDuration * 0.6) { [weak self] in
             let swapDuration = duration * 0.5
             newIconShape.run(SKAction.fadeAlpha(to: 1, duration: swapDuration))
             oldIconShape?.run(SKAction.fadeAlpha(to: 0, duration: swapDuration))
             
-            DispatchQueue.callOnMainQueueWithDelay(swapDuration * 0.6) { [weak self] in
+            DispatchQueue.main.asyncAfter(deadline: .now() + swapDuration * 0.6) { [weak self] in
                 self?.animateBlur(to: 0, duration: fadeDuration)
-                DispatchQueue.callOnMainQueueWithDelay(fadeDuration) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + fadeDuration) {
                     oldIconShape?.removeFromParent()
                 }
             }
@@ -102,38 +100,57 @@ final class ShapeMorphingView: BaseView {
 // MARK: - SwiftUI Preview
 import SwiftUI
 
-struct ShapeMorphingViewContainer: UIViewRepresentable {
-    func makeUIView(context: Context) -> ShapeMorphingView {
-        let view = ShapeMorphingView()
-        return view
+struct ShapeMorphingViewContainer_Previews: PreviewProvider {
+    fileprivate class ShapeMorphingViewExample: BaseView {
+        let changeButton = BaseButton(type: .system)
+        let morphingView = ShapeMorphingView()
+        
+        override func setupUI() {
+            addSubview(morphingView)
+            
+            addSubview(changeButton)
+            changeButton.setImage(UIImage(systemName: "play.fill")!,
+                                  for: .normal)
+            changeButton.tintColor = .red
+            changeButton.shouldDo(on: .touchUpInside) { [weak self] in
+                let buttonNames: [String] = [
+                    "circle.fill",
+                    "heart.fill",
+                    "star.fill",
+                    "bell.fill",
+                    "bookmark.fill",
+                    "tag.fill",
+                    "bolt.fill",
+                    "play.fill",
+                    "pause.fill",
+                    "squareshape.fill",
+                    "key.fill",
+                    "hexagon.fill",
+                    "gearshape.fill",
+                    "car.fill"
+                ]
+                let name = buttonNames.shuffled().first!
+                let image = UIImage(systemName: name)!
+                self?.morphingView.setImage(image, duration: 0.8)
+            }
+        }
+        
+        override func setupConstraints() {
+            morphingView.snp.makeConstraints { make in
+                make.directionalEdges.equalToSuperview()
+            }
+            changeButton.snp.makeConstraints { make in
+                make.bottom.equalToSuperview().inset(16)
+                make.height.equalTo(88)
+                make.leading.trailing.equalToSuperview().inset(8)
+            }
+        }
     }
     
-    func updateUIView(_ uiView: ShapeMorphingView, context: Context) {
-        let buttonNames: [String] = [
-            "circle.fill",
-            "heart.fill",
-            "star.fill",
-            "bell.fill",
-            "bookmark.fill",
-            "tag.fill",
-            "bolt.fill",
-            "play.fill",
-            "pause.fill",
-            "squareshape.fill",
-            "key.fill",
-            "hexagon.fill",
-            "gearshape.fill",
-            "car.fill"
-        ]
-        let name = buttonNames.shuffled().first!
-        let image = UIImage(systemName: name)!
-        uiView.setImage(image, duration: 0.8)
-    }
-}
-
-struct ShapeMorphingViewContainer_Previews: PreviewProvider {
     static var previews: some View {
-        ShapeMorphingViewContainer()
+        SwiftUIPreview {
+            ShapeMorphingViewExample()
+        }
             .previewLayout(.device)
             .edgesIgnoringSafeArea(.vertical)
     }

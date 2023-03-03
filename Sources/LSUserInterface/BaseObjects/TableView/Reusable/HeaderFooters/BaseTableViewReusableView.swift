@@ -1,27 +1,27 @@
 //
-//  BaseView.swift
+//  BaseTableViewReusableView.swift
 //  
 //
-//  Created by Алексей Филиппов on 27.11.2022.
+//  Created by Алексей Филиппов on 28.02.2023.
 //
 
 // Apple
 import UIKit
 
-open class BaseView: UIView {
+open class BaseTableViewReusableView: UITableViewHeaderFooterView {
     // MARK: - Life cycle
     public convenience init() {
-        self.init(frame: .zero)
+        self.init(reuseIdentifier: nil)
     }
     
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
+    public override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
         setupUI()
         setupColors()
         setupConstraints()
     }
-    
-    public required init?(coder: NSCoder) {
+
+    required public init?(coder: NSCoder) {
         super.init(coder: coder)
         setupUI()
         setupColors()

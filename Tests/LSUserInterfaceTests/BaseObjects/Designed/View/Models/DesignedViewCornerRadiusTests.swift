@@ -19,7 +19,7 @@ final class DesignedViewCornerRadiusTests: XCTestCase {
     // MARK: - Overrides
     override func setUpWithError() throws {
         view = DesignedView()
-        model = DesignedViewCornerRadius(value: kCornerRadius)
+        model = DesignedViewCornerRadius(value: .fixed(kCornerRadius))
     }
 
     override func tearDownWithError() throws {

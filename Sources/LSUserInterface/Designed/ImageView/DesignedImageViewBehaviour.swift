@@ -28,18 +28,15 @@ struct DesignedImageViewBehaviour {
         imageViewParameters[keyPath: parameter] = value
         switch parameter {
         case \.image:
-            let image = DesignedImageViewImage(image: imageViewParameters.image)
-            image.apply(to: imageView)
+            imageView.image = imageViewParameters.image
         case \.highlightedImage:
-            let image = DesignedImageViewHighlightedImage(image: imageViewParameters.highlightedImage)
-            image.apply(to: imageView)
+            imageView.highlightedImage = imageViewParameters.highlightedImage
         case \.tintColor:
             let tintColor = DesignedImageViewTintColor(tintColor: imageViewParameters.tintColor)
             internalImageViewParameters.tintColor = tintColor
             tintColor.apply(to: imageView)
         case \.contentMode:
-            let contentMode = DesignedImageViewContentMode(contentMode: imageViewParameters.contentMode)
-            contentMode.apply(to: imageView)
+            imageView.contentMode = imageViewParameters.contentMode
         default:
             fatalError("Describe New Type binding")
         }

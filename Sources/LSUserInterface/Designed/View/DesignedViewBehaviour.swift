@@ -9,9 +9,11 @@
 import UIKit
 
 public struct DesignedViewBehaviour {
+    // MARK: - Data
     var internalViewParameters = InternalDesignedViewParameters()
     var viewParameters = DesignedViewParameters.makeDefault()
     
+    // MARK: - Interface methods
     func layoutSubviews(view: UIView) {
         internalViewParameters.cornerRadius?.apply(to: view)
     }

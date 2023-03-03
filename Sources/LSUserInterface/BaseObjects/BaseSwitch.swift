@@ -1,8 +1,8 @@
 //
-//  BaseButton.swift
+//  BaseSwitch.swift
 //  
 //
-//  Created by Алексей Филиппов on 10.12.2022.
+//  Created by Алексей Филиппов on 17.02.2023.
 //
 
 // SPM
@@ -10,9 +10,9 @@ import SupportCode
 // Apple
 import UIKit
 
-open class BaseButton: UIButton {
+open class BaseSwitch: UISwitch {
     // MARK: - Data
-    private var listeners: [String: UIControlListener<BaseButton>] = [:]
+    private var listeners: [String: UIControlListener<BaseSwitch>] = [:]
     
     // MARK: - Life cycle
     public convenience init() {
@@ -47,7 +47,7 @@ open class BaseButton: UIButton {
     @discardableResult
     open func shouldDo(on action: UIControl.Event,
                        _ closure: @escaping VoidBlock) -> Self {
-        let listener: UIControlListener<BaseButton> = .init(control: self,
+        let listener: UIControlListener<BaseSwitch> = .init(control: self,
                                                             event: action,
                                                             action: closure)
         listeners[listener.key] = listener

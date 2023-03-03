@@ -32,17 +32,13 @@ struct DesignedLabelBehaviour {
             internalLabelParameters.textColor = textColor
             textColor.apply(to: label)
         case \.font:
-            let font = DesignedLabelFont(font: labelParameters.font)
-            font.apply(to: label)
+            label.font = labelParameters.font
         case \.numberOfLines:
-            let numOfLines = DesignedLabelNumberOfLines(numberOfLines: labelParameters.numberOfLines)
-            numOfLines.apply(to: label)
+            label.numberOfLines = labelParameters.numberOfLines.value
         case \.text:
-            let text = DesignedLabelText(text: labelParameters.text)
-            text.apply(to: label)
+            label.text = labelParameters.text
         case \.textAlignment:
-            let alignment = DesignedLabelTextAlignment(textAlignment: labelParameters.textAlignment)
-            alignment.apply(to: label)
+            label.textAlignment = labelParameters.textAlignment
         default:
             fatalError("Describe New Type binding")
         }

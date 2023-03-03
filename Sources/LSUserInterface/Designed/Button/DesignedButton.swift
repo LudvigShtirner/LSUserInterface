@@ -7,23 +7,33 @@
 
 import UIKit
 
-open class DesignedButton: BaseButton, DesignedViewInterface {
+open class DesignedButton: BaseButton, DesignedElementInsertable {
     // MARK: - Data
-    public var viewBehaviour = DesignedViewBehaviour()
     private var buttonBehaviour = DesignedButtonBehaviour()
     
     // MARK: - Overrides
-    public override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        viewBehaviour.layoutSubviews(view: self)
+    open override var isHighlighted: Bool {
+        didSet {
+            buttonBehaviour.isHighlightedChanged(button: self)
+        }
     }
     
-    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    open override var isEnabled: Bool {
+        didSet {
+            buttonBehaviour.isEnabledChanged(button: self)
+        }
+    }
+    
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        buttonBehaviour.layoutSubviews(button: self)
+    }
+    
+    open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
         buttonBehaviour.traitCollectionDidChange(button: self)
-        viewBehaviour.traitCollectionDidChange(view: self)
     }
     
     // MARK: - Interface methods

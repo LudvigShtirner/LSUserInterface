@@ -8,7 +8,7 @@
 // Apple
 import UIKit
 
-open class DesignedImageView: UIImageView, DesignedViewInterface {
+open class DesignedImageView: UIImageView, DesignedViewInterface, DesignedElementInsertable {
     // MARK: - Data
     public var viewBehaviour = DesignedViewBehaviour()
     private var imageViewBehaviour = DesignedImageViewBehaviour()

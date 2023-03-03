@@ -20,8 +20,10 @@ final class DesignedViewTests: XCTestCase {
         let view = DesignedView(frame: CGRect(origin: .zero,
                                               size: CGSize(width: 100.0, height: 100.0)))
         // When
-        view.setParameter(\.cornerRadius, with: kCornerRadius)
-            .setParameter(\.border, with: (kBorderWidth, .init(lightColor: .red, darkColor: .blue)))
+        view.setParameter(\.cornerRadius, with: .fixed(kCornerRadius))
+            .setParameter(\.border, with: .init(width: kBorderWidth,
+                                                colorMap:  .init(lightColor: .red,
+                                                                 darkColor: .blue)))
         // Then
         XCTAssertEqual(view.layer.cornerRadius, kCornerRadius)
         XCTAssertEqual(view.layer.borderWidth, kBorderWidth)
