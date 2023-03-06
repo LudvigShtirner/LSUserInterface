@@ -32,6 +32,12 @@ final class ShapeMorphingView: BaseView {
         scene.shouldEnableEffects = true
         scene.filter = filter
         skView.presentScene(scene)
+        skView.allowsTransparency = true
+    }
+    
+    override func setupColors() {
+        scene.backgroundColor = .clear
+        backgroundColor = .clear
     }
     
     // MARK: - Interface methods
@@ -46,7 +52,7 @@ final class ShapeMorphingView: BaseView {
                                    duration: CGFloat) {
         let newIconShape = makeNode(from: image.withTintColor(.white))
         newIconShape.position = CGPoint(x: bounds.midX,
-                                         y: bounds.midY)
+                                        y: bounds.midY)
         newIconShape.alpha = 0
         scene.addChild(newIconShape)
         
@@ -133,6 +139,10 @@ struct ShapeMorphingViewContainer_Previews: PreviewProvider {
                 let image = UIImage(systemName: name)!
                 self?.morphingView.setImage(image, duration: 0.8)
             }
+        }
+        
+        override func setupColors() {
+            backgroundColor = .magenta
         }
         
         override func setupConstraints() {
