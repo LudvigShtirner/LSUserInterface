@@ -1,16 +1,16 @@
 //
-//  SectionModel.swift
+//  CollectionSectionModel.swift
 //  
 //
-//  Created by Алексей Филиппов on 26.02.2023.
+//  Created by Алексей Филиппов on 22.03.2023.
 //
 
 // Apple
 import UIKit
 
-open class SectionModel<
-    SectionViewModel: BaseTableViewReusableViewModel,
-    CellModel: BaseTableViewCellModel
+open class CollectionSectionModel<
+    SectionViewModel: BaseCollectionViewReusableViewModel,
+    CellModel: BaseCollectionViewCellModel
 >: Hashable {
     // MARK: - Data
     let id: String
@@ -25,14 +25,19 @@ open class SectionModel<
         self.models = models
     }
     
+    // MARK: - Interface methods
+    var isEmpty: Bool {
+        models.isEmpty
+    }
+    
     // MARK: - Hashable
     public func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
     
     // MARK: - Equatable
-    public static func == (lhs: SectionModel<SectionViewModel, CellModel>,
-                           rhs: SectionModel<SectionViewModel, CellModel>) -> Bool {
+    public static func == (lhs: CollectionSectionModel<SectionViewModel, CellModel>,
+                           rhs: CollectionSectionModel<SectionViewModel, CellModel>) -> Bool {
         return lhs.id == rhs.id
     }
 }

@@ -7,7 +7,6 @@
 
 // SPM
 @testable import LSUserInterface
-import SupportCode
 // Apple
 import XCTest
 

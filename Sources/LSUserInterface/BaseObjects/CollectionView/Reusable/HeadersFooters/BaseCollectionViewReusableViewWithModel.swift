@@ -1,8 +1,8 @@
 //
-//  BaseTableViewCellWithModel.swift
+//  BaseCollectionViewReusableViewWithModel.swift
 //  
 //
-//  Created by Алексей Филиппов on 17.02.2023.
+//  Created by Алексей Филиппов on 22.03.2023.
 //
 
 // SPM
@@ -10,12 +10,12 @@ import SnapKit
 // Apple
 import UIKit
 
-open class BaseTableViewCellWithModel<CellModel: BaseTableViewCellModel>: BaseTableViewCell {
+open class BaseCollectionViewReusableViewWithModel<ViewModel: BaseCollectionViewReusableViewModel>: BaseCollectionViewReusableView {
     // MARK: - UI
-    private(set) var customView: CellModel.UIViewType?
+    private(set) var customView: ViewModel.UIViewType?
     
     // MARK: - Data
-    open var model: CellModel?
+    open var model: ViewModel?
     
     // MARK: - Override
     open override func prepareForReuse() {
@@ -23,18 +23,19 @@ open class BaseTableViewCellWithModel<CellModel: BaseTableViewCellModel>: BaseTa
     }
     
     // MARK: - Interface methods
-    open func bind(_ model: CellModel) {
+    open func bind(_ model: ViewModel) {
         customView?.removeFromSuperview()
         let customView = model.makeView()
-        contentView.addSubview(customView)
+        addSubview(customView)
         customView.snp.makeConstraints { make in
             make.directionalEdges.equalToSuperview()
         }
         self.customView = customView
     }
 }
- 
-public protocol BaseTableViewCellModel: Hashable {
+
+public protocol BaseCollectionViewReusableViewModel: Hashable {
     associatedtype UIViewType: UIView
     func makeView() -> UIViewType
 }
+

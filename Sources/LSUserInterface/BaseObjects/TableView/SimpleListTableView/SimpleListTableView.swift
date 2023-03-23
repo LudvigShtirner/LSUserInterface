@@ -10,30 +10,50 @@ import UIKit
 
 open class SimpleListTableView<
     CellModel: BaseTableViewCellModel,
-    Cell: BaseTableViewCellWithModel<CellModel>
->: BaseTableView {
+    Cell: BaseTableViewCellWithModel<CellModel>,
+    EmptyView: BaseView,
+    LoadingView: BaseView
+>: BaseTableView<EmptyView, LoadingView> {
     // MARK: - Dependencies
     private let dataProvider: SimpleListTableViewDataProvider<CellModel, Cell>
     
     // MARK: - Data
     public var models: [CellModel] {
-        get { dataProvider.models }
-        set {
-            dataProvider.models = newValue
-            reloadData()
-        }
+        dataProvider.models
     }
     
     // MARK: - Life cycle
     public override init(frame: CGRect,
-                         style: UITableView.Style) {
+                         style: UITableView.Style,
+                         emptyView: EmptyView,
+                         loadingView: LoadingView) {
         dataProvider = SimpleListTableViewDataProvider()
-        super.init(frame: frame, style: style)
+        super.init(frame: frame,
+                   style: style,
+                   emptyView: emptyView,
+                   loadingView: loadingView)
         configureTableView()
+    }
+    
+    public convenience init(emptyView: EmptyView,
+                            loadingView: LoadingView) {
+        self.init(frame: .zero,
+                  style: .plain,
+                  emptyView: emptyView,
+                  loadingView: loadingView)
     }
     
     required public init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Interface methods
+    public func updateModels(_ models: [CellModel],
+                             animated: Bool) {
+        dataProvider.models = models
+        reloadData()
+        update(isLoading: false,
+               isEmpty: models.isEmpty)
     }
     
     // MARK: - Private methods

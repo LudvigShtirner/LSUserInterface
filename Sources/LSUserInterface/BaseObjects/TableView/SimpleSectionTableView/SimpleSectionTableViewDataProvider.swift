@@ -21,7 +21,7 @@ final class SimpleSectionTableViewDataProvider<
     // MARK: - BaseTableViewDataProvider
     typealias Model = CellModel
 
-    var sections: [SectionModel<ReusableModel, CellModel>] = []
+    var sections: [TableSectionModel<ReusableModel, CellModel>] = []
     
     func onSelect(_ closure: @escaping (CellModel) -> Void) {
         selectAction = closure
@@ -77,4 +77,3 @@ final class SimpleSectionTableViewDataProvider<
         deselectAction?(model)
     }
 }
-

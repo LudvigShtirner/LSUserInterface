@@ -1,15 +1,15 @@
 //
-//  ShapeMorphingView.swift
+//  ColorMorphingView.swift
 //  
 //
-//  Created by Алексей Филиппов on 12.01.2023.
+//  Created by Алексей Филиппов on 21.03.2023.
 //
 
 // Apple
 import UIKit
 import SpriteKit
 
-final class ShapeMorphingView: BaseView {
+final class ColorMorphingView: BaseView {
     // MARK: - UI
     private let skView = SKView()
     private let scene = SKScene()
@@ -50,7 +50,7 @@ final class ShapeMorphingView: BaseView {
     // MARK: - Private methods
     private func animateIconChange(image: UIImage,
                                    duration: CGFloat) {
-        let newIconShape = makeNode(from: image.withTintColor(.white))
+        let newIconShape = makeNode(from: image)
         newIconShape.position = CGPoint(x: bounds.midX,
                                         y: bounds.midY)
         newIconShape.alpha = 0
@@ -82,15 +82,14 @@ final class ShapeMorphingView: BaseView {
         }
     }
     
-    private func animateBlur(to targetBlur: CGFloat,
+    private func animateBlur(to targetBlur: Float,
                              duration: CGFloat) {
-        let from = CGFloat(filter.blurFilter.radius)
+        let from = filter.blur
         let blurFade = SKAction.customAction(withDuration: duration) { node, elapsed in
-            let percent = elapsed / CGFloat(duration)
+            let percent = elapsed / duration
             let difference = targetBlur - from
-            let currentBlur = from + (difference * percent)
-            self.filter.blurFilter.setValue(currentBlur, forKey: kCIInputRadiusKey)
-            self.scene.shouldEnableEffects = true
+            let currentBlur = from + (difference * Float(percent))
+            self.filter.blur = currentBlur
         }
         scene.run(blurFade)
     }
@@ -100,68 +99,5 @@ final class ShapeMorphingView: BaseView {
         let texture = SKTexture(image: image.resized(within: iconSize))
         return SKSpriteNode(texture: texture,
                             size: iconSize)
-    }
-}
-
-// MARK: - SwiftUI Preview
-import SwiftUI
-
-struct ShapeMorphingViewContainer_Previews: PreviewProvider {
-    fileprivate class ShapeMorphingViewExample: BaseView {
-        let changeButton = BaseButton(type: .system)
-        let morphingView = ShapeMorphingView()
-        
-        override func setupUI() {
-            addSubview(morphingView)
-            
-            addSubview(changeButton)
-            changeButton.setImage(UIImage(systemName: "play.fill")!,
-                                  for: .normal)
-            changeButton.tintColor = .red
-            changeButton.shouldDo(on: .touchUpInside) { [weak self] in
-                let buttonNames: [String] = [
-                    "circle.fill",
-                    "heart.fill",
-                    "star.fill",
-                    "bell.fill",
-                    "bookmark.fill",
-                    "tag.fill",
-                    "bolt.fill",
-                    "play.fill",
-                    "pause.fill",
-                    "squareshape.fill",
-                    "key.fill",
-                    "hexagon.fill",
-                    "gearshape.fill",
-                    "car.fill"
-                ]
-                let name = buttonNames.shuffled().first!
-                let image = UIImage(systemName: name)!
-                self?.morphingView.setImage(image, duration: 0.8)
-            }
-        }
-        
-        override func setupColors() {
-            backgroundColor = .magenta
-        }
-        
-        override func setupConstraints() {
-            morphingView.snp.makeConstraints { make in
-                make.directionalEdges.equalToSuperview()
-            }
-            changeButton.snp.makeConstraints { make in
-                make.bottom.equalToSuperview().inset(16)
-                make.height.equalTo(88)
-                make.leading.trailing.equalToSuperview().inset(8)
-            }
-        }
-    }
-    
-    static var previews: some View {
-        SwiftUIPreview {
-            ShapeMorphingViewExample()
-        }
-            .previewLayout(.device)
-            .edgesIgnoringSafeArea(.vertical)
     }
 }

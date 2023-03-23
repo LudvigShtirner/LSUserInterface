@@ -5,14 +5,12 @@
 //  Created by Алексей Филиппов on 12.12.2022.
 //
 
-// SPM
-import SupportCode
 // Apple
 import UIKit
 
 public struct DesignedButtonTintColor: DesignedParameter, DesignedParameterApplyable {
     // MARK: - Data
-    private var colorMap: ColorMap
+    private let colorMap: ColorMap
     
     // MARK: - Life cycle
     init(colorMap: ColorMap) {

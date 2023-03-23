@@ -9,19 +9,28 @@ import CoreImage
 import CoreImage.CIFilterBuiltins
 
 final class MetaBallEffectFilter: CIFilter {
-    let blurFilter: CIFilter & CIGaussianBlur = {
+    // MARK: - Filters
+    private let blurFilter: CIFilter & CIGaussianBlur = {
         let blur = CIFilter.gaussianBlur()
         blur.radius = 30
         return blur
     }()
-    let thresholdFilter = LumaThresholdFilter()
+    private let thresholdFilter = LumaThresholdFilter()
     
+    // MARK: - Data
+    var blur: Float {
+        get { blurFilter.radius }
+        set { blurFilter.setValue(newValue, forKey: kCIInputRadiusKey) }
+    }
+    
+    // MARK: - Overrides
     @objc dynamic var inputImage: CIImage?
     override var outputImage: CIImage? {
         guard let inputImage = self.inputImage else { return nil }
         blurFilter.inputImage = inputImage
         let blurredOutput = blurFilter.outputImage
         thresholdFilter.inputImage = blurredOutput
-        return thresholdFilter.outputImage
+        let lumaImage = thresholdFilter.outputImage
+        return lumaImage
     }
 }

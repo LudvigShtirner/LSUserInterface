@@ -1,8 +1,8 @@
 //
-//  BaseTableViewCellWithModel.swift
+//  BaseCollectionViewCellWithModel.swift
 //  
 //
-//  Created by Алексей Филиппов on 17.02.2023.
+//  Created by Алексей Филиппов on 22.03.2023.
 //
 
 // SPM
@@ -10,9 +10,9 @@ import SnapKit
 // Apple
 import UIKit
 
-open class BaseTableViewCellWithModel<CellModel: BaseTableViewCellModel>: BaseTableViewCell {
+open class BaseCollectionViewCellWithModel<CellModel: BaseCollectionViewCellModel>: BaseCollectionViewCell {
     // MARK: - UI
-    private(set) var customView: CellModel.UIViewType?
+    public private(set) var customView: CellModel.UIViewType?
     
     // MARK: - Data
     open var model: CellModel?
@@ -31,10 +31,11 @@ open class BaseTableViewCellWithModel<CellModel: BaseTableViewCellModel>: BaseTa
             make.directionalEdges.equalToSuperview()
         }
         self.customView = customView
+        setupColors()
     }
 }
- 
-public protocol BaseTableViewCellModel: Hashable {
+
+public protocol BaseCollectionViewCellModel: Hashable {
     associatedtype UIViewType: UIView
     func makeView() -> UIViewType
 }

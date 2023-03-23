@@ -5,8 +5,8 @@
 //  Created by Алексей Филиппов on 04.12.2022.
 //
 
+// SPM
 @testable import LSUserInterface
-import SupportCode
 // Apple
 import XCTest
 

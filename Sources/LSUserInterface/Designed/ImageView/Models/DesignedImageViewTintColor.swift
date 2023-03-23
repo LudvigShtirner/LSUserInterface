@@ -5,8 +5,6 @@
 //  Created by Алексей Филиппов on 24.12.2022.
 //
 
-// SPM
-import SupportCode
 // Apple
 import UIKit
 

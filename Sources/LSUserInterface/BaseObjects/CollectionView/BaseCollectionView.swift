@@ -1,8 +1,8 @@
 //
-//  BaseTableView.swift
+//  BaseCollectionView.swift
 //  
 //
-//  Created by Алексей Филиппов on 17.02.2023.
+//  Created by Алексей Филиппов on 22.03.2023.
 //
 
 // SPM
@@ -10,10 +10,10 @@ import SnapKit
 // Apple
 import UIKit
 
-open class BaseTableView<
+open class BaseCollectionView<
     EmptyView: BaseView,
     LoadingView: BaseView
->: UITableView {
+>: UICollectionView {
     // MARK: - UI
     public let emptyView: EmptyView
     public let loadingView: LoadingView
@@ -23,22 +23,23 @@ open class BaseTableView<
     
     // MARK: - Life cycle
     public init(frame: CGRect,
-                style: UITableView.Style,
+                collectionViewLayout layout: UICollectionViewLayout,
                 emptyView: EmptyView,
                 loadingView: LoadingView) {
         self.emptyView = emptyView
         self.loadingView = loadingView
-        super.init(frame: frame, style: style)
+        super.init(frame: frame, collectionViewLayout: layout)
         setupUI()
         setupColors()
         setupConstraints()
         changeVisibility(isEmpty: true)
     }
     
-    convenience public init(emptyView: EmptyView,
+    convenience public init(collectionViewLayout layout: UICollectionViewLayout,
+                            emptyView: EmptyView,
                             loadingView: LoadingView) {
         self.init(frame: .zero,
-                  style: .plain,
+                  collectionViewLayout: layout,
                   emptyView: emptyView,
                   loadingView: loadingView)
     }
@@ -72,10 +73,10 @@ open class BaseTableView<
     
     open func setupConstraints() {
         emptyView.snp.makeConstraints { make in
-            make.directionalEdges.equalToSuperview()
+            make.directionalEdges.equalTo(frameLayoutGuide.snp.directionalEdges)
         }
         loadingView.snp.makeConstraints { make in
-            make.directionalEdges.equalToSuperview()
+            make.directionalEdges.equalTo(frameLayoutGuide.snp.directionalEdges)
         }
     }
     
