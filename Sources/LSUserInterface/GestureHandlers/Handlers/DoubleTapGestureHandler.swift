@@ -17,7 +17,7 @@ public final class DoubleTapGestureHandler: GestureHandler {
     private var failedAction: GestureBlock?
     private var cancelledAction: GestureBlock?
     
-    // MARK: - Life cycle
+    // MARK: - Inits
     public init(delegate: UIGestureRecognizerDelegate? = nil) {
         tapGR = UITapGestureRecognizer(target: self,
                                        action: #selector(handleDoubleTap(_:)))

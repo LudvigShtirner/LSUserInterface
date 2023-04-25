@@ -22,15 +22,9 @@ struct DesignedButtonBehaviour {
         internalButtonParameters.titleColor?.apply(to: button)
     }
     
-    func layoutSubviews(button: UIButton) {
-        internalButtonParameters.cornerRadius?.apply(to: button)
-    }
-    
     func traitCollectionDidChange(button: UIButton) {
         internalButtonParameters.tintColor?.apply(to: button)
         internalButtonParameters.titleColor?.apply(to: button)
-        internalButtonParameters.backgroundColor?.apply(to: button)
-        internalButtonParameters.border?.apply(to: button)
     }
     
     mutating func addParameter<T>(_ parameter: WritableKeyPath<DesignedButtonParameters, T>,
@@ -59,19 +53,10 @@ struct DesignedButtonBehaviour {
             internalButtonParameters.titleColor = titleColor
             titleColor.apply(to: button)
         case \.font:
+            if button.titleLabel == nil {
+                button.setTitle("", for: .normal)
+            }
             button.titleLabel?.font = buttonParameters.font
-        case \.backgroundColor:
-            let backgroundColor = DesignedButtonBackgroundColor(colorSet: buttonParameters.backgroundColor)
-            internalButtonParameters.backgroundColor = backgroundColor
-            backgroundColor.apply(to: button)
-        case \.border:
-            let border = DesignedButtonBorder(border: buttonParameters.border)
-            internalButtonParameters.border = border
-            border.apply(to: button)
-        case \.cornerRadius:
-            let cornerRadius = DesignedButtonCornerRadius(value: buttonParameters.cornerRadius)
-            internalButtonParameters.cornerRadius = cornerRadius
-            cornerRadius.apply(to: button)
         default:
             fatalError("Describe New Type binding")
         }

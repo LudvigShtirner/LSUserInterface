@@ -16,7 +16,7 @@ final class UIControlListener<T: UIControl> {
     private let action: VoidBlock
     let key: String
     
-    // MARK: - Life cycle
+    // MARK: - Inits
     init(control: T,
          event: UIControl.Event,
          action: @escaping VoidBlock) {

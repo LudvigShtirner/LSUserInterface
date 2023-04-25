@@ -8,25 +8,25 @@
 // Apple
 import UIKit
 
-final class CollectionGridSizeBehaviour: NSObject, CollectionSizeBehaviour {
+final class CollectionGridSizeBehaviour: NSObject, CollectionCellSizeBehaviour {
     // MARK: - Data
     private let scrollDirection: UICollectionView.ScrollDirection
     private let itemsInRow: Int
     private let anotherSide: AnotherSideBehaviour
-    private let obtainContentInset: () -> CGFloat
-    private let obtainInterItemSpacing: () -> CGFloat
+    private let contentInset: CGFloat
+    private let interItemSpacing: CGFloat
     
-    // MARK: - Life cycle
+    // MARK: - Inits
     init(scrollDirection: UICollectionView.ScrollDirection,
          itemsInRow: Int,
          anotherSide: AnotherSideBehaviour,
-         obtainContentInset: @escaping () -> CGFloat,
-         obtainInterItemSpacing: @escaping () -> CGFloat) {
+         contentInset: CGFloat,
+         interItemSpacing: CGFloat) {
         self.scrollDirection = scrollDirection
         self.itemsInRow = itemsInRow
         self.anotherSide = anotherSide
-        self.obtainContentInset = obtainContentInset
-        self.obtainInterItemSpacing = obtainInterItemSpacing
+        self.contentInset = contentInset
+        self.interItemSpacing = interItemSpacing
     }
     
     // MARK: - UICollectionViewDelegateFlowLayout
@@ -36,33 +36,18 @@ final class CollectionGridSizeBehaviour: NSObject, CollectionSizeBehaviour {
         switch scrollDirection {
         case .vertical:
             let allWidth = collectionView.bounds.width
-            let availableWidth = allWidth - 2 * obtainContentInset() - CGFloat(itemsInRow - 1) * obtainInterItemSpacing()
+            let availableWidth = allWidth - 2 * contentInset - CGFloat(itemsInRow - 1) * interItemSpacing
             let width = floor(availableWidth / CGFloat(itemsInRow))
             return CGSize(width: width,
                           height: anotherSide.getValue(side: width))
         case .horizontal:
             let allHeight = collectionView.bounds.height
-            let availableHeight = allHeight - 2 * obtainContentInset() - CGFloat(itemsInRow - 1) * obtainInterItemSpacing()
+            let availableHeight = allHeight - 2 * contentInset - CGFloat(itemsInRow - 1) * interItemSpacing
             let height = availableHeight / CGFloat(itemsInRow)
             return CGSize(width: anotherSide.getValue(side: height),
                           height: height)
         @unknown default:
             fatalError("New scroll direction appeared")
-        }
-    }
-}
-
-// MARK: - Subtypes
-public enum AnotherSideBehaviour {
-    case same
-    case fixed(CGFloat)
-    case proportionally(CGFloat)
-    
-    func getValue(side: CGFloat) -> CGFloat {
-        switch self {
-        case .same: return side
-        case .fixed(let value): return value
-        case .proportionally(let aspectRatio): return side * aspectRatio
         }
     }
 }

@@ -13,11 +13,13 @@ public struct DesignedViewParameters {
     public var cornerRadius: DesignedViewCornerRadius.Parameter
     public var backgroundColor: DesignedViewBackgroundColor.Parameter
     public var border: DesignedViewBorder.Parameter
+    public var shadow: DesignedViewShadow.Parameter?
     
     static func makeDefault() -> DesignedViewParameters {
-        return .init(cornerRadius: CornerRadius.fixed(.zero),
-                     backgroundColor: .init(color: .white),
-                     border: .init(width: .zero, colorMap: .init(color: .clear)))
+        return .init(cornerRadius: .fixed(.zero),
+                     backgroundColor: .fixed(.init(color: .white)),
+                     border: .fixed(.zero, .init(color: .clear)),
+                     shadow: nil)
     }
 }
 
@@ -25,4 +27,5 @@ struct InternalDesignedViewParameters {
     var cornerRadius: DesignedViewCornerRadius?
     var backgroundColor: DesignedViewBackgroundColor?
     var border: DesignedViewBorder?
+    var shadow: DesignedViewShadow?
 }

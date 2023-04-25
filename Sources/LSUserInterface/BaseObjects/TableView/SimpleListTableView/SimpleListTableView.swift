@@ -22,7 +22,7 @@ open class SimpleListTableView<
         dataProvider.models
     }
     
-    // MARK: - Life cycle
+    // MARK: - Inits
     public override init(frame: CGRect,
                          style: UITableView.Style,
                          emptyView: EmptyView,

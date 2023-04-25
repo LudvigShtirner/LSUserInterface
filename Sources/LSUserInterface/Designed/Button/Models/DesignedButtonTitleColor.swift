@@ -14,7 +14,7 @@ public struct DesignedButtonTitleColor: DesignedParameter, DesignedParameterAppl
     // MARK: - Data
     private var titleColorSet: ColorSet
     
-    // MARK: - Life cycle
+    // MARK: - Inits
     init(titleColorSet: ColorSet) {
         self.titleColorSet = titleColorSet
     }

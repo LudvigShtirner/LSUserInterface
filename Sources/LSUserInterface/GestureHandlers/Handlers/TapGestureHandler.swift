@@ -13,7 +13,7 @@ public final class TapGestureHandler: GestureHandler {
     private var tapGR: UITapGestureRecognizer!
     private var endedAction: GestureBlock?
     
-    // MARK: - Life cycle
+    // MARK: - Inits
     public init() {
         tapGR = UITapGestureRecognizer(target: self,
                                        action: #selector(handleTap(_:)))

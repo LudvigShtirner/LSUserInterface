@@ -14,7 +14,7 @@ open class BaseSwitch: UISwitch {
     // MARK: - Data
     private var listeners: [String: UIControlListener<BaseSwitch>] = [:]
     
-    // MARK: - Life cycle
+    // MARK: - Inits
     public convenience init() {
         self.init(frame: .zero)
     }

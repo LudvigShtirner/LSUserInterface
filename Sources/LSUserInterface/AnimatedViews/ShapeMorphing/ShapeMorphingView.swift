@@ -9,40 +9,46 @@
 import UIKit
 import SpriteKit
 
-final class ShapeMorphingView: BaseView {
+public final class ShapeMorphingView: BaseView {
     // MARK: - UI
     private let skView = SKView()
     private let scene = SKScene()
     
     // MARK: - Data
+    private var currentImage: UIImage?
     private var currentIcon: SKSpriteNode?
     private let filter = MetaBallEffectFilter()
     
     // MARK: - Overrides
-    override func layoutSubviews() {
+    public override func layoutSubviews() {
         super.layoutSubviews()
         skView.frame = bounds
+        if let image = currentImage {
+            setImage(image, duration: 0.3)
+        }
     }
     
     // MARK: - BaseView
-    override func setupUI() {
-        addSubview(skView)
+    public override func setupUI() {
         scene.scaleMode = .resizeFill
         scene.physicsWorld.gravity = .zero
         scene.shouldEnableEffects = true
         scene.filter = filter
+        
+        addSubview(skView)
         skView.presentScene(scene)
         skView.allowsTransparency = true
     }
     
-    override func setupColors() {
+    public override func setupColors() {
         scene.backgroundColor = .clear
         backgroundColor = .clear
     }
     
     // MARK: - Interface methods
-    func setImage(_ image: UIImage,
-                  duration: TimeInterval = .zero) {
+    public func setImage(_ image: UIImage,
+                         duration: TimeInterval = .zero) {
+        currentImage = image
         animateIconChange(image: image,
                           duration: duration)
     }
@@ -50,9 +56,6 @@ final class ShapeMorphingView: BaseView {
     // MARK: - Private methods
     private func animateIconChange(image: UIImage,
                                    duration: CGFloat) {
-//        filter.oldImage = filter.inputImage
-//        filter.newImage = image.getCIImage()
-        
         let newIconShape = makeNode(from: image)
         newIconShape.position = CGPoint(x: bounds.midX,
                                         y: bounds.midY)
@@ -103,70 +106,5 @@ final class ShapeMorphingView: BaseView {
         let texture = SKTexture(image: image.resized(within: iconSize))
         return SKSpriteNode(texture: texture,
                             size: iconSize)
-    }
-}
-
-// MARK: - SwiftUI Preview
-import SwiftUI
-// SPM
-import SnapKit
-
-struct ShapeMorphingViewContainer_Previews: PreviewProvider {
-    fileprivate class ShapeMorphingViewExample: BaseView {
-        let changeButton = BaseButton(type: .system)
-        let morphingView = ShapeMorphingView()
-        
-        override func setupUI() {
-            addSubview(morphingView)
-            
-            addSubview(changeButton)
-            changeButton.setImage(UIImage(systemName: "play.fill")!,
-                                  for: .normal)
-            changeButton.tintColor = .red
-            changeButton.shouldDo(on: .touchUpInside) { [weak self] in
-                let buttonNames: [String] = [
-                    "circle.fill",
-                    "heart.fill",
-                    "star.fill",
-                    "bell.fill",
-                    "bookmark.fill",
-                    "tag.fill",
-                    "bolt.fill",
-                    "play.fill",
-                    "pause.fill",
-                    "squareshape.fill",
-                    "key.fill",
-                    "hexagon.fill",
-                    "gearshape.fill",
-                    "car.fill"
-                ]
-                let name = buttonNames.shuffled().first!
-                let image = UIImage(systemName: name)!.withTintColor(.white)
-                self?.morphingView.setImage(image, duration: 0.8)
-            }
-        }
-        
-        override func setupColors() {
-            backgroundColor = .magenta
-        }
-        
-        override func setupConstraints() {
-            morphingView.snp.makeConstraints { make in
-                make.directionalEdges.equalToSuperview()
-            }
-            changeButton.snp.makeConstraints { make in
-                make.bottom.equalToSuperview().inset(16)
-                make.height.equalTo(88)
-                make.leading.trailing.equalToSuperview().inset(8)
-            }
-        }
-    }
-    
-    static var previews: some View {
-        SwiftUIPreview {
-            ShapeMorphingViewExample()
-        }
-            .previewLayout(.device)
-            .edgesIgnoringSafeArea(.vertical)
     }
 }

@@ -8,9 +8,9 @@
 // Apple
 import UIKit
 
-open class DesignedView: BaseView, DesignedViewInterface, DesignedElementInsertable {
+open class DesignedView: BaseView, DesignedViewInterfaceInternal, DesignedElementInsertable {
     // MARK: - DesignedViewInterface
-    public var viewBehaviour = DesignedViewBehaviour()
+    var viewBehaviour = DesignedViewBehaviour()
     
     // MARK: - Overrides
     open override func layoutSubviews() {
@@ -23,24 +23,5 @@ open class DesignedView: BaseView, DesignedViewInterface, DesignedElementInserta
         super.traitCollectionDidChange(previousTraitCollection)
         
         viewBehaviour.traitCollectionDidChange(view: self)
-    }
-}
-
-public protocol DesignedViewInterface: UIView {
-    var viewBehaviour: DesignedViewBehaviour { get set }
-    
-    @discardableResult
-    func setParameter<T>(_ parameter: WritableKeyPath<DesignedViewParameters, T>,
-                         with value: T) -> Self
-}
-
-public extension DesignedViewInterface {
-    @discardableResult
-    func setParameter<T>(_ parameter: WritableKeyPath<DesignedViewParameters, T>,
-                         with value: T) -> Self {
-        viewBehaviour.addParameter(parameter,
-                                   with: value,
-                                   for: self)
-        return self
     }
 }

@@ -19,7 +19,7 @@ public final class PinchGestureHandler: GestureHandler {
     
     public var handleFailAndCancelWithEnd = false
     
-    // MARK: - Life cycle
+    // MARK: - Inits
     public init() {
         pinchGR = UIPinchGestureRecognizer(target: self,
                                            action: #selector(handlePinch(_:)))

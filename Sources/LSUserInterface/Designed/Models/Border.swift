@@ -8,15 +8,7 @@
 // Apple
 import UIKit
 
-public struct Border {
-    // MARK: - Data
-    let width: CGFloat
-    let colorMap: ColorMap
-    
-    // MARK: - Life cycle
-    public init(width: CGFloat,
-                colorMap: ColorMap) {
-        self.width = width
-        self.colorMap = colorMap
-    }
+public enum Border {
+    case fixed(CGFloat, ColorMap)
+    case changeable(CGFloat, ColorSet)
 }

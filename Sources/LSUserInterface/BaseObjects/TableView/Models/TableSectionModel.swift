@@ -17,7 +17,7 @@ open class TableSectionModel<
     let section: SectionViewModel
     let models: [CellModel]
     
-    // MARK: - Life cycle
+    // MARK: - Inits
     init(section: SectionViewModel,
          models: [CellModel]) {
         self.id = UUID().uuidString

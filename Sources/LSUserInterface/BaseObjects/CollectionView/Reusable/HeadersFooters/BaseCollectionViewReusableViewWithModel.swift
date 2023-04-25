@@ -38,4 +38,3 @@ public protocol BaseCollectionViewReusableViewModel: Hashable {
     associatedtype UIViewType: UIView
     func makeView() -> UIViewType
 }
-

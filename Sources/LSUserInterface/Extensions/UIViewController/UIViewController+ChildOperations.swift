@@ -5,6 +5,9 @@
 //  Created by Алексей Филиппов on 05.01.2021.
 //
 
+// SPM
+import SnapKit
+// Apple
 import UIKit
 
 extension UIViewController {
@@ -19,11 +22,9 @@ extension UIViewController {
         addChild(viewController)
         container.addSubview(viewController.view)
         
-        viewController.view.translatesAutoresizingMaskIntoConstraints = false
-        viewController.view.topAnchor.constraint(equalTo: container.topAnchor).isActive = true
-        viewController.view.bottomAnchor.constraint(equalTo: container.bottomAnchor).isActive = true
-        viewController.view.leadingAnchor.constraint(equalTo: container.leadingAnchor).isActive = true
-        viewController.view.trailingAnchor.constraint(equalTo: container.trailingAnchor).isActive = true
+        container.snp.makeConstraints { make in
+            make.directionalEdges.equalToSuperview()
+        }
         
         viewController.didMove(toParent: self)
     }

@@ -12,7 +12,7 @@ public struct DesignedButtonTintColor: DesignedParameter, DesignedParameterApply
     // MARK: - Data
     private let colorMap: ColorMap
     
-    // MARK: - Life cycle
+    // MARK: - Inits
     init(colorMap: ColorMap) {
         self.colorMap = colorMap
     }

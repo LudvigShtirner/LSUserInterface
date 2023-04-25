@@ -21,7 +21,7 @@ open class BaseCollectionView<
     // MARK: - Data
     private var isLoading = false
     
-    // MARK: - Life cycle
+    // MARK: - Inits
     public init(frame: CGRect,
                 collectionViewLayout layout: UICollectionViewLayout,
                 emptyView: EmptyView,

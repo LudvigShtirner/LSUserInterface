@@ -8,11 +8,11 @@
 // Apple
 import UIKit
 
-final class CollectionFixedSizeBehaviour: NSObject, CollectionSizeBehaviour {
+final class CollectionFixedSizeBehaviour: NSObject, CollectionCellSizeBehaviour {
     // MARK: - Data
     private let sizeCalculationType: SizeCalculationType
     
-    // MARK: - Life cycle
+    // MARK: - Inits
     init(sizeCalculationType: SizeCalculationType) {
         self.sizeCalculationType = sizeCalculationType
     }
@@ -37,10 +37,4 @@ final class CollectionFixedSizeBehaviour: NSObject, CollectionSizeBehaviour {
             }
         }
     }
-}
-
-// MARK: - Subtypes
-public enum SizeCalculationType {
-    case fixedSize(CGSize)
-    case fixedSide(CGFloat, UICollectionView.ScrollDirection)
 }

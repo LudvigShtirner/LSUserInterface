@@ -24,7 +24,7 @@ open class SimpleSectionTableView<
         dataProvider.sections
     }
     
-    // MARK: - Life cycle
+    // MARK: - Inits
     public override init(frame: CGRect,
                          style: UITableView.Style,
                          emptyView: EmptyView,

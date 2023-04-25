@@ -9,7 +9,7 @@
 import UIKit
 
 open class BaseCollectionViewReusableView: UICollectionReusableView {
-    // MARK: - Life cycle
+    // MARK: - Inits
     public override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()

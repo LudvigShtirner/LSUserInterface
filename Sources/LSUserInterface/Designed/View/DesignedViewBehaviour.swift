@@ -10,17 +10,19 @@ import UIKit
 
 public struct DesignedViewBehaviour {
     // MARK: - Data
-    var internalViewParameters = InternalDesignedViewParameters()
-    var viewParameters = DesignedViewParameters.makeDefault()
+    private var internalViewParameters = InternalDesignedViewParameters()
+    private var viewParameters = DesignedViewParameters.makeDefault()
     
     // MARK: - Interface methods
     func layoutSubviews(view: UIView) {
         internalViewParameters.cornerRadius?.apply(to: view)
+        internalViewParameters.shadow?.apply(to: view)
     }
     
     func traitCollectionDidChange(view: UIView) {
         internalViewParameters.backgroundColor?.apply(to: view)
         internalViewParameters.border?.apply(to: view)
+        internalViewParameters.shadow?.apply(to: view)
     }
     
     mutating func addParameter<T>(_ parameter: WritableKeyPath<DesignedViewParameters, T>,
@@ -32,14 +34,25 @@ public struct DesignedViewBehaviour {
             let border = DesignedViewBorder(border: viewParameters.border)
             internalViewParameters.border = border
             border.apply(to: view)
+            
         case \.backgroundColor:
-            let backgroundColor = DesignedViewBackgroundColor(colorMap: viewParameters.backgroundColor)
+            let backgroundColor = DesignedViewBackgroundColor(value: viewParameters.backgroundColor)
             internalViewParameters.backgroundColor = backgroundColor
             backgroundColor.apply(to: view)
+            
         case \.cornerRadius:
             let cornerRadius = DesignedViewCornerRadius(value: viewParameters.cornerRadius)
             internalViewParameters.cornerRadius = cornerRadius
             cornerRadius.apply(to: view)
+            
+        case \.shadow:
+            guard let shadow = viewParameters.shadow else {
+                return
+            }
+            let shadowModel = DesignedViewShadow(value: shadow)
+            internalViewParameters.shadow = shadowModel
+            shadowModel.apply(to: view)
+            
         default:
             fatalError("Describe New Type binding")
         }

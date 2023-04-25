@@ -15,7 +15,7 @@ public struct DesignedViewCornerRadius: DesignedParameter, DesignedParameterAppl
     // MARK: - Data
     private var value: CornerRadius
     
-    // MARK: - Life cycle
+    // MARK: - Inits
     init(value: CornerRadius) {
         self.value = value
     }

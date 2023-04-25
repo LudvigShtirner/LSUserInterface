@@ -12,7 +12,7 @@ public struct DesignedLabelTextColor: DesignedParameter, DesignedParameterApplya
     // MARK: - Data
     private let textColor: ColorMap
     
-    // MARK: - Life cycle
+    // MARK: - Inits
     init(textColor: ColorMap) {
         self.textColor = textColor
     }

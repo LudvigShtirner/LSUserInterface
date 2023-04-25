@@ -11,19 +11,29 @@ import UIKit
 /// Свойство цвета заднего фона отображения с обработкой изменения стиля
 public struct DesignedViewBackgroundColor: DesignedParameter, DesignedParameterApplyable {
     // MARK: - Data
-    private var colorMap: ColorMap
+    private var value: BackgroundColor
     
-    // MARK: - Life cycle
-    init(colorMap: ColorMap) {
-        self.colorMap = colorMap
+    // MARK: - Inits
+    init(value: BackgroundColor) {
+        self.value = value
     }
     
     // MARK: - DesignedParameter
-    public typealias Parameter = ColorMap
+    public typealias Parameter = BackgroundColor
     
     // MARK: - DesignedParameterApplyable
     typealias Element = UIView
     func apply(to element: Element) {
-        element.backgroundColor = colorMap.color(for: element)
+        switch value {
+        case .fixed(let colorMap):
+            element.backgroundColor = colorMap.color(for: element)
+        case .baseOnState(let colorSet):
+            element.backgroundColor = colorSet.normal.color(for: element)
+        }
     }
+}
+
+public enum BackgroundColor {
+    case fixed(ColorMap)
+    case baseOnState(ColorSet)
 }

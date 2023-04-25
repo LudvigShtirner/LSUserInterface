@@ -22,7 +22,7 @@ public struct ColorMap {
     /// Цвет в темной теме
     public let darkColor: UIColor
     
-    // MARK: - Life cycle
+    // MARK: - Inits
     public init(lightColor: UIColor,
                 darkColor: UIColor) {
         self.lightColor = lightColor
@@ -32,6 +32,19 @@ public struct ColorMap {
     public init(color: UIColor) {
         self.lightColor = color
         self.darkColor = color
+    }
+    
+    public static func makeTransitedColorMap(colorMap: ColorMap,
+                                             anotherColorMap: ColorMap,
+                                             factor: CGFloat) -> ColorMap {
+        let lightColor = UIColor.makeColorBetween(color: colorMap.lightColor,
+                                                  anotherColor: anotherColorMap.lightColor,
+                                                  factor: factor)
+        let darkColor = UIColor.makeColorBetween(color: colorMap.darkColor,
+                                                 anotherColor: anotherColorMap.darkColor,
+                                                 factor: factor)
+        return ColorMap(lightColor: lightColor,
+                        darkColor: darkColor)
     }
     
     // MARK: - Interface methods

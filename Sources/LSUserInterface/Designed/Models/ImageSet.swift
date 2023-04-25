@@ -14,7 +14,7 @@ public struct ImageSet {
     let highlightImage: UIImage?
     let disabledImage: UIImage?
     
-    // MARK: - Life cycle
+    // MARK: - Inits
     public init(normalImage: UIImage? = nil,
                 highlightImage: UIImage? = nil,
                 disabledImage: UIImage? = nil) {

@@ -21,7 +21,7 @@ open class BaseTableView<
     // MARK: - Data
     private var isLoading = false
     
-    // MARK: - Life cycle
+    // MARK: - Inits
     public init(frame: CGRect,
                 style: UITableView.Style,
                 emptyView: EmptyView,

@@ -7,9 +7,10 @@
 
 import UIKit
 
-open class DesignedButton: BaseButton, DesignedElementInsertable {
+open class DesignedButton: BaseButton, DesignedViewInterfaceInternal, DesignedElementInsertable {
     // MARK: - Data
     private var buttonBehaviour = DesignedButtonBehaviour()
+    var viewBehaviour = DesignedViewBehaviour()
     
     // MARK: - Overrides
     open override var isHighlighted: Bool {
@@ -27,12 +28,13 @@ open class DesignedButton: BaseButton, DesignedElementInsertable {
     open override func layoutSubviews() {
         super.layoutSubviews()
         
-        buttonBehaviour.layoutSubviews(button: self)
+        viewBehaviour.layoutSubviews(view: self)
     }
     
     open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
+        viewBehaviour.traitCollectionDidChange(view: self)
         buttonBehaviour.traitCollectionDidChange(button: self)
     }
     

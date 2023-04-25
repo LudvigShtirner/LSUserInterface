@@ -19,7 +19,7 @@ public final class PanGestureHandler: GestureHandler {
     
     public var handleFailAndCancelWithEnd = false
     
-    // MARK: - Life cycle
+    // MARK: - Inits
     public init(touchesNumber: Int) {
         panGR = UIPanGestureRecognizer(target: self,
                                        action: #selector(handlePan(_:)))

@@ -17,7 +17,7 @@ public final class LongTapGestureHandler: GestureHandler {
     private var failedAction: GestureBlock?
     private var cancelledAction: GestureBlock?
     
-    // MARK: - Life cycle
+    // MARK: - Inits
     public init(delegate: UIGestureRecognizerDelegate? = nil) {
         longTapGR = UILongPressGestureRecognizer(target: self,
                                                  action: #selector(handleLongTap(_:)))

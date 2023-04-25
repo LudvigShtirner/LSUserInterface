@@ -9,7 +9,7 @@
 import UIKit
 
 open class BaseTableViewReusableView: UITableViewHeaderFooterView {
-    // MARK: - Life cycle
+    // MARK: - Inits
     public convenience init() {
         self.init(reuseIdentifier: nil)
     }

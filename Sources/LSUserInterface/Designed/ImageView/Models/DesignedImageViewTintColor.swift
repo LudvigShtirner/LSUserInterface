@@ -12,7 +12,7 @@ public struct DesignedImageViewTintColor: DesignedParameter, DesignedParameterAp
     // MARK: - Data
     private let tintColor: ColorMap
     
-    // MARK: - Life Cycle
+    // MARK: - Inits
     init(tintColor: ColorMap) {
         self.tintColor = tintColor
     }

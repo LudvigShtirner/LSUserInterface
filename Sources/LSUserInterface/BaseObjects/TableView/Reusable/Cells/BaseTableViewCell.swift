@@ -9,7 +9,7 @@
 import UIKit
 
 open class BaseTableViewCell: UITableViewCell {
-    // MARK: - Life cycle
+    // MARK: - Inits
     public convenience init() {
         self.init(style: .default,
                   reuseIdentifier: nil)

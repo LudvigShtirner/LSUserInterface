@@ -15,9 +15,6 @@ public struct DesignedButtonParameters {
     public var titleSet: TitleSet
     public var font: UIFont
     public var numberOfLines: NumberOfLines
-    public var cornerRadius: DesignedButtonCornerRadius.Parameter
-    public var backgroundColor: DesignedButtonBackgroundColor.Parameter
-    public var border: DesignedButtonBorder.Parameter
     
     static func makeDefault() -> DesignedButtonParameters {
         DesignedButtonParameters(tintColor: .init(color: .clear),
@@ -25,17 +22,11 @@ public struct DesignedButtonParameters {
                                  imageSet: .init(),
                                  titleSet: .init(normalText: ""),
                                  font: .systemFont(ofSize: 14.0),
-                                 numberOfLines: .restricted(1),
-                                 cornerRadius: .fixed(.zero),
-                                 backgroundColor: .init(normal: .init(color: .white)),
-                                 border: .init(width: .zero, colorSet: .init(normal: .init(color: .clear))))
+                                 numberOfLines: .restricted(1))
     }
 }
 
 struct InternalDesignedButtonParameters {
     var tintColor: DesignedButtonTintColor?
     var titleColor: DesignedButtonTitleColor?
-    var cornerRadius: DesignedButtonCornerRadius?
-    var backgroundColor: DesignedButtonBackgroundColor?
-    var border: DesignedButtonBorder?
 }

@@ -9,7 +9,7 @@
 import UIKit
 
 open class BaseView: UIView {
-    // MARK: - Life cycle
+    // MARK: - Inits
     public convenience init() {
         self.init(frame: .zero)
     }

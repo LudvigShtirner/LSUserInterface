@@ -15,7 +15,7 @@ open class BaseMVPViewController<
     // MARK: - Dependencies
     public let viewInput: T
     
-    // MARK: - Life Cycle
+    // MARK: - Inits
     public init(input: T,
                 output: U) {
         self.viewInput = input

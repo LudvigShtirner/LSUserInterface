@@ -14,7 +14,7 @@ open class BaseButton: UIButton {
     // MARK: - Data
     private var listeners: [String: UIControlListener<BaseButton>] = [:]
     
-    // MARK: - Life cycle
+    // MARK: - Inits
     public convenience init() {
         self.init(frame: .zero)
     }
@@ -45,8 +45,8 @@ open class BaseButton: UIButton {
     
     // MARK: - Public methods
     @discardableResult
-    open func shouldDo(on action: UIControl.Event,
-                       _ closure: @escaping VoidBlock) -> Self {
+    open func onEvent(_ action: UIControl.Event,
+                      _ closure: @escaping VoidBlock) -> Self {
         let listener: UIControlListener<BaseButton> = .init(control: self,
                                                             event: action,
                                                             action: closure)

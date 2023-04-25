@@ -8,9 +8,10 @@
 // Apple
 import UIKit
 
-open class DesignedSwitch: BaseSwitch, DesignedElementInsertable {
+open class DesignedSwitch: BaseSwitch, DesignedViewInterfaceInternal, DesignedElementInsertable {
     // MARK: - Data
     private var switchBehaviour = DesignedSwitchBehaviour()
+    var viewBehaviour = DesignedViewBehaviour()
     
     // MARK: - Interface methods
     @discardableResult

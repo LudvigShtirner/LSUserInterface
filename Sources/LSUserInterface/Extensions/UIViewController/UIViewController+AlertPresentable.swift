@@ -39,7 +39,7 @@ public struct AlertData {
     let cancelAction: AlertAction
     let actions: [AlertAction]
     
-    // MARK: - Life cycle
+    // MARK: - Inits
     public init(title: String,
                 message: String,
                 cancelAction: AlertData.AlertAction,
@@ -57,7 +57,7 @@ public struct AlertData {
         let buttonStyle: UIAlertAction.Style
         let buttonAction: () -> Void
         
-        // MARK: - Life cycle
+        // MARK: - Inits
         public init(buttonTitle: String,
                     buttonStyle: UIAlertAction.Style,
                     buttonAction: @escaping VoidBlock) {

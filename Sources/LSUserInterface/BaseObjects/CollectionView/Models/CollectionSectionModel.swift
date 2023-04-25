@@ -14,12 +14,12 @@ open class CollectionSectionModel<
 >: Hashable {
     // MARK: - Data
     let id: String
-    let section: SectionViewModel
-    let models: [CellModel]
+    let section: SectionViewModel?
+    public let models: [CellModel]
     
-    // MARK: - Life cycle
-    init(section: SectionViewModel,
-         models: [CellModel]) {
+    // MARK: - Inits
+    public init(section: SectionViewModel?,
+                models: [CellModel]) {
         self.id = UUID().uuidString
         self.section = section
         self.models = models

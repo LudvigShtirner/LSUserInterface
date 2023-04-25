@@ -13,7 +13,7 @@ public struct DesignedViewBorder: DesignedParameter, DesignedParameterApplyable 
     // MARK: - Data
     private let border: Border
     
-    // MARK: - Life cycle
+    // MARK: - Inits
     init(border: Border) {
         self.border = border
     }
@@ -24,7 +24,13 @@ public struct DesignedViewBorder: DesignedParameter, DesignedParameterApplyable 
     // MARK: - DesignedParameterApplyable
     typealias Element = UIView
     func apply(to element: Element) {
-        element.layer.borderWidth = border.width
-        element.layer.borderColor = border.colorMap.color(for: element).cgColor
+        switch border {
+        case .fixed(let cGFloat, let colorMap):
+            element.layer.borderWidth = cGFloat
+            element.layer.borderColor = colorMap.color(for: element).cgColor
+        case .changeable(let cGFloat, let colorSet):
+            element.layer.borderWidth = cGFloat
+            element.layer.borderColor = colorSet.normal.color(for: element).cgColor
+        }
     }
 }

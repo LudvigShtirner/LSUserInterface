@@ -8,7 +8,7 @@
 // Apple
 import UIKit
 
-open class DesignedLabel: UILabel, DesignedViewInterface, DesignedElementInsertable {
+open class DesignedLabel: UILabel, DesignedViewInterfaceInternal, DesignedElementInsertable {
     // MARK: - Data
     public var viewBehaviour = DesignedViewBehaviour()
     private var labelBehaviour = DesignedLabelBehaviour()

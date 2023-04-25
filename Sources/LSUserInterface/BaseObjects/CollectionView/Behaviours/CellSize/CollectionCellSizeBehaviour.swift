@@ -1,5 +1,5 @@
 //
-//  CollectionSizeBehaviour.swift
+//  CollectionCellSizeBehaviour.swift
 //  
 //
 //  Created by Алексей Филиппов on 23.03.2023.
@@ -8,11 +8,11 @@
 // Apple
 import UIKit
 
-protocol CollectionSizeBehaviour: UICollectionViewDelegateFlowLayout {
+protocol CollectionCellSizeBehaviour: UICollectionViewDelegateFlowLayout {
     
 }
 
-public enum CollectionSizeType {
+public enum CollectionCellSizeType {
     case empty
     case fixed(SizeCalculationType)
     case grid(Int, AnotherSideBehaviour)
