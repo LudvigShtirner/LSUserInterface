@@ -20,6 +20,7 @@ open class BaseTableViewCellWithModel<CellModel: BaseTableViewCellModel>: BaseTa
     // MARK: - Override
     open override func prepareForReuse() {
         customView?.removeFromSuperview()
+        customView = nil
     }
     
     // MARK: - Interface methods

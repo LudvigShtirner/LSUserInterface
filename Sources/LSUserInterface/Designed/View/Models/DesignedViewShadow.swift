@@ -5,14 +5,12 @@
 //  Created by Алексей Филиппов on 21.04.2023.
 //
 
-// SPM
-import SupportCode
 // Apple
 import UIKit
 
 public struct DesignedViewShadow: DesignedParameter, DesignedParameterApplyable {
     // MARK: - Data
-    private var value: Parameter
+    private let value: Parameter
     
     // MARK: - Inits
     init(value: Parameter) {

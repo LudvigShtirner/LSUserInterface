@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  UIImage+Resize.swift
 //  
 //
 //  Created by Алексей Филиппов on 12.01.2023.

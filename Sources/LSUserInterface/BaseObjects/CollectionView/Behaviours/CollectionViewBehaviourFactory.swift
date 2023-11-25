@@ -10,7 +10,7 @@ import Foundation
 
 struct CollectionViewBehaviourFactory {
     static func makeCellSizeBehaviour<T: BaseCollectionViewCellModel>(config: CollectionViewConfig<T>,
-                                                                      layoutConfig: CollectionViewLayoutConfig) -> CollectionCellSizeBehaviour? {
+                                                                      layoutType: CollectionViewLayoutType) -> CollectionCellSizeBehaviour? {
         switch config.cellSizeType {
         case .empty:
             return nil
@@ -18,19 +18,19 @@ struct CollectionViewBehaviourFactory {
             return CollectionFixedSizeBehaviour(sizeCalculationType: type)
         case .grid(let itemsInRow, let anotherSide):
             let interItemSpacing = {
-                switch layoutConfig.scrollDirection {
+                switch layoutType.scrollDirection {
                 case .horizontal:
-                    return layoutConfig.itemSpacing
+                    return layoutType.itemSpacing
                 case .vertical:
-                    return layoutConfig.lineSpacing
+                    return layoutType.lineSpacing
                 @unknown default:
                     fatalError("New scroll direction appeared")
                 }
             }()
-            return CollectionGridSizeBehaviour(scrollDirection: layoutConfig.scrollDirection,
+            return CollectionGridSizeBehaviour(scrollDirection: layoutType.scrollDirection,
                                                itemsInRow: itemsInRow,
                                                anotherSide: anotherSide,
-                                               contentInset: layoutConfig.inset,
+                                               contentInset: layoutType.inset,
                                                interItemSpacing: interItemSpacing)
         }
     }

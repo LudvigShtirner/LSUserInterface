@@ -12,9 +12,9 @@ import UIKit
 
 struct LSViewHideAnimator: LSAnimator {
     // MARK: - Data
-    let view: UIView
-    let config: HideAnimatorConfiguration
-    let completion: BoolBlock?
+    private let view: UIView
+    private let config: HideAnimatorConfiguration
+    private let completion: BoolBlock?
     
     // MARK: - Inits
     init(view: UIView,
@@ -54,8 +54,8 @@ public enum HideAnimatorConfiguration {
         switch self {
         case .hide:
             return true
-        case .show:
-            return false
+        case .show(let alpha):
+            return abs(alpha) < .ulpOfOne
         }
     }
     

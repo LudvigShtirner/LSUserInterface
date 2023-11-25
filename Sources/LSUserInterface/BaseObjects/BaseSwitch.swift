@@ -10,9 +10,9 @@ import SupportCode
 // Apple
 import UIKit
 
-open class BaseSwitch: UISwitch {
+open class BaseSwitch: UISwitch, EventListenerInternal {
     // MARK: - Data
-    private var listeners: [String: UIControlListener<BaseSwitch>] = [:]
+    var listeners: [String: UIControlListener] = [:]
     
     // MARK: - Inits
     public convenience init() {
@@ -41,17 +41,6 @@ open class BaseSwitch: UISwitch {
     open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         setupColors()
-    }
-    
-    // MARK: - Public methods
-    @discardableResult
-    open func shouldDo(on action: UIControl.Event,
-                       _ closure: @escaping VoidBlock) -> Self {
-        let listener: UIControlListener<BaseSwitch> = .init(control: self,
-                                                            event: action,
-                                                            action: closure)
-        listeners[listener.key] = listener
-        return self
     }
     
     // MARK: - Internal methods

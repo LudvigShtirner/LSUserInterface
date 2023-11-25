@@ -18,7 +18,7 @@ open class SimpleListCollectionView<
     private var dataProvider: ModelDataProvider<CellModel>?
     
     // MARK: - Data
-    private let layoutConfig: CollectionViewLayoutConfig
+    private let layoutType: CollectionViewLayoutType
     
     public var models: [CellModel] {
         dataProvider?.models ?? []
@@ -28,9 +28,9 @@ open class SimpleListCollectionView<
     public init(frame: CGRect,
                 emptyView: EmptyView,
                 loadingView: LoadingView,
-                layoutConfig: CollectionViewLayoutConfig) {
-        self.layoutConfig = layoutConfig
-        let layout = Self.makeLayout(config: layoutConfig)
+                layoutType: CollectionViewLayoutType) {
+        self.layoutType = layoutType
+        let layout = Self.makeLayout(type: layoutType)
         super.init(frame: frame,
                    collectionViewLayout: layout,
                    emptyView: emptyView,
@@ -39,11 +39,11 @@ open class SimpleListCollectionView<
     
     public convenience init(emptyView: EmptyView,
                             loadingView: LoadingView,
-                            layoutConfig: CollectionViewLayoutConfig) {
+                            layoutType: CollectionViewLayoutType) {
         self.init(frame: .zero,
                   emptyView: emptyView,
                   loadingView: loadingView,
-                  layoutConfig: layoutConfig)
+                  layoutType: layoutType)
     }
     
     required public init?(coder: NSCoder) {
@@ -53,7 +53,7 @@ open class SimpleListCollectionView<
     // MARK: - Interface methods
     public func configure(config: CollectionViewConfig<CellModel>) {
         dataProvider = makeDataProvider(config: config,
-                                        layoutConfig: layoutConfig)
+                                        layoutType: layoutType)
         delegate = dataProvider
         registerCell(Cell.self)
     }
@@ -72,7 +72,7 @@ open class SimpleListCollectionView<
     
     // MARK: - Private methods
     private func makeDataProvider(config: CollectionViewConfig<CellModel>,
-                                  layoutConfig: CollectionViewLayoutConfig) -> ModelDataProvider<CellModel> {
+                                  layoutType: CollectionViewLayoutType) -> ModelDataProvider<CellModel> {
         let dataProvider = SimpleModelDataProvider<CellModel, Cell>()
         dataSource = dataProvider
         
@@ -80,7 +80,7 @@ open class SimpleListCollectionView<
             return dataProvider?.getModel(for: indexPath)
         }
         dataProvider.cellSizeBehaviour = CollectionViewBehaviourFactory.makeCellSizeBehaviour(config: config,
-                                                                                              layoutConfig: layoutConfig)
+                                                                                              layoutType: layoutType)
         dataProvider.willDisplayCellBehaviour = CollectionViewBehaviourFactory.makeWillDisplayCellBehaviour(config: config,
                                                                                                             getModel: getModel)
         dataProvider.didSelectCellBehaviour = CollectionViewBehaviourFactory.makeDidSelectCellBehaviour(config: config,
@@ -91,15 +91,20 @@ open class SimpleListCollectionView<
         return dataProvider
     }
     
-    private static func makeLayout(config: CollectionViewLayoutConfig) -> UICollectionViewFlowLayout {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = config.scrollDirection
-        layout.sectionInset = .init(top: .zero,
-                                    left: config.inset,
-                                    bottom: .zero,
-                                    right: config.inset)
-        layout.minimumLineSpacing = config.lineSpacing
-        layout.minimumInteritemSpacing = config.itemSpacing
-        return layout
+    private static func makeLayout(type: CollectionViewLayoutType) -> UICollectionViewLayout {
+        switch type {
+        case .flow(let config):
+            let layout = UICollectionViewFlowLayout()
+            layout.scrollDirection = config.scrollDirection
+            layout.sectionInset = .init(top: .zero,
+                                        left: config.inset,
+                                        bottom: .zero,
+                                        right: config.inset)
+            layout.minimumLineSpacing = config.lineSpacing
+            layout.minimumInteritemSpacing = config.itemSpacing
+            return layout
+        case .compositional(let config):
+            return config.makeLayout()
+        }
     }
 }

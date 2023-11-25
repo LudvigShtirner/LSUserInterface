@@ -12,7 +12,7 @@ import SpriteKit
 public final class ShapeMorphingView: BaseView {
     // MARK: - UI
     private let skView = SKView()
-    private let scene = SKScene()
+    fileprivate let scene = SKScene()
     
     // MARK: - Data
     private var currentImage: UIImage?
@@ -42,7 +42,10 @@ public final class ShapeMorphingView: BaseView {
     
     public override func setupColors() {
         scene.backgroundColor = .clear
-        backgroundColor = .clear
+        skView.backgroundColor = UIColor(red: .random(in: (0...255)),
+                                         green: .random(in: (0...255)),
+                                         blue: .random(in: (0...255)),
+                                         alpha: 1.0)
     }
     
     // MARK: - Interface methods
@@ -91,12 +94,12 @@ public final class ShapeMorphingView: BaseView {
     private func animateBlur(to targetBlur: Float,
                              duration: CGFloat) {
         let from = filter.blur
-        let blurFade = SKAction.customAction(withDuration: duration) { node, elapsed in
+        let blurFade = SKAction.customAction(withDuration: duration) { [weak self] node, elapsed in
             let percent = elapsed / duration
             let difference = targetBlur - from
             let currentBlur = from + (difference * Float(percent))
-            self.filter.blur = currentBlur
-            self.scene.shouldEnableEffects = true
+            self?.filter.blur = currentBlur
+            self?.scene.shouldEnableEffects = true
         }
         scene.run(blurFade)
     }
@@ -108,3 +111,70 @@ public final class ShapeMorphingView: BaseView {
                             size: iconSize)
     }
 }
+
+// MARK: - SwiftUI Preview
+import SwiftUI
+
+struct ShapeMorphingViewContainerPreviews: PreviewProvider {
+    fileprivate class ShapeMorphingViewExample: BaseView {
+        let changeButton = BaseButton(type: .system)
+        let morphingView = ShapeMorphingView()
+        
+        override func setupUI() {
+            
+            addSubview(morphingView)
+            morphingView.backgroundColor = .gray
+            
+            addSubview(changeButton)
+            changeButton.setImage(UIImage(systemName: "play.fill")!,
+                                  for: .normal)
+            changeButton.tintColor = .red
+            changeButton.onEvent(.touchUpInside) { [weak self] in
+                let buttonNames: [String] = [
+                    "circle.fill",
+                    "heart.fill",
+                    "star.fill",
+                    "bell.fill",
+                    "bookmark.fill",
+                    "tag.fill",
+                    "bolt.fill",
+                    "play.fill",
+                    "pause.fill",
+                    "squareshape.fill",
+                    "key.fill",
+                    "hexagon.fill",
+                    "gearshape.fill",
+                    "car.fill"
+                ]
+                let name = buttonNames.shuffled().first!
+                let image = UIImage(systemName: name)!
+                self?.morphingView.setImage(image, duration: 0.8)
+                self?.morphingView.scene.backgroundColor = UIColor(red: .random(in: (0...255)),
+                                                                   green: .random(in: (0...255)),
+                                                                   blue: .random(in: (0...255)),
+                                                                   alpha: 1.0)
+                self?.changeButton.setImage(image, for: .normal)
+            }
+        }
+        
+        override func setupConstraints() {
+            morphingView.snp.makeConstraints { make in
+                make.directionalEdges.equalToSuperview()
+            }
+            changeButton.snp.makeConstraints { make in
+                make.bottom.equalToSuperview().inset(16)
+                make.height.equalTo(88)
+                make.leading.trailing.equalToSuperview().inset(8)
+            }
+        }
+    }
+    
+    static var previews: some View {
+        SwiftUIPreview {
+            ShapeMorphingViewExample()
+        }
+            .previewLayout(.device)
+            .edgesIgnoringSafeArea(.vertical)
+    }
+}
+

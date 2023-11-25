@@ -32,6 +32,9 @@ public protocol GestureHandler: AnyObject {
     
     @discardableResult
     func onCancel(_ closure: @escaping GestureBlock) -> Self
+    
+    @discardableResult
+    func insert(into view: UIView) -> Self
 }
 
 public extension GestureHandler {
@@ -47,6 +50,11 @@ public extension GestureHandler {
     var delegate: UIGestureRecognizerDelegate? {
         get { gestureRecognizer.delegate }
         set { gestureRecognizer.delegate = newValue }
+    }
+    
+    func insert(into view: UIView) -> Self {
+        view.addGestureRecognizer(gestureRecognizer)
+        return self
     }
 }
 

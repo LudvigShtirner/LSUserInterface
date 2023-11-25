@@ -43,7 +43,7 @@ public struct AlertData {
     public init(title: String,
                 message: String,
                 cancelAction: AlertData.AlertAction,
-                actions: [AlertData.AlertAction]) {
+                actions: [AlertData.AlertAction] = []) {
         self.title = title
         self.message = message
         self.cancelAction = cancelAction
@@ -60,7 +60,7 @@ public struct AlertData {
         // MARK: - Inits
         public init(buttonTitle: String,
                     buttonStyle: UIAlertAction.Style,
-                    buttonAction: @escaping VoidBlock) {
+                    buttonAction: @escaping VoidBlock = {}) {
             self.buttonTitle = buttonTitle
             self.buttonStyle = buttonStyle
             self.buttonAction = buttonAction

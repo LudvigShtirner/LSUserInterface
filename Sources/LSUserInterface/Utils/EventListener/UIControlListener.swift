@@ -10,14 +10,14 @@ import SupportCode
 // Apple
 import UIKit
 
-final class UIControlListener<T: UIControl> {
+final class UIControlListener {
     // MARK: - Data
     private let event: UIControl.Event
     private let action: VoidBlock
     let key: String
     
     // MARK: - Inits
-    init(control: T,
+    init(control: UIControl,
          event: UIControl.Event,
          action: @escaping VoidBlock) {
         self.event = event

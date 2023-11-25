@@ -17,9 +17,6 @@ public struct LSAnimation {
         self.animator = animator
     }
     
-    // MARK: - Access
-    public static let view: LSViewAnimation.Type = LSViewAnimation.self
-    
     // MARK: - Interface methods
     public func execute(duration: TimeInterval = 0.3,
                         delay: TimeInterval = .zero,
@@ -35,5 +32,10 @@ public struct LSAnimation {
         } completion: { success in
             self.animator.completeAnimation(success: success)
         }
+    }
+    
+    public func compose(with another: LSAnimation) -> LSComposedAnimation {
+        LSComposedAnimation(first: self,
+                            second: another)
     }
 }

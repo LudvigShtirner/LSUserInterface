@@ -12,9 +12,9 @@ import UIKit
 
 struct LSViewTransformAnimator: LSAnimator {
     // MARK: - Data
-    let view: UIView
-    let transform: CGAffineTransform
-    let completion: BoolBlock?
+    private let view: UIView
+    private let transform: CGAffineTransform
+    private let completion: BoolBlock?
     
     // MARK: - Inits
     init(view: UIView,

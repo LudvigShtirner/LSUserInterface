@@ -5,15 +5,13 @@
 //  Created by Алексей Филиппов on 04.12.2022.
 //
 
-// SPM
-import SupportCode
 // Apple
 import UIKit
 
 /// Свойство скругления ототбражения
 public struct DesignedViewCornerRadius: DesignedParameter, DesignedParameterApplyable {
     // MARK: - Data
-    private var value: CornerRadius
+    private let value: CornerRadius
     
     // MARK: - Inits
     init(value: CornerRadius) {

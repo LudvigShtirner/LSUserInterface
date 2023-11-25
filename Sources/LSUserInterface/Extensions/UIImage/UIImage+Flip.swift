@@ -7,18 +7,8 @@
 
 import UIKit
 
-/// Расширение для отражения изображения
 public extension UIImage {
-    /// Отразить изображение
-    /// - Parameters:
-    ///   - horizontally: флаг отражения по горизонтали
-    ///   - vertically: флаг отражения по вертикали
-    /// - Returns: отраженное изображение, если успешно, обычное - в случае ошибки
-    func flipImage(horizontally: Bool,
-                   vertically: Bool) -> UIImage {
-        if !horizontally && !vertically {
-            return self
-        }
+    func flipImage(direction: UIImageFlipDirection) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(size, false, scale)
         defer {
             UIGraphicsEndImageContext()
@@ -26,10 +16,10 @@ public extension UIImage {
         guard let context = UIGraphicsGetCurrentContext() else {
             return self
         }
-        context.translateBy(x: horizontally ? size.width : 0.0,
-                            y: vertically ? 0.0 : size.height)
-        context.scaleBy(x: horizontally ? -scale : 1,
-                        y: vertically ? 1 : -scale)
+        context.translateBy(x: direction.isHorizontal ? size.width : 0.0,
+                            y: direction.isVertical ? 0.0 : size.height)
+        context.scaleBy(x: direction.isHorizontal ? -scale : 1,
+                        y: direction.isVertical ? 1 : -scale)
         context.draw(getCGImage(),
                      in: CGRect(origin: .zero,
                                 size: size))
@@ -37,5 +27,19 @@ public extension UIImage {
             return self
         }
         return newImage
+    }
+}
+
+public enum UIImageFlipDirection {
+    case horizontal
+    case vertical
+    case both
+    
+    var isHorizontal: Bool {
+        self != .vertical
+    }
+    
+    var isVertical: Bool {
+        self != .horizontal
     }
 }

@@ -12,6 +12,7 @@ public struct DesignedButtonParameters {
     public var tintColor: DesignedButtonTintColor.Parameter
     public var titleColor: DesignedButtonTitleColor.Parameter
     public var imageSet: ImageSet
+    public var backgroundImageSet: ImageSet
     public var titleSet: TitleSet
     public var font: UIFont
     public var numberOfLines: NumberOfLines
@@ -20,6 +21,7 @@ public struct DesignedButtonParameters {
         DesignedButtonParameters(tintColor: .init(color: .clear),
                                  titleColor: .init(normal: .init(color: .black)),
                                  imageSet: .init(),
+                                 backgroundImageSet: .init(),
                                  titleSet: .init(normalText: ""),
                                  font: .systemFont(ofSize: 14.0),
                                  numberOfLines: .restricted(1))

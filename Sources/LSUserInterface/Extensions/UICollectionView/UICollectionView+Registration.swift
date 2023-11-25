@@ -3,7 +3,6 @@
 //  Metal Camera
 //
 //  Created by Филиппов Алексей on 19.03.2021.
-//  Copyright © 2021 Defekt. All rights reserved.
 //
 
 // SPM
@@ -18,8 +17,19 @@ public extension UICollectionView {
     /// ```
     /// collectionView.registerCell(ExampleCollectionViewCell.self)
     /// ```
-    func registerCell<T: UICollectionViewCell>(_: T.Type) {
-        register(T.self, forCellWithReuseIdentifier: T.identifier)
+    func registerCell<Cell: UICollectionViewCell>(_: Cell.Type) {
+        register(Cell.self, forCellWithReuseIdentifier: Cell.classIdentifier)
+    }
+    
+    /// Register nib cell for UICollectionView pool
+    ///
+    /// Example of usage:
+    /// ```
+    /// collectionView.registerNibCell(ExampleCollectionViewCell.self)
+    /// ```
+    func registerNibCell<Cell: NibReusable>(_ cell: Cell.Type) {
+      let nib = UINib(nibName: cell.nibName, bundle: Bundle(for: cell))
+      register(nib, forCellWithReuseIdentifier: cell.classIdentifier)
     }
     
     /// Register supplementary view for UICollectionView pool
@@ -28,11 +38,22 @@ public extension UICollectionView {
     /// ```
     /// collectionView.registerView(ExampleHeaderView.self, forSupplementaryViewOfKind: .header)
     /// ```
-    func registerView<T: UICollectionReusableView>(_: T.Type,
-                                                   forSupplementaryViewOfKind kind: SupplementaryViewKind) {
-        register(T.self,
+    func registerView<View: UICollectionReusableView>(_: View.Type,
+                                                      forSupplementaryViewOfKind kind: SupplementaryViewKind) {
+        register(View.self,
                  forSupplementaryViewOfKind: kind.identifier,
-                 withReuseIdentifier: T.identifier)
+                 withReuseIdentifier: View.classIdentifier)
+    }
+    
+    /// Зарегистрировать вспомогательное отображение секции
+    /// - Parameters:
+    ///   - view: класс вспомогательного отображения секции
+    ///   - kind: тип вспомогательного отображения
+    func registerNibView<View: NibReusable>(_ view: View.Type, forSupplementaryViewOfKind kind: SupplementaryViewKind) {
+      let nib = UINib(nibName: view.nibName, bundle: Bundle(for: view))
+      register(nib,
+               forSupplementaryViewOfKind: kind.identifier,
+               withReuseIdentifier: view.classIdentifier)
     }
     
     /// Dequeue cell from pool or create a new one
@@ -46,8 +67,8 @@ public extension UICollectionView {
     /// ```
     /// - Returns: instance of expected Cell class
     func dequeueCell<T: UICollectionViewCell>(for indexPath: IndexPath) -> T {
-        guard let cell = dequeueReusableCell(withReuseIdentifier: T.identifier, for: indexPath) as? T else {
-            fatalError("Could not dequeue cell with identifier: \(T.identifier)")
+        guard let cell = dequeueReusableCell(withReuseIdentifier: T.classIdentifier, for: indexPath) as? T else {
+            fatalError("Could not dequeue cell with identifier: \(T.classIdentifier)")
         }
         return cell
     }
@@ -61,20 +82,16 @@ public extension UICollectionView {
     /// return view
     /// ```
     /// - Returns: instance of expected SupplementaryView class
-    func dequeueView<T>(forSupplementaryViewOfKind kind: SupplementaryViewKind,
-                        indexPath: IndexPath) -> T where T: Identifiable {
+    func dequeueView<T: UIView>(forSupplementaryViewOfKind kind: SupplementaryViewKind,
+                                indexPath: IndexPath) -> T where T: Identifiable {
         let view = dequeueReusableSupplementaryView(ofKind: kind.identifier,
-                                                    withReuseIdentifier: T.identifier,
+                                                    withReuseIdentifier: T.classIdentifier,
                                                     for: indexPath)
         guard let result = view as? T else {
-            fatalError("Could not dequeue SupplementaryView with identifier: \(T.identifier)")
+            fatalError("Could not dequeue SupplementaryView with identifier: \(T.classIdentifier)")
         }
         return result
     }
-}
-
-extension UICollectionReusableView: Identifiable {
-    
 }
 
 /// Enumeration of UICollectionView supplementary view kinds.

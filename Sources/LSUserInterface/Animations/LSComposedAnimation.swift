@@ -8,7 +8,7 @@
 // Apple
 import UIKit
 
-public struct LSComposedAnimation {
+public final class LSComposedAnimation {
     // MARK: - Data
     private var animations: [LSAnimation]
     
@@ -38,7 +38,8 @@ public struct LSComposedAnimation {
         }
     }
     
-    public mutating func compose(with animation: LSAnimation) {
+    public func compose(with animation: LSAnimation) -> LSComposedAnimation {
         animations.append(animation)
+        return self
     }
 }

@@ -5,6 +5,8 @@
 //  Created by Алексей Филиппов on 18.12.2022.
 //
 
+// SPM
+import SupportCode
 // Apple
 import Foundation
 
@@ -16,7 +18,7 @@ public enum NumberOfLines {
     var value: Int {
         switch self {
         case .restricted(let lines):
-            return lines
+            return lines.inRange(min: 1, max: .max)
         case .multiline:
             return 0
         }

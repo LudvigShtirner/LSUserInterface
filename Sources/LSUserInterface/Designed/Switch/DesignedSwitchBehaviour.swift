@@ -11,9 +11,14 @@ import UIKit
 struct DesignedSwitchBehaviour {
     // MARK: - Data
     var internalSwitchParameters = InternalDesignedSwitchParameters()
-    var switchParameters = DesignedSwitchParameters(isOn: true)
+    private var switchParameters = DesignedSwitchParameters(isOn: true,
+                                                            onColor: .init(color: .blue))
     
     // MARK: - Interface methods
+    func layoutSubviews(view: UISwitch) {
+        internalSwitchParameters.onColor?.apply(to: view)
+    }
+    
     mutating func addParameter<T>(_ parameter: WritableKeyPath<DesignedSwitchParameters, T>,
                                   with value: T,
                                   for toggle: UISwitch) {
@@ -21,6 +26,10 @@ struct DesignedSwitchBehaviour {
         switch parameter {
         case \.isOn:
             toggle.isOn = switchParameters.isOn
+        case \.onColor:
+            let onColor = DesignedSwitchOnColor(onColor: switchParameters.onColor)
+            internalSwitchParameters.onColor = onColor
+            onColor.apply(to: toggle)
         default:
             fatalError("Describe New Type binding")
         }

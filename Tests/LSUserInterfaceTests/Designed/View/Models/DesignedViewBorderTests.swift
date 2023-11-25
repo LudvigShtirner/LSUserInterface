@@ -22,8 +22,7 @@ final class DesignedViewBorderTests: XCTestCase {
         view = DesignedView()
         let colorMap = ColorMap(lightColor: .red,
                                 darkColor: .blue)
-        model = DesignedViewBorder(border: .init(width: kBorderWidth,
-                                                 colorMap: colorMap))
+        model = DesignedViewBorder(border: .fixed(kBorderWidth, colorMap))
     }
 
     override func tearDownWithError() throws {

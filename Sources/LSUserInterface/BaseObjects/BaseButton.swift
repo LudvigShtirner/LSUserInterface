@@ -10,9 +10,9 @@ import SupportCode
 // Apple
 import UIKit
 
-open class BaseButton: UIButton {
+open class BaseButton: UIButton, EventListenerInternal {
     // MARK: - Data
-    private var listeners: [String: UIControlListener<BaseButton>] = [:]
+    var listeners: [String: UIControlListener] = [:]
     
     // MARK: - Inits
     public convenience init() {
@@ -41,17 +41,6 @@ open class BaseButton: UIButton {
     open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         setupColors()
-    }
-    
-    // MARK: - Public methods
-    @discardableResult
-    open func onEvent(_ action: UIControl.Event,
-                      _ closure: @escaping VoidBlock) -> Self {
-        let listener: UIControlListener<BaseButton> = .init(control: self,
-                                                            event: action,
-                                                            action: closure)
-        listeners[listener.key] = listener
-        return self
     }
     
     // MARK: - Internal methods

@@ -35,17 +35,31 @@ open class LinearGradient: BaseView {
     open override func setupUI() {
         layer.addSublayer(gradientLayer)
         gradientLayer.type = .axial
-        gradientLayer.colors = [config.startColor.cgColor, config.endColor.cgColor]
         let pivots = config.startFrom.turnIntoPivots()
         gradientLayer.startPoint = pivots.start
         gradientLayer.endPoint = pivots.end
     }
     
+    open override func setupColors() {
+        gradientLayer.colors = [
+            config.startColor.color(for: self).cgColor,
+            config.endColor.color(for: self).cgColor
+        ]
+    }
+    
     // MARK: - Subtypes
     public struct Config {
-        let startColor: UIColor
-        let endColor: UIColor
+        let startColor: ColorMap
+        let endColor: ColorMap
         let startFrom: Direction
+        
+        public init(startColor: ColorMap,
+                    endColor: ColorMap,
+                    startFrom: Direction) {
+            self.startColor = startColor
+            self.endColor = endColor
+            self.startFrom = startFrom
+        }
     }
     
     public enum Direction {
@@ -102,8 +116,8 @@ import SnapKit
 struct LinearGradientContainer_Previews: PreviewProvider {
     static var previews: some View {
         SwiftUIPreview {
-            LinearGradient(config: .init(startColor: .red,
-                                         endColor: .clear,
+            LinearGradient(config: .init(startColor: .init(color: .red),
+                                         endColor: .init(color: .clear),
                                          startFrom: .bottomRight))
         }
         .previewLayout(.fixed(width: 375, height: 375))

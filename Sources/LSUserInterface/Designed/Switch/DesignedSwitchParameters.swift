@@ -10,8 +10,9 @@ import Foundation
 
 public struct DesignedSwitchParameters {
     public var isOn: Bool
+    public var onColor: DesignedSwitchOnColor.Parameter
 }
 
 struct InternalDesignedSwitchParameters {
-    
+    var onColor: DesignedSwitchOnColor?
 }

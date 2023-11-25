@@ -21,9 +21,8 @@ final class DesignedViewTests: XCTestCase {
                                               size: CGSize(width: 100.0, height: 100.0)))
         // When
         view.setParameter(\.cornerRadius, with: .fixed(kCornerRadius))
-            .setParameter(\.border, with: .init(width: kBorderWidth,
-                                                colorMap:  .init(lightColor: .red,
-                                                                 darkColor: .blue)))
+            .setParameter(\.border, with: .fixed(kBorderWidth, .init(lightColor: .red,
+                                                                     darkColor: .blue)))
         // Then
         XCTAssertEqual(view.layer.cornerRadius, kCornerRadius)
         XCTAssertEqual(view.layer.borderWidth, kBorderWidth)

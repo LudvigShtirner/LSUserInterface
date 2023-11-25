@@ -53,6 +53,15 @@ public struct DesignedViewBehaviour {
             internalViewParameters.shadow = shadowModel
             shadowModel.apply(to: view)
             
+        case \.isHidden:
+            view.isHidden = viewParameters.isHidden
+            
+        case \.clipsToBounds:
+            view.clipsToBounds = viewParameters.clipsToBounds
+            
+        case \.alpha:
+            view.alpha = viewParameters.alpha
+            
         default:
             fatalError("Describe New Type binding")
         }

@@ -7,9 +7,9 @@
 
 import UIKit
 
+private let defaultCIContext = CIContext()
+
 public extension UIImage {
-    /// Получить CoreGraphics модель изображения
-    /// - Returns: CoreGraphics модель изображения
     func getCGImage() -> CGImage {
         if let image = cgImage {
             return image
@@ -17,14 +17,12 @@ public extension UIImage {
         guard let ciimage = ciImage else {
             fatalError("Image must be implemented by Core Image or Core Graphics")
         }
-        guard let createdImage = CIContext().createCGImage(ciimage, from: ciimage.extent) else {
+        guard let createdImage = defaultCIContext.createCGImage(ciimage, from: ciimage.extent) else {
             fatalError("Context Error")
         }
         return createdImage
     }
     
-    /// Получить CoreGraphics модель изображения
-    /// - Returns: CoreGraphics модель изображения
     func getCIImage() -> CIImage {
         if let image = ciImage {
             return image

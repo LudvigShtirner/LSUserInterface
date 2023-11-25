@@ -14,12 +14,18 @@ public struct DesignedViewParameters {
     public var backgroundColor: DesignedViewBackgroundColor.Parameter
     public var border: DesignedViewBorder.Parameter
     public var shadow: DesignedViewShadow.Parameter?
+    public var isHidden: Bool
+    public var clipsToBounds: Bool
+    public var alpha: CGFloat
     
     static func makeDefault() -> DesignedViewParameters {
         return .init(cornerRadius: .fixed(.zero),
                      backgroundColor: .fixed(.init(color: .white)),
                      border: .fixed(.zero, .init(color: .clear)),
-                     shadow: nil)
+                     shadow: nil,
+                     isHidden: false,
+                     clipsToBounds: false,
+                     alpha: 1)
     }
 }
 

@@ -1,6 +1,6 @@
 //
-//  File.swift
-//  
+//  Style.swift
+//
 //
 //  Created by Алексей Филиппов on 20.02.2023.
 //
@@ -10,7 +10,12 @@ import Foundation
 
 public struct Style<T> {
     // MARK: - Data
-    let styling: (T) -> Void
+    private let styling: (T) -> Void
+    
+    // MARK: - Inits
+    public init(styling: @escaping (T) -> Void) {
+        self.styling = styling
+    }
     
     // MARK: - Interface methods
     public func apply(to view: T) {
@@ -19,7 +24,7 @@ public struct Style<T> {
     
     public func apply(to views: T...) {
         for view in views {
-            styling(view)
+            apply(to: view)
         }
     }
     

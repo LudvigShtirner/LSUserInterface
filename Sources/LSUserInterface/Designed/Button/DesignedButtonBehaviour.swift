@@ -57,6 +57,11 @@ struct DesignedButtonBehaviour {
                 button.setTitle("", for: .normal)
             }
             button.titleLabel?.font = buttonParameters.font
+        case \.backgroundImageSet:
+            let imageSet = buttonParameters.backgroundImageSet
+            button.setBackgroundImage(imageSet.normalImage, for: .normal)
+            button.setBackgroundImage(imageSet.highlightImage, for: .highlighted)
+            button.setBackgroundImage(imageSet.disabledImage, for: .disabled)
         default:
             fatalError("Describe New Type binding")
         }

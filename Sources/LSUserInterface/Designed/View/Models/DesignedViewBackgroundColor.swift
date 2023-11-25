@@ -11,7 +11,7 @@ import UIKit
 /// Свойство цвета заднего фона отображения с обработкой изменения стиля
 public struct DesignedViewBackgroundColor: DesignedParameter, DesignedParameterApplyable {
     // MARK: - Data
-    private var value: BackgroundColor
+    private let value: BackgroundColor
     
     // MARK: - Inits
     init(value: BackgroundColor) {

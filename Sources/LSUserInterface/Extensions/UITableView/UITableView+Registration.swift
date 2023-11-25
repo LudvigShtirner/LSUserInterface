@@ -18,7 +18,7 @@ public extension UITableView {
     /// tableView.registerCell(ExampleTableViewCell.self)
     /// ```
     func registerCell<T: UITableViewCell>(_: T.Type) {
-        register(T.self, forCellReuseIdentifier: T.identifier)
+        register(T.self, forCellReuseIdentifier: T.classIdentifier)
     }
     
     /// Register Header or Footer view for UITableView pool
@@ -28,7 +28,7 @@ public extension UITableView {
     /// table.registerView(ExampleHeaderView.self)
     /// ```
     func registerView<T: UITableViewHeaderFooterView>(_: T.Type) {
-        register(T.self, forHeaderFooterViewReuseIdentifier: T.identifier)
+        register(T.self, forHeaderFooterViewReuseIdentifier: T.classIdentifier)
     }
     
     /// Dequeue cell from pool or create a new one
@@ -42,8 +42,8 @@ public extension UITableView {
     /// - Warning: Application will be crashed if cell isn't registered
     /// - Returns: instance of expected Cell class
     func dequeueCell<T: UITableViewCell>() -> T {
-        guard let cell = dequeueReusableCell(withIdentifier: T.identifier) as? T else {
-            fatalError("Could not cast dequeued cell with identifier: \(T.identifier) to type: \(T.self)")
+        guard let cell = dequeueReusableCell(withIdentifier: T.classIdentifier) as? T else {
+            fatalError("Could not cast dequeued cell with identifier: \(T.classIdentifier) to type: \(T.self)")
         }
         return cell
     }
@@ -59,8 +59,8 @@ public extension UITableView {
     /// - Warning: Application will be crashed if cell isn't registered
     /// - Returns: instance of expected Cell class
     func dequeueCell<T: UITableViewCell>(for indexPath: IndexPath) -> T {
-        guard let cell = dequeueReusableCell(withIdentifier: T.identifier, for: indexPath) as? T else {
-            fatalError("Could not dequeue cell with identifier: \(T.identifier)")
+        guard let cell = dequeueReusableCell(withIdentifier: T.classIdentifier, for: indexPath) as? T else {
+            fatalError("Could not dequeue cell with identifier: \(T.classIdentifier)")
         }
         return cell
     }
@@ -76,17 +76,9 @@ public extension UITableView {
     /// - Warning: Application will be crashed if view isn't registered
     /// - Returns: instance of expected SupplementaryView class
     func dequeueView<T: UITableViewHeaderFooterView>() -> T {
-        guard let view = dequeueReusableHeaderFooterView(withIdentifier: T.identifier) as? T else {
-            fatalError("Could not dequeue reusableView with identifier: \(T.identifier)")
+        guard let view = dequeueReusableHeaderFooterView(withIdentifier: T.classIdentifier) as? T else {
+            fatalError("Could not dequeue reusableView with identifier: \(T.classIdentifier)")
         }
         return view
     }
-}
-
-extension UITableViewCell: Identifiable {
-    
-}
-
-extension UITableViewHeaderFooterView: Identifiable {
-    
 }

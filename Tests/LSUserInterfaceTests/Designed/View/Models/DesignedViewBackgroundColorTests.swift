@@ -20,7 +20,7 @@ final class DesignedViewBackgroundColorTests: XCTestCase {
         view = DesignedView()
         let colorMap = ColorMap(lightColor: .red,
                                 darkColor: .blue)
-        model = DesignedViewBackgroundColor(colorMap: colorMap)
+        model = DesignedViewBackgroundColor(value: .fixed(colorMap))
     }
 
     override func tearDownWithError() throws {

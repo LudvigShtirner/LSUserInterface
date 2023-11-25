@@ -1,7 +1,7 @@
 {
   "pins" : [
     {
-      "identity" : "supportcode",
+      "identity" : "supportCode",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/LudvigShtirner/SupportCode.git",
       "state" : {
