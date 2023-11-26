@@ -9,6 +9,9 @@
 import UIKit
 
 public final class DesignedButtonTransparentTextDrawer: DesignedButtonDrawer {
+    // MARK: - Inits
+    public init() { }
+    
     // MARK: - DesignedButtonDrawer
     public func drawButton(_ button: DesignedButton,
                            rect: CGRect) {
