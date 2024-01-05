@@ -62,6 +62,6 @@ public struct ColorMap {
 
 public extension ColorMap {
     static var clear: ColorMap {
-        .init(color: .clear)
+        ColorMap(color: .clear)
     }
 }

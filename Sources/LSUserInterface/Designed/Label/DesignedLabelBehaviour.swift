@@ -11,7 +11,7 @@ import UIKit
 struct DesignedLabelBehaviour {
     // MARK: - Data
     var internalLabelParameters = InternalDesignedLabelParameters()
-    var labelParameters = DesignedLabelParameters(textColor: .init(color: .black),
+    var labelParameters = DesignedLabelParameters(textColor: ColorMap(color: .black),
                                                   font: .systemFont(ofSize: 14.0),
                                                   numberOfLines: .restricted(1),
                                                   text: "",

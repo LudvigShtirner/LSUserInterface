@@ -21,8 +21,8 @@ final class DiffableSectionDataProvider<
     // MARK: - Inits
     init(collectionView: UICollectionView) {
         super.init()
-        dataSource = .init(collectionView: collectionView,
-                           cellProvider: { [weak self] (collectionView, indexPath, itemIdentifier) in
+        dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView,
+                                                        cellProvider: { [weak self] (collectionView, indexPath, itemIdentifier) in
             guard let self else {
                 return UICollectionViewCell()
             }

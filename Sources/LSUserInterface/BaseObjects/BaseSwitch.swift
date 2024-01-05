@@ -26,6 +26,7 @@ open class BaseSwitch: UISwitch, EventListenerInternal {
         setupConstraints()
     }
     
+    @available(*, unavailable)
     public required init?(coder: NSCoder) {
         super.init(coder: coder)
         setupUI()

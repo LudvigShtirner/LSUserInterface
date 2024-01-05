@@ -20,12 +20,23 @@ public struct LSViewAnimation {
     }
     
     // MARK: - Interface methods
-    public func hide(config: HideAnimatorConfiguration,
-                     completion: BoolBlock? = nil) -> LSAnimation {
+    public func changeVisibility(config: HideAnimatorConfiguration,
+                                 completion: BoolBlock? = nil) -> LSAnimation {
         let animator = LSViewHideAnimator(view: view,
                                           config: config,
                                           completion: completion)
         return LSAnimation(animator: animator)
+    }
+    
+    public func hide(completion: BoolBlock? = nil) -> LSAnimation {
+        changeVisibility(config: .hide,
+                         completion: completion)
+    }
+    
+    public func show(alpha: CGFloat = 1.0,
+                     completion: BoolBlock? = nil) -> LSAnimation {
+        changeVisibility(config: .show(alpha),
+                         completion: completion)
     }
     
     public func transform(transform: CGAffineTransform,

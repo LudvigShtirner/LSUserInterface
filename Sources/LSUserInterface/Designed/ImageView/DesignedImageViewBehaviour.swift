@@ -13,7 +13,7 @@ struct DesignedImageViewBehaviour {
     var internalImageViewParameters = InternalDesignedImageViewParameters()
     var imageViewParameters = DesignedImageViewParameters(image: nil,
                                                           highlightedImage: nil,
-                                                          tintColor: .init(color: .black),
+                                                          tintColor: ColorMap(color: .black),
                                                           contentMode: .scaleToFill)
     
     

@@ -21,6 +21,7 @@ open class BaseView: UIView {
         setupConstraints()
     }
     
+    @available(*, unavailable)
     public required init?(coder: NSCoder) {
         super.init(coder: coder)
         setupUI()

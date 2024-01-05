@@ -12,7 +12,7 @@ struct DesignedSwitchBehaviour {
     // MARK: - Data
     var internalSwitchParameters = InternalDesignedSwitchParameters()
     private var switchParameters = DesignedSwitchParameters(isOn: true,
-                                                            onColor: .init(color: .blue))
+                                                            onColor: ColorMap(color: .blue))
     
     // MARK: - Interface methods
     func layoutSubviews(view: UISwitch) {

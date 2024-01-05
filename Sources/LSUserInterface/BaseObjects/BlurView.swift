@@ -23,10 +23,6 @@ public final class BlurView: BaseView {
         super.init(frame: .zero)
     }
     
-    public required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     // MARK: - BaseView
     public override func setupUI() {
         addSubview(effectView)
@@ -50,7 +46,7 @@ struct BlurViewPreviews: PreviewProvider {
             view.image = UIImage(systemName: "swift")
             view.tintColor = .red
             
-            let blurView = BlurView(effect: .init(style: .light))
+            let blurView = BlurView(effect: UIBlurEffect(style: .light))
             
             view.addSubview(blurView)
             blurView.snp.makeConstraints { make in

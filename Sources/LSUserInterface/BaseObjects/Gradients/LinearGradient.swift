@@ -21,10 +21,6 @@ open class LinearGradient: BaseView {
         super.init(frame: .zero)
     }
     
-    public required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     // MARK: - Overrides
     open override func layoutSubviews() {
         super.layoutSubviews()
@@ -96,15 +92,15 @@ open class LinearGradient: BaseView {
             }
         }
         
-        static private var leftPoint: CGPoint { .init(x: .zero, y: 0.5) }
-        static private var rightPoint: CGPoint { .init(x: 1.0, y: 0.5) }
-        static private var topPoint: CGPoint { .init(x: 0.5, y: .zero) }
-        static private var bottomPoint: CGPoint { .init(x: 0.5, y: 1.0) }
+        static private var leftPoint: CGPoint { CGPoint(x: .zero, y: 0.5) }
+        static private var rightPoint: CGPoint { CGPoint(x: 1.0, y: 0.5) }
+        static private var topPoint: CGPoint { CGPoint(x: 0.5, y: .zero) }
+        static private var bottomPoint: CGPoint { CGPoint(x: 0.5, y: 1.0) }
         
-        static private var topLeftPoint: CGPoint { .zero }
-        static private var bottomLeftPoint: CGPoint { .init(x: .zero, y: 1.0) }
-        static private var topRightPoint: CGPoint { .init(x: 1.0, y: .zero)}
-        static private var bottomRightPoint: CGPoint { .init(x: 1.0, y: 1.0)}
+        static private var topLeftPoint: CGPoint { CGPoint.zero }
+        static private var bottomLeftPoint: CGPoint { CGPoint(x: .zero, y: 1.0) }
+        static private var topRightPoint: CGPoint { CGPoint(x: 1.0, y: .zero) }
+        static private var bottomRightPoint: CGPoint { CGPoint(x: 1.0, y: 1.0) }
     }
 }
 
@@ -116,9 +112,9 @@ import SnapKit
 struct LinearGradientContainer_Previews: PreviewProvider {
     static var previews: some View {
         SwiftUIPreview {
-            LinearGradient(config: .init(startColor: .init(color: .red),
-                                         endColor: .init(color: .clear),
-                                         startFrom: .bottomRight))
+            LinearGradient(config: LinearGradient.Config(startColor: ColorMap(color: .red),
+                                                         endColor: ColorMap(color: .clear),
+                                                         startFrom: LinearGradient.Direction.bottomRight))
         }
         .previewLayout(.fixed(width: 375, height: 375))
         .edgesIgnoringSafeArea(.vertical)

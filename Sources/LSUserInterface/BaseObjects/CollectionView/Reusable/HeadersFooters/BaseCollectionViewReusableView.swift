@@ -17,6 +17,7 @@ open class BaseCollectionViewReusableView: UICollectionReusableView {
         setupConstraints()
     }
 
+    @available(*, unavailable)
     required public init?(coder: NSCoder) {
         super.init(coder: coder)
         setupUI()

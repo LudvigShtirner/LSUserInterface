@@ -18,11 +18,11 @@ public struct DesignedButtonParameters {
     public var numberOfLines: NumberOfLines
     
     static func makeDefault() -> DesignedButtonParameters {
-        DesignedButtonParameters(tintColor: .init(color: .clear),
-                                 titleColor: .init(normal: .init(color: .black)),
-                                 imageSet: .init(),
-                                 backgroundImageSet: .init(),
-                                 titleSet: .init(normalText: ""),
+        DesignedButtonParameters(tintColor: ColorMap(color: .clear),
+                                 titleColor: ColorSet(normal: ColorMap(color: .black)),
+                                 imageSet: ImageSet(),
+                                 backgroundImageSet: ImageSet(),
+                                 titleSet: TitleSet(normalText: ""),
                                  font: .systemFont(ofSize: 14.0),
                                  numberOfLines: .restricted(1))
     }

@@ -17,6 +17,7 @@ open class BaseCollectionViewCell: UICollectionViewCell {
         setupConstraints()
     }
     
+    @available(*, unavailable)
     required public init?(coder: NSCoder) {
         super.init(coder: coder)
         setupUI()

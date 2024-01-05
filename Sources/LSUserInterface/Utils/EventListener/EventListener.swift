@@ -29,9 +29,9 @@ extension EventListenerInternal {
     @discardableResult
     public func onEvent(_ action: UIControl.Event,
                         _ closure: @escaping VoidBlock) -> Self {
-        let listener: UIControlListener = .init(control: self,
-                                                event: action,
-                                                action: closure)
+        let listener = UIControlListener(control: self,
+                                         event: action,
+                                         action: closure)
         listeners[listener.key] = listener
         return self
     }

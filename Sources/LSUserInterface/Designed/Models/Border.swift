@@ -9,6 +9,6 @@
 import UIKit
 
 public enum Border {
-    case fixed(CGFloat, ColorMap)
-    case changeable(CGFloat, ColorSet)
+    case fixed(width: CGFloat, color: ColorMap)
+    case changeable(width: CGFloat, colors: ColorSet)
 }

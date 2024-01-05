@@ -70,22 +70,22 @@ struct LSViewShakeAnimatorPreviews: PreviewProvider {
             let view = UIView()
             let button = DesignedButton()
                 .insert(into: view)
-                .setParameter(\.titleSet, with: .init(normalText: "Shake"))
-                .setParameter(\.titleColor, with: .init(normal: .init(color: .white)))
-                .setParameter(\.backgroundImageSet, with: .init(normalImage: UIColor.magenta.image()))
+                .setParameter(\.titleSet, with: TitleSet(normalText: "Shake"))
+                .setParameter(\.titleColor, with: ColorSet(normal: ColorMap(color: .white)))
+                .setParameter(\.backgroundImageSet, with: ImageSet(normalImage: UIColor.magenta.image()))
                 .setParameter(\.cornerRadius, with: .circled)
-                .setParameter(\.font, with: .systemFont(ofSize: 24, weight: .bold))
+                .setParameter(\.font, with: UIFont.systemFont(ofSize: 24, weight: .bold))
                 .setParameter(\.clipsToBounds, with: true)
                 
             button.onEvent(.touchUpInside) { [weak button] in
                 button?.animation.shake(shakeSteps: [
-                    .init(value: -7, keyTime: 0.2),
-                    .init(value: 7, keyTime: 0.4),
-                    .init(value: -3, keyTime: 0.6),
-                    .init(value: 3, keyTime: 0.8),
+                    ShakeStep(value: -7, keyTime: 0.2),
+                    ShakeStep(value: 7, keyTime: 0.4),
+                    ShakeStep(value: -3, keyTime: 0.6),
+                    ShakeStep(value: 3, keyTime: 0.8),
                 ], completion: { [weak button] finished in
                     let image = finished ? UIColor.blue.image() : UIColor.red.image()
-                    button?.setParameter(\.backgroundImageSet, with: .init(normalImage: image))
+                    button?.setParameter(\.backgroundImageSet, with: ImageSet(normalImage: image))
                 })
                 .execute()
             }

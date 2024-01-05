@@ -9,6 +9,21 @@
 import UIKit
 
 open class BaseViewController: UIViewController {
+    // MARK: - Inits
+    public override init(nibName nibNameOrNil: String?, 
+                         bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+    
+    public init() {
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    public required init?(coder: NSCoder) {
+        fatalError()
+    }
+    
     // MARK: - Overrides
     open override func viewDidLoad() {
         super.viewDidLoad()

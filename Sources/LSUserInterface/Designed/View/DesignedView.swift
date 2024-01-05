@@ -21,11 +21,6 @@ open class DesignedView: BaseView, DesignedViewInterfaceInternal, DesignedElemen
         super.init(frame: frame)
     }
     
-    @available(*, unavailable)
-    public required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     // MARK: - Overrides
     open override func layoutSubviews() {
         super.layoutSubviews()

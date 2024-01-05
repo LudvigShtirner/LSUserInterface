@@ -14,10 +14,10 @@ public struct Shadow {
     let opacity: Float
     let offset: CGSize
     
-    public init(color: ColorMap = .init(color: .black),
-                radius: CornerRadius = .fixed(3),
-                opacity: Float = .zero,
-                offset: CGSize = .init(width: .zero, height: -3)) {
+    public init(color: ColorMap = ColorMap(color: .black),
+                radius: CornerRadius = CornerRadius.fixed(3),
+                opacity: Float = Float.zero,
+                offset: CGSize = CGSize(width: .zero, height: -3)) {
         self.color = color
         self.radius = radius
         self.opacity = opacity

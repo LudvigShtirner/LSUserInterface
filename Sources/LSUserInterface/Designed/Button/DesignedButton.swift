@@ -23,10 +23,6 @@ open class DesignedButton: BaseButton, DesignedViewInterfaceInternal, DesignedEl
         super.init(frame: frame)
     }
     
-    public required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     // MARK: - Overrides
     open override var isHighlighted: Bool {
         didSet {
@@ -95,10 +91,10 @@ struct DesignedButtonPreviews: PreviewProvider {
             
             let button = DesignedButton(buttonDrawer: DesignedButtonTransparentTextDrawer())
                 .insert(into: view)
-                .setParameter(\.titleSet, with: .init(normalText: "Some Text provided to button"))
-                .setParameter(\.cornerRadius, with: .circled)
+                .setParameter(\.titleSet, with: TitleSet(normalText: "Some Text provided to button"))
+                .setParameter(\.cornerRadius, with: CornerRadius.circled)
                 .setParameter(\.clipsToBounds, with: true)
-                .setParameter(\.tintColor, with: .init(color: .random()))
+                .setParameter(\.tintColor, with: ColorMap(color: .random()))
             
             button.onEvents([.touchUpInside, .touchCancel, .touchUpOutside, .touchDragExit]) { [weak button] in
                 button?.animation
@@ -108,7 +104,7 @@ struct DesignedButtonPreviews: PreviewProvider {
             .onEvents([.touchDown, .touchDragEnter]) { [weak button] in
                 let scale = 1.05
                 button?.animation
-                    .transform(transform: .init(scaleX: scale, y: scale))
+                    .transform(transform: CGAffineTransform(scaleX: scale, y: scale))
                     .execute()
             }
             

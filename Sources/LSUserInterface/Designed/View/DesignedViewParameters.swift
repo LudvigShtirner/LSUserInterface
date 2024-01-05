@@ -19,13 +19,14 @@ public struct DesignedViewParameters {
     public var alpha: CGFloat
     
     static func makeDefault() -> DesignedViewParameters {
-        return .init(cornerRadius: .fixed(.zero),
-                     backgroundColor: .fixed(.init(color: .white)),
-                     border: .fixed(.zero, .init(color: .clear)),
-                     shadow: nil,
-                     isHidden: false,
-                     clipsToBounds: false,
-                     alpha: 1)
+        return DesignedViewParameters(cornerRadius: .fixed(.zero),
+                                      backgroundColor: .fixed(ColorMap(color: .white)),
+                                      border: .fixed(width: .zero,
+                                                     color: ColorMap(color: .clear)),
+                                      shadow: nil,
+                                      isHidden: false,
+                                      clipsToBounds: false,
+                                      alpha: 1)
     }
 }
 

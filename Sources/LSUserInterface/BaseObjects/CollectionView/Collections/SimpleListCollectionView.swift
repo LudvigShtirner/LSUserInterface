@@ -15,17 +15,17 @@ open class SimpleListCollectionView<
     LoadingView: BaseView
 >: BaseCollectionView<EmptyView, LoadingView> {
     // MARK: - Dependencies
-    private var dataProvider: ModelDataProvider<CellModel>?
+    private let dataProvider = SimpleModelDataProvider<CellModel, Cell>()
     
     // MARK: - Data
     private let layoutType: CollectionViewLayoutType
     
     public var models: [CellModel] {
-        dataProvider?.models ?? []
+        dataProvider.models
     }
     
     // MARK: - Inits
-    public init(frame: CGRect,
+    public init(frame: CGRect = .zero,
                 emptyView: EmptyView,
                 loadingView: LoadingView,
                 layoutType: CollectionViewLayoutType) {
@@ -35,31 +35,28 @@ open class SimpleListCollectionView<
                    collectionViewLayout: layout,
                    emptyView: emptyView,
                    loadingView: loadingView)
-    }
-    
-    public convenience init(emptyView: EmptyView,
-                            loadingView: LoadingView,
-                            layoutType: CollectionViewLayoutType) {
-        self.init(frame: .zero,
-                  emptyView: emptyView,
-                  loadingView: loadingView,
-                  layoutType: layoutType)
-    }
-    
-    required public init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: - Interface methods
-    public func configure(config: CollectionViewConfig<CellModel>) {
-        dataProvider = makeDataProvider(config: config,
-                                        layoutType: layoutType)
+        
+        dataSource = dataProvider
         delegate = dataProvider
         registerCell(Cell.self)
     }
     
+    // MARK: - Interface methods
+    public func configure(config: CollectionViewConfig<CellModel>) {
+        let getModel = { [weak dataProvider] indexPath in
+            return dataProvider?.getModel(for: indexPath)
+        }
+        dataProvider.cellSizeBehaviour = CollectionViewBehaviourFactory.makeCellSizeBehaviour(config: config,
+                                                                                              layoutType: layoutType)
+        dataProvider.willDisplayCellBehaviour = CollectionViewBehaviourFactory.makeWillDisplayCellBehaviour(config: config,
+                                                                                                            getModel: getModel)
+        dataProvider.didSelectCellBehaviour = CollectionViewBehaviourFactory.makeDidSelectCellBehaviour(config: config,
+                                                                                                        getModel: getModel)
+        dataProvider.didScrollBehaviour = CollectionViewBehaviourFactory.makeScrollDidScrollBehaviour(config: config)
+    }
+    
     public func updateModels(_ models: [CellModel]) {
-        dataProvider?.updateModels(models)
+        dataProvider.updateModels(models)
         reloadData()
         update(isLoading: false,
                isEmpty: models.isEmpty)
@@ -71,35 +68,15 @@ open class SimpleListCollectionView<
     }
     
     // MARK: - Private methods
-    private func makeDataProvider(config: CollectionViewConfig<CellModel>,
-                                  layoutType: CollectionViewLayoutType) -> ModelDataProvider<CellModel> {
-        let dataProvider = SimpleModelDataProvider<CellModel, Cell>()
-        dataSource = dataProvider
-        
-        let getModel = { [weak dataProvider] indexPath in
-            return dataProvider?.getModel(for: indexPath)
-        }
-        dataProvider.cellSizeBehaviour = CollectionViewBehaviourFactory.makeCellSizeBehaviour(config: config,
-                                                                                              layoutType: layoutType)
-        dataProvider.willDisplayCellBehaviour = CollectionViewBehaviourFactory.makeWillDisplayCellBehaviour(config: config,
-                                                                                                            getModel: getModel)
-        dataProvider.didSelectCellBehaviour = CollectionViewBehaviourFactory.makeDidSelectCellBehaviour(config: config,
-                                                                                                        getModel: getModel)
-        dataProvider.didScrollBehaviour = CollectionViewBehaviourFactory.makeScrollDidScrollBehaviour(config: config)
-        
-        
-        return dataProvider
-    }
-    
     private static func makeLayout(type: CollectionViewLayoutType) -> UICollectionViewLayout {
         switch type {
         case .flow(let config):
             let layout = UICollectionViewFlowLayout()
             layout.scrollDirection = config.scrollDirection
-            layout.sectionInset = .init(top: .zero,
-                                        left: config.inset,
-                                        bottom: .zero,
-                                        right: config.inset)
+            layout.sectionInset = UIEdgeInsets(top: .zero,
+                                               left: config.inset,
+                                               bottom: .zero,
+                                               right: config.inset)
             layout.minimumLineSpacing = config.lineSpacing
             layout.minimumInteritemSpacing = config.itemSpacing
             return layout
