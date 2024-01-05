@@ -23,8 +23,9 @@ final class DesignedButtonTests: XCTestCase {
                                                   size: CGSize(width: 100.0, height: 100.0)))
         // When
         button.setParameter(\.cornerRadius, with: .fixed(kCornerRadius))
-            .setParameter(\.border, with: .changeable(kBorderWidth, ColorSet(normal: ColorMap(lightColor: .red,
-                                                                                              darkColor: .blue))))
+            .setParameter(\.border, with: .changeable(width: kBorderWidth, 
+                                                      colors: ColorSet(normal: ColorMap(lightColor: .red,
+                                                                                        darkColor: .blue))))
             .setParameter(\.tintColor, with: ColorMap(lightColor: .green, darkColor: .brown))
             .setParameter(\.imageSet, with: ImageSet(normalImage: .checkmark))
             .setParameter(\.titleSet, with: TitleSet(normalText: kTestText))
