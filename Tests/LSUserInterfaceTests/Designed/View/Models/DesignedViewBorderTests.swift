@@ -44,6 +44,9 @@ final class DesignedViewBorderTests: XCTestCase {
     func testThatBorderSetForDarkTheme() {
         // Given
         view.overrideUserInterfaceStyle = .dark
+        if #available(iOS 17.0, *) {
+            view.updateTraitsIfNeeded()
+        }
         // When
         model.apply(to: view)
         // Then

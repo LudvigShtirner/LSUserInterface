@@ -30,7 +30,8 @@ public struct LSAnimation {
                        options: options) {
             self.animator.runAnimation()
         } completion: { success in
-            self.animator.completeAnimation(success: success)
+            self.animator.completeAnimation(duration: duration,
+                                            success: success)
         }
     }
     

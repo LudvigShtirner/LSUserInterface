@@ -12,5 +12,6 @@ protocol LSAnimator {
     func alreadyAtFinishState() -> Bool
     func preaction()
     func runAnimation()
-    func completeAnimation(success: Bool)
+    func completeAnimation(duration: TimeInterval,
+                           success: Bool)
 }

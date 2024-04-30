@@ -8,6 +8,7 @@
 // SPM
 import SupportCode
 // Apple
+import UIKit
 import QuartzCore
 
 // Constants
@@ -61,5 +62,20 @@ public extension CALayer {
         }
         self.add(fadeOut, forKey: nil)
         CATransaction.commit()
+    }
+    
+    func withFade(_ closure: () -> Void) {
+        if UIView.inheritedAnimationDuration != 0 {
+            add(self.contentChangeAnimation, forKey: "kCATransitionFade")
+        }
+        closure()
+    }
+    
+    private var contentChangeAnimation: CAAnimation {
+        let animation = CATransition()
+        animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+        animation.type = .fade
+        animation.duration = UIView.inheritedAnimationDuration
+        return animation
     }
 }

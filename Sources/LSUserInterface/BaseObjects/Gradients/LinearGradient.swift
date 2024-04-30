@@ -109,11 +109,11 @@ open class LinearGradient: BaseView {
 import SwiftUI
 import SnapKit
 
-struct LinearGradientContainer_Previews: PreviewProvider {
+struct LinearGradientPreviews: PreviewProvider {
     static var previews: some View {
         SwiftUIPreview {
             LinearGradient(config: LinearGradient.Config(startColor: ColorMap(color: .red),
-                                                         endColor: ColorMap(color: .clear),
+                                                         endColor: ColorMap(color: .red.withAlphaComponent(0)),
                                                          startFrom: LinearGradient.Direction.bottomRight))
         }
         .previewLayout(.fixed(width: 375, height: 375))

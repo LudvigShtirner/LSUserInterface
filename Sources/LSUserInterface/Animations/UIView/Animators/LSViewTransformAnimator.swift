@@ -10,7 +10,7 @@ import SupportCode
 // Apple
 import UIKit
 
-struct LSViewTransformAnimator: LSAnimator {
+struct LSViewTransformAnimator {
     // MARK: - Data
     private let view: UIView
     private let transform: CGAffineTransform
@@ -24,21 +24,22 @@ struct LSViewTransformAnimator: LSAnimator {
         self.transform = transform
         self.completion = completion
     }
-    
-    // MARK: - LSAnimator
+}
+
+// MARK: - LSAnimator
+extension LSViewTransformAnimator: LSAnimator {
     func alreadyAtFinishState() -> Bool {
         view.transform == transform
     }
     
-    func preaction() {
-        
-    }
+    func preaction() { }
     
     func runAnimation() {
         view.transform = transform
     }
     
-    func completeAnimation(success: Bool) {
+    func completeAnimation(duration: TimeInterval,
+                           success: Bool) {
         completion?(success)
     }
 }

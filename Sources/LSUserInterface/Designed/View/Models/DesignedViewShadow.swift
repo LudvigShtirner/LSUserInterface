@@ -37,6 +37,7 @@ public struct DesignedViewShadow: DesignedParameter, DesignedParameterApplyable 
         layer.shadowRadius = cornerRadius
         layer.shadowOpacity = value.opacity
         layer.shadowOffset = value.offset
+        #warning("Убрать комменты")
 //        layer.shadowPath = UIBezierPath(roundedRect: element.bounds,
 //                                        byRoundingCorners: [.allCorners],
 //                                        cornerRadii: .init(width: cornerRadius,

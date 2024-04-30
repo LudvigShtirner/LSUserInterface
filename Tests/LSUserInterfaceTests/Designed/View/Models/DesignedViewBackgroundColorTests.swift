@@ -20,7 +20,7 @@ final class DesignedViewBackgroundColorTests: XCTestCase {
         view = DesignedView()
         let colorMap = ColorMap(lightColor: .red,
                                 darkColor: .blue)
-        model = DesignedViewBackgroundColor(value: .fixed(colorMap))
+        model = DesignedViewBackgroundColor(value: colorMap)
     }
 
     override func tearDownWithError() throws {
@@ -41,6 +41,9 @@ final class DesignedViewBackgroundColorTests: XCTestCase {
     func testThatBackgroundSetForDarkTheme() {
         // Given
         view.overrideUserInterfaceStyle = .dark
+        if #available(iOS 17.0, *) {
+            view.updateTraitsIfNeeded()
+        }
         // When
         model.apply(to: view)
         // Then

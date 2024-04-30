@@ -8,32 +8,39 @@
 // Apple
 import UIKit
 
-open class DesignedImageView: UIImageView, DesignedViewInterfaceInternal, DesignedElementInsertable {
-    // MARK: - Data
-    var viewBehaviour = DesignedViewBehaviour()
-    private var imageViewBehaviour = DesignedImageViewBehaviour()
+open class DesignedImageView: UIImageView, DesignedViewInterfaceInternal, DesignedImageViewInterfaceInternal {
+    // MARK: - DesignedImageViewInterfaceInternal
+    var lsTintColor: DesignedImageViewTintColor?
+    
+    // MARK: - DesignedViewInterfaceInternal
+    var hitTestDecorator: DesignedViewHitTestDecorator?
+    var lsCornerRadius: DesignedViewCornerRadius?
+    var lsBackgroundColor: DesignedViewBackgroundColor?
+    var lsBorder: DesignedViewBorder?
+    var lsShadow: DesignedViewShadow?
     
     // MARK: - Overrides
-    public override func layoutSubviews() {
+    open override func hitTest(_ point: CGPoint,
+                               with event: UIEvent?) -> UIView? {
+        guard let decorator = hitTestDecorator else {
+            return super.hitTest(point, with: event)
+        }
+        return decorator.hitTest(point, with: event)
+    }
+    
+    open override func layoutSubviews() {
         super.layoutSubviews()
         
-        viewBehaviour.layoutSubviews(view: self)
+        lsCornerRadius?.apply(to: self)
+        lsShadow?.apply(to: self)
     }
     
-    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
-        viewBehaviour.traitCollectionDidChange(view: self)
-        imageViewBehaviour.traitCollectionDidChange(imageView: self)
-    }
-    
-    // MARK: - Interface methods
-    @discardableResult
-    public func setParameter<T>(_ parameter: WritableKeyPath<DesignedImageViewParameters, T>,
-                                with value: T) -> Self {
-        imageViewBehaviour.addParameter(parameter,
-                                        with: value,
-                                        for: self)
-        return self
+        lsBackgroundColor?.apply(to: self)
+        lsBorder?.apply(to: self)
+        lsShadow?.apply(to: self)
+        lsTintColor?.apply(to: self)
     }
 }

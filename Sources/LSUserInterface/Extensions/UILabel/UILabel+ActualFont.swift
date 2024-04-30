@@ -12,7 +12,7 @@ public extension UILabel {
     /// - Warning: text must set before asking actual font
     func calcActualFont() -> UIFont {
         guard let txt = text else {
-            assertionFailure("Text must been nonEmpty to calculate actual font of UILabel")
+            assertionFailure("No text, no calculations")
             return font
         }
         let attributedString = NSAttributedString(string: txt,

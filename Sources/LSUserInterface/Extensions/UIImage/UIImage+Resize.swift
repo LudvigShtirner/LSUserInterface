@@ -21,9 +21,9 @@ extension UIImage {
             format.scale = scale
         }
         let renderer = UIGraphicsImageRenderer(size: newFrame.size, format: format)
-        let image = renderer.image(actions: { context in
+        let image = renderer.image { _ in
             self.draw(in: newFrame)
-        })
-        return image
+        }
+        return image.withRenderingMode(renderingMode)
     }
 }

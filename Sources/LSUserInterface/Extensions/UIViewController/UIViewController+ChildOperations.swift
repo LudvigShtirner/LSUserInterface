@@ -22,7 +22,7 @@ extension UIViewController {
         addChild(viewController)
         container.addSubview(viewController.view)
         
-        container.snp.makeConstraints { make in
+        viewController.view.snp.makeConstraints { make in
             make.directionalEdges.equalToSuperview()
         }
         

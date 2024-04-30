@@ -10,13 +10,13 @@ import SupportCode
 // Apple
 import UIKit
 
-struct LSViewAlphaAnimator: LSAnimator {
+struct LSViewAlphaAnimator {
     // MARK: - Data
     private let view: UIView
     private let alpha: CGFloat
     private let completion: BoolBlock?
     
-    // MARK: - Inits
+    // MARK: - Life cycle
     init(view: UIView,
          alpha: CGFloat,
          completion: BoolBlock?) {
@@ -24,21 +24,22 @@ struct LSViewAlphaAnimator: LSAnimator {
         self.alpha = alpha
         self.completion = completion
     }
-    
-    // MARK: - LSAnimator
+}
+
+// MARK: - LSAnimator
+extension LSViewAlphaAnimator: LSAnimator {
     func alreadyAtFinishState() -> Bool {
-        abs(view.alpha - alpha) < .ulpOfOne
+        view.alpha.isAlmostEqual(to: alpha)
     }
     
-    func preaction() {
-        
-    }
+    func preaction() { }
     
     func runAnimation() {
         view.alpha = alpha
     }
     
-    func completeAnimation(success: Bool) {
+    func completeAnimation(duration: TimeInterval,
+                           success: Bool) {
         completion?(success)
     }
 }

@@ -34,7 +34,7 @@ public final class LSComposedAnimation {
                        options: options) {
             canStartAnimators.forEach { $0.runAnimation() }
         } completion: { success in
-            canStartAnimators.forEach { $0.completeAnimation(success: success) }
+            canStartAnimators.forEach { $0.completeAnimation(duration: duration, success: success) }
         }
     }
     

@@ -10,7 +10,7 @@ import SupportCode
 // Apple
 import UIKit
 
-struct LSViewPositionAnimator: LSAnimator {
+struct LSViewPositionAnimator {
     // MARK: - Data
     private let view: UIView
     private let offset: CGPoint
@@ -24,22 +24,23 @@ struct LSViewPositionAnimator: LSAnimator {
         self.offset = offset
         self.completion = completion
     }
-    
-    // MARK: - LSAnimator
+}
+
+// MARK: - LSAnimator
+extension LSViewPositionAnimator: LSAnimator {
     func alreadyAtFinishState() -> Bool {
-        offset == .zero
+        offset.isAlmostEqual(to: .zero)
     }
     
-    func preaction() {
-        
-    }
+    func preaction() { }
     
     func runAnimation() {
         view.frame.origin = CGPoint(x: view.frame.origin.x - offset.x,
                                     y: view.frame.origin.y - offset.y)
     }
     
-    func completeAnimation(success: Bool) {
+    func completeAnimation(duration: TimeInterval,
+                           success: Bool) {
         completion?(success)
     }
 }

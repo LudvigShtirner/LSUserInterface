@@ -32,6 +32,9 @@ final class ColorMapTests: XCTestCase {
         // Given
         let view = UIView()
         view.overrideUserInterfaceStyle = .dark
+        if #available(iOS 17.0, *) {
+            view.updateTraitsIfNeeded()
+        }
         let map = ColorMap(lightColor: yellowColor,
                            darkColor: redColor)
         // When

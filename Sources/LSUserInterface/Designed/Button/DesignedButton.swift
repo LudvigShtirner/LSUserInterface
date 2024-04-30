@@ -10,29 +10,37 @@ import UIKit
 // Pods
 import SnapKit
 
-open class DesignedButton: BaseButton, DesignedViewInterfaceInternal, DesignedElementInsertable {
-    // MARK: - Data
-    private var buttonBehaviour = DesignedButtonBehaviour()
-    private let buttonDrawer: DesignedButtonDrawer?
-    var viewBehaviour = DesignedViewBehaviour()
+open class DesignedButton: BaseButton, DesignedViewInterfaceInternal, DesignedButtonInterfaceInternal {
+    // MARK: - DesignedButtonInterfaceInternal
+    var drawer: DesignedButtonDrawer?
+    var lsTintColor: DesignedButtonTintColor?
+    var lsTitleColor: DesignedButtonTitleColor?
+    var lsBackgroundColors: DesignedButtonBackgroundColor?
+    
+    // MARK: - DesignedViewInterfaceInternal
+    var hitTestDecorator: DesignedViewHitTestDecorator?
+    var lsCornerRadius: DesignedViewCornerRadius?
+    var lsBackgroundColor: DesignedViewBackgroundColor?
+    var lsBorder: DesignedViewBorder?
+    var lsShadow: DesignedViewShadow?
     
     // MARK: - Inits
-    public init(frame: CGRect = .zero,
-                buttonDrawer: DesignedButtonDrawer? = nil) {
-        self.buttonDrawer = buttonDrawer
+    public override init(frame: CGRect = .zero) {
         super.init(frame: frame)
     }
     
     // MARK: - Overrides
     open override var isHighlighted: Bool {
         didSet {
-            buttonBehaviour.isHighlightedChanged(button: self)
+            lsTitleColor?.apply(to: self)
+            lsBackgroundColor?.apply(to: self)
         }
     }
     
     open override var isEnabled: Bool {
         didSet {
-            buttonBehaviour.isEnabledChanged(button: self)
+            lsTitleColor?.apply(to: self)
+            lsBackgroundColor?.apply(to: self)
         }
     }
     
@@ -43,11 +51,11 @@ open class DesignedButton: BaseButton, DesignedViewInterfaceInternal, DesignedEl
     }
     
     public override func draw(_ rect: CGRect) {
-        guard let buttonDrawer else {
+        guard let drawer else {
             super.draw(rect)
             return
         }
-        buttonDrawer.drawButton(self, rect: rect)
+        drawer.drawButton(self, rect: rect)
     }
     
     public override func setTitle(_ title: String?,
@@ -59,24 +67,18 @@ open class DesignedButton: BaseButton, DesignedViewInterfaceInternal, DesignedEl
     open override func layoutSubviews() {
         super.layoutSubviews()
         
-        viewBehaviour.layoutSubviews(view: self)
+        lsCornerRadius?.apply(to: self)
+        lsShadow?.apply(to: self)
     }
     
     open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
-        viewBehaviour.traitCollectionDidChange(view: self)
-        buttonBehaviour.traitCollectionDidChange(button: self)
-    }
-    
-    // MARK: - Interface methods
-    @discardableResult
-    public func setParameter<T>(_ parameter: WritableKeyPath<DesignedButtonParameters, T>,
-                                with value: T) -> Self {
-        buttonBehaviour.addParameter(parameter,
-                                     with: value,
-                                     for: self)
-        return self
+        lsBackgroundColor?.apply(to: self)
+        lsBorder?.apply(to: self)
+        lsShadow?.apply(to: self)
+        lsTintColor?.apply(to: self)
+        lsTitleColor?.apply(to: self)
     }
 }
 
@@ -86,35 +88,28 @@ import SwiftUI
 struct DesignedButtonPreviews: PreviewProvider {
     static var previews: some View {
         SwiftUIPreview {
-            let view = BaseView()
-            view.backgroundColor = .white
-            
-            let button = DesignedButton(buttonDrawer: DesignedButtonTransparentTextDrawer())
-                .insert(into: view)
-                .setParameter(\.titleSet, with: TitleSet(normalText: "Some Text provided to button"))
-                .setParameter(\.cornerRadius, with: CornerRadius.circled)
-                .setParameter(\.clipsToBounds, with: true)
-                .setParameter(\.tintColor, with: ColorMap(color: .random()))
+            let button = DesignedButton()
+                .setDrawer(DesignedButtonTransparentTextDrawer())
+                .setTitle(.init(normalText: "Some Text provided to button"))
+                .setCornerRadius(.circled)
+                .setClipsToBounds(true)
+                .setTintColor(.init(color: .random()))
             
             button.onEvents([.touchUpInside, .touchCancel, .touchUpOutside, .touchDragExit]) { [weak button] in
-                button?.animation
+                button?.ls.animation
                     .transform(transform: .identity)
                     .execute()
             }
             .onEvents([.touchDown, .touchDragEnter]) { [weak button] in
                 let scale = 1.05
-                button?.animation
+                button?.ls.animation
                     .transform(transform: CGAffineTransform(scaleX: scale, y: scale))
                     .execute()
             }
             
-            button.snp.makeConstraints { make in
-                make.center.equalToSuperview()
-                make.width.equalTo(260)
-                make.height.equalTo(64)
-            }
-            
-            return view
+            return CenteredContainer(content: button,
+                                     width: .fixed(260),
+                                     height: .fixed(64))
         }
         .previewLayout(.fixed(width: 375, height: 120))
         .edgesIgnoringSafeArea(.vertical)

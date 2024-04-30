@@ -10,7 +10,7 @@ import SupportCode
 // Apple
 import UIKit
 
-struct LSViewHideAnimator: LSAnimator {
+struct LSViewHideAnimator {
     // MARK: - Data
     private let view: UIView
     private let config: HideAnimatorConfiguration
@@ -24,8 +24,10 @@ struct LSViewHideAnimator: LSAnimator {
         self.config = config
         self.completion = completion
     }
-    
-    // MARK: - LSAnimator
+}
+
+// MARK: - LSAnimator
+extension LSViewHideAnimator: LSAnimator {
     func alreadyAtFinishState() -> Bool {
         view.isHidden == config.isHidden
     }
@@ -38,7 +40,8 @@ struct LSViewHideAnimator: LSAnimator {
         view.alpha = config.alpha
     }
     
-    func completeAnimation(success: Bool) {
+    func completeAnimation(duration: TimeInterval,
+                           success: Bool) {
         view.isHidden = config.isHidden
         view.alpha = config.alpha
         completion?(success)
@@ -52,19 +55,15 @@ public enum HideAnimatorConfiguration {
     
     var isHidden: Bool {
         switch self {
-        case .hide:
-            return true
-        case .show(let alpha):
-            return abs(alpha) < .ulpOfOne
+        case .hide: return true
+        case .show(let alpha): return alpha.isAlmostEqual(to: .zero)
         }
     }
     
     var alpha: CGFloat {
         switch self {
-        case .hide:
-            return .zero
-        case .show(let alpha):
-            return alpha
+        case .hide: return .zero
+        case .show(let alpha): return alpha
         }
     }
 }

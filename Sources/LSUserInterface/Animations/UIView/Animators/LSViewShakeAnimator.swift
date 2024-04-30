@@ -10,7 +10,7 @@ import SupportCode
 // Apple
 import UIKit
 
-struct LSViewShakeAnimator: LSKeyFrameAnimator {
+struct LSViewShakeAnimator {
     // MARK: - Data
     private let view: UIView
     private let shakeSteps: [ShakeStep]
@@ -24,13 +24,12 @@ struct LSViewShakeAnimator: LSKeyFrameAnimator {
         self.shakeSteps = shakeSteps
         self.completion = completion
     }
-    
-    // MARK: - LSAnimator
+}
+
+// MARK: - LSAnimator
+extension LSViewShakeAnimator: LSKeyFrameAnimator {
     var key: String { "position.x" }
-    
-    func alreadyAtFinishState() -> Bool {
-        return false
-    }
+    func alreadyAtFinishState() -> Bool { false }
     
     func preaction() {
         view.layer.removeAnimation(forKey: key)
@@ -67,36 +66,30 @@ import SnapKit
 struct LSViewShakeAnimatorPreviews: PreviewProvider {
     static var previews: some View {
         SwiftUIPreview {
-            let view = UIView()
             let button = DesignedButton()
-                .insert(into: view)
-                .setParameter(\.titleSet, with: TitleSet(normalText: "Shake"))
-                .setParameter(\.titleColor, with: ColorSet(normal: ColorMap(color: .white)))
-                .setParameter(\.backgroundImageSet, with: ImageSet(normalImage: UIColor.magenta.image()))
-                .setParameter(\.cornerRadius, with: .circled)
-                .setParameter(\.font, with: UIFont.systemFont(ofSize: 24, weight: .bold))
-                .setParameter(\.clipsToBounds, with: true)
+                .setTitle(.init(normalText: "Shake"))
+                .setTitleColor(.init(normal: .init(color: .white)))
+                .setBackgroundColors(.init(normal: .init(color: UIColor.magenta)))
+                .setFont(UIFont.systemFont(ofSize: 24, weight: .bold))
+                .setCornerRadius(.circled)
+                .setClipsToBounds(true)
                 
             button.onEvent(.touchUpInside) { [weak button] in
-                button?.animation.shake(shakeSteps: [
+                button?.ls.animation.shake(shakeSteps: [
                     ShakeStep(value: -7, keyTime: 0.2),
                     ShakeStep(value: 7, keyTime: 0.4),
                     ShakeStep(value: -3, keyTime: 0.6),
                     ShakeStep(value: 3, keyTime: 0.8),
                 ], completion: { [weak button] finished in
-                    let image = finished ? UIColor.blue.image() : UIColor.red.image()
-                    button?.setParameter(\.backgroundImageSet, with: ImageSet(normalImage: image))
+                    let color = finished ? UIColor.blue : UIColor.red
+                    button?.setBackgroundColors(.init(normal: .init(color: color)))
                 })
                 .execute()
             }
             
-            button.snp.makeConstraints { make in
-                make.leading.trailing.equalToSuperview().inset(16)
-                make.bottom.equalToSuperview().inset(32)
-                make.height.equalTo(64)
-            }
-            
-            return view
+            return CenteredContainer(content: button,
+                                     width: .fixed(240),
+                                     height: .fixed(64))
         }
         .previewLayout(.fixed(width: 375, height: 44))
         .edgesIgnoringSafeArea(.vertical)

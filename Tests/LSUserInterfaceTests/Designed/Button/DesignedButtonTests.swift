@@ -22,16 +22,17 @@ final class DesignedButtonTests: XCTestCase {
         let button = DesignedButton(frame: CGRect(origin: .zero,
                                                   size: CGSize(width: 100.0, height: 100.0)))
         // When
-        button.setParameter(\.cornerRadius, with: .fixed(kCornerRadius))
-            .setParameter(\.border, with: .changeable(width: kBorderWidth, 
-                                                      colors: ColorSet(normal: ColorMap(lightColor: .red,
-                                                                                        darkColor: .blue))))
-            .setParameter(\.tintColor, with: ColorMap(lightColor: .green, darkColor: .brown))
-            .setParameter(\.imageSet, with: ImageSet(normalImage: .checkmark))
-            .setParameter(\.titleSet, with: TitleSet(normalText: kTestText))
-            .setParameter(\.font, with: .systemFont(ofSize: kFontSize))
-            .setParameter(\.titleColor, with: ColorSet(normal: ColorMap(lightColor: .white,
-                                                                        darkColor: .black)) )
+        button
+            .setCornerRadius(.fixed(kCornerRadius))
+            .setBorder(.changeable(width: kBorderWidth,
+                                   colors: ColorSet(normal: ColorMap(lightColor: .red,
+                                                                     darkColor: .blue))))
+            .setTintColor(.init(lightColor: .green, darkColor: .brown))
+            .setImageSet(.init(normalImage: .checkmark))
+            .setTitle(.init(normalText: kTestText))
+            .setFont(.systemFont(ofSize: kFontSize))
+            .setTitleColor(.init(normal: ColorMap(lightColor: .white,
+                                                  darkColor: .black)) )
         // Then
         XCTAssertEqual(button.layer.cornerRadius, kCornerRadius)
         XCTAssertEqual(button.layer.borderWidth, kBorderWidth)

@@ -41,6 +41,9 @@ final class DesignedButtonTintColorTests: XCTestCase {
     func testThatBackgroundSetForDarkTheme() {
         // Given
         button.overrideUserInterfaceStyle = .dark
+        if #available(iOS 17.0, *) {
+            button.updateTraitsIfNeeded()
+        }
         // When
         model.apply(to: button)
         // Then

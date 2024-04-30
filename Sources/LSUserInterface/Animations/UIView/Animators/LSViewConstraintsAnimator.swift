@@ -10,7 +10,7 @@ import SupportCode
 // Apple
 import UIKit
 
-struct LSViewConstraintsAnimator: LSAnimator {
+struct LSViewConstraintsAnimator {
     // MARK: - Data
     private let view: UIView
     private let constraintsSetAction: VoidBlock
@@ -24,23 +24,54 @@ struct LSViewConstraintsAnimator: LSAnimator {
         self.constraintsSetAction = constraintsSetAction
         self.completion = completion
     }
-    
-    // MARK: - LSAnimator
-    func alreadyAtFinishState() -> Bool {
-        return false
-    }
-    
-    func preaction() {
-        
-    }
+}
+
+// MARK: - LSAnimator
+extension LSViewConstraintsAnimator: LSAnimator {
+    func alreadyAtFinishState() -> Bool { false }
+    func preaction() { }
     
     func runAnimation() {
         constraintsSetAction()
-        view.setNeedsLayout()
         view.layoutIfNeeded()
     }
     
-    func completeAnimation(success: Bool) {
-        completion?(success)
+    func completeAnimation(duration: TimeInterval,
+                           success: Bool) {
+        DispatchQueue.callOnMainQueueWithDelay(duration) { [self] in
+            self.completion?(success)
+        }
+    }
+}
+
+// MARK: - SwiftUI Preview
+import SwiftUI
+
+struct LSViewConstraintsAnimatorPreviews: PreviewProvider {
+    static var previews: some View {
+        SwiftUIPreview {
+            let view = DesignedView()
+            
+            let innerView = DesignedView()
+                .setBackgroundColor(.init(color: .red))
+            view.addSubview(innerView)
+            innerView.snp.makeConstraints { make in
+                make.center.equalToSuperview()
+                make.width.height.equalTo(100)
+            }
+            innerView.ls.animation
+                .constraints {
+                    innerView.snp.remakeConstraints { make in
+                        make.center.equalToSuperview().offset(100)
+                        make.width.height.equalTo(100)
+                    }
+                    view.layoutIfNeeded()
+                }
+                .execute(duration: 2.0, options: .curveEaseInOut)
+            
+            return view
+        }
+        .previewLayout(.fixed(width: 375, height: 44))
+        .edgesIgnoringSafeArea(.vertical)
     }
 }

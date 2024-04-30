@@ -55,7 +55,9 @@ public struct ColorMap {
         switch view.traitCollection.userInterfaceStyle {
         case .light, .unspecified: return lightColor
         case .dark: return darkColor
-        @unknown default: fatalError("Not supported \(view.traitCollection.userInterfaceStyle)")
+        @unknown default:
+            assertionFailure("Not supported \(view.traitCollection.userInterfaceStyle)")
+            return lightColor
         }
     }
 }

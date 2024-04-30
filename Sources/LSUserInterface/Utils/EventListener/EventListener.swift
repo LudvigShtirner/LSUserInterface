@@ -15,7 +15,6 @@ public protocol EventListener: UIControl {
     func onEvent(_ action: UIControl.Event,
                  _ closure: @escaping VoidBlock) -> Self
     
-    // MARK: - Public methods
     @discardableResult
     func onEvents(_ actions: [UIControl.Event],
                   _ closure: @escaping VoidBlock) -> Self

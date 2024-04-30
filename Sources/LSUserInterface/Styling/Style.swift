@@ -23,23 +23,19 @@ public struct Style<T> {
     }
     
     public func apply(to views: T...) {
-        for view in views {
-            apply(to: view)
-        }
+        views.forEach { apply(to: $0) }
     }
     
     public func compose(with other: Style<T>) -> Self {
-        return Style { view in
-            self.apply(to: view)
-            other.apply(to: view)
+        Style {
+            self.apply(to: $0)
+            other.apply(to: $0)
         }
     }
     
     public static func compose(_ styles: Style<T>...) -> Self {
-        return Style { view in
-            for style in styles {
-                style.apply(to: view)
-            }
+        Style { view in
+            styles.forEach { $0.apply(to: view) }
         }
     }
 }

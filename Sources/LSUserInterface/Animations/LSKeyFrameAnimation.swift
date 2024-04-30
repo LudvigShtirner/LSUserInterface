@@ -35,13 +35,6 @@ public final class LSKeyFrameAnimation: NSObject {
         DispatchQueue.callOnMainQueueWithDelay(delay) { [weak self] in
             self?.animator.runAnimation(animation)
         }
-//        UIView.animate(withDuration: duration,
-//                       delay: delay,
-//                       options: options) {
-//            self.animator.runAnimation()
-//        } completion: { success in
-//            self.animator.completeAnimation(success: success)
-//        }
     }
 }
 

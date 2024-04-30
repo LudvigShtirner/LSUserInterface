@@ -68,7 +68,8 @@ public extension UICollectionView {
     /// - Returns: instance of expected Cell class
     func dequeueCell<T: UICollectionViewCell>(for indexPath: IndexPath) -> T {
         guard let cell = dequeueReusableCell(withReuseIdentifier: T.classIdentifier, for: indexPath) as? T else {
-            fatalError("Could not dequeue cell with identifier: \(T.classIdentifier)")
+            assertionFailure("Could not dequeue cell with identifier: \(T.classIdentifier)")
+            return T.init()
         }
         return cell
     }
@@ -88,7 +89,8 @@ public extension UICollectionView {
                                                     withReuseIdentifier: T.classIdentifier,
                                                     for: indexPath)
         guard let result = view as? T else {
-            fatalError("Could not dequeue SupplementaryView with identifier: \(T.classIdentifier)")
+            assertionFailure("Could not dequeue SupplementaryView with identifier: \(T.classIdentifier)")
+            return T.init()
         }
         return result
     }

@@ -10,26 +10,31 @@ import UIKit
 private let defaultCIContext = CIContext()
 
 public extension UIImage {
-    func getCGImage() -> CGImage {
-        if let image = cgImage {
-            return image
+    func getCGImage() throws -> CGImage {
+        if let cgImage {
+            return cgImage
         }
-        guard let ciimage = ciImage else {
-            fatalError("Image must be implemented by Core Image or Core Graphics")
+        guard let ciImage else {
+            throw UIImageConverterError.imageDoesntFacedWithCoreGraphicsOrCoreImage
         }
-        guard let createdImage = defaultCIContext.createCGImage(ciimage, from: ciimage.extent) else {
-            fatalError("Context Error")
+        guard let createdImage = defaultCIContext.createCGImage(ciImage, from: ciImage.extent) else {
+            throw UIImageConverterError.contextError
         }
         return createdImage
     }
     
-    func getCIImage() -> CIImage {
-        if let image = ciImage {
-            return image
+    func getCIImage() throws -> CIImage {
+        if let ciImage {
+            return ciImage
         }
         guard let cgimage = cgImage else {
-            fatalError("Image must be implemented by Core Image or Core Graphics")
+            throw UIImageConverterError.imageDoesntFacedWithCoreGraphicsOrCoreImage
         }
         return CIImage(cgImage: cgimage)
     }
+}
+
+public enum UIImageConverterError: Error {
+    case imageDoesntFacedWithCoreGraphicsOrCoreImage
+    case contextError
 }

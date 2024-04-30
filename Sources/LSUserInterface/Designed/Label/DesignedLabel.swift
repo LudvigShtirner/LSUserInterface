@@ -8,32 +8,31 @@
 // Apple
 import UIKit
 
-open class DesignedLabel: UILabel, DesignedViewInterfaceInternal, DesignedElementInsertable {
-    // MARK: - Data
-    public var viewBehaviour = DesignedViewBehaviour()
-    private var labelBehaviour = DesignedLabelBehaviour()
+open class DesignedLabel: UILabel, DesignedViewInterfaceInternal, DesignedLabelInterfaceInternal {
+    // MARK: - DesignedLabelInterfaceInternal
+    var lsTextColor: DesignedLabelTextColor?
+    
+    // MARK: - DesignedViewInterfaceInternal
+    var hitTestDecorator: DesignedViewHitTestDecorator?
+    var lsCornerRadius: DesignedViewCornerRadius?
+    var lsBackgroundColor: DesignedViewBackgroundColor?
+    var lsBorder: DesignedViewBorder?
+    var lsShadow: DesignedViewShadow?
     
     // MARK: - Overrides
     public override func layoutSubviews() {
         super.layoutSubviews()
         
-        viewBehaviour.layoutSubviews(view: self)
+        lsCornerRadius?.apply(to: self)
+        lsShadow?.apply(to: self)
     }
     
     public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
-        viewBehaviour.traitCollectionDidChange(view: self)
-        labelBehaviour.traitCollectionDidChange(label: self)
-    }
-    
-    // MARK: - Interface methods
-    @discardableResult
-    public func setParameter<T>(_ parameter: WritableKeyPath<DesignedLabelParameters, T>,
-                                with value: T) -> Self {
-        labelBehaviour.addParameter(parameter,
-                                    with: value,
-                                    for: self)
-        return self
+        lsBackgroundColor?.apply(to: self)
+        lsBorder?.apply(to: self)
+        lsShadow?.apply(to: self)
+        lsTextColor?.apply(to: self)
     }
 }
