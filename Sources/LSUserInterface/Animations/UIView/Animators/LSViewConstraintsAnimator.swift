@@ -53,7 +53,7 @@ struct LSViewConstraintsAnimatorPreviews: PreviewProvider {
             let view = DesignedView()
             
             let innerView = DesignedView()
-                .setBackgroundColor(.init(color: .red))
+                .usingBackgroundColor(.init(color: .red))
             view.addSubview(innerView)
             innerView.snp.makeConstraints { make in
                 make.center.equalToSuperview()

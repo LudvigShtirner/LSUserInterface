@@ -10,25 +10,25 @@ import UIKit
 
 public protocol DesignedSliderInterface: UISlider {
     @discardableResult
-    func setSliderDrawer(_ sliderDrawer: DesignedSliderDrawer) -> Self
+    func usingSliderDrawer(_ sliderDrawer: DesignedSliderDrawer) -> Self
     @discardableResult
-    func setTrackingEventHandler(_ trackingEventHandler: DesignedSliderTrackingEventHandler) -> Self
+    func usingTrackingEventHandler(_ trackingEventHandler: DesignedSliderTrackingEventHandler) -> Self
     @discardableResult
-    func setLayoutSubviewsDecorator(_ layoutSubviewsDecorator: DesignedSliderLayoutSubviewsDecorator) -> Self
+    func usingLayoutSubviewsDecorator(_ layoutSubviewsDecorator: DesignedSliderLayoutSubviewsDecorator) -> Self
     @discardableResult
-    func setThumbRectDecorator(_ thumbRectDecorator: DesignedSliderThumbRectDecorator) -> Self
+    func usingThumbRectDecorator(_ thumbRectDecorator: DesignedSliderThumbRectDecorator) -> Self
     
     @discardableResult
-    func setThumbImage(_ thumbImage: ImageSet) -> Self
+    func usingThumbImage(_ thumbImage: ImageSet) -> Self
     @discardableResult
-    func setMinimumTrackColors(_ minimumColors: ColorSet) -> Self
+    func usingMinimumTrackColors(_ minimumColors: ColorSet) -> Self
     @discardableResult
-    func setMaximumTrackColors(_ maximumColors: ColorSet) -> Self
+    func usingMaximumTrackColors(_ maximumColors: ColorSet) -> Self
     
     @discardableResult
-    func setMinimumValue(_ minimumValue: Float) -> Self
+    func usingMinimumValue(_ minimumValue: Float) -> Self
     @discardableResult
-    func setMaximumValue(_ maximumValue: Float) -> Self
+    func usingMaximumValue(_ maximumValue: Float) -> Self
 }
 
 protocol DesignedSliderInterfaceInternal: DesignedSliderInterface {
@@ -44,58 +44,58 @@ protocol DesignedSliderInterfaceInternal: DesignedSliderInterface {
 
 extension DesignedSliderInterfaceInternal {
     @discardableResult
-    public func setSliderDrawer(_ sliderDrawer: DesignedSliderDrawer) -> Self {
+    public func usingSliderDrawer(_ sliderDrawer: DesignedSliderDrawer) -> Self {
         self.sliderDrawer = sliderDrawer
         return self
     }
     
     @discardableResult
-    public func setTrackingEventHandler(_ trackingEventHandler: DesignedSliderTrackingEventHandler) -> Self {
+    public func usingTrackingEventHandler(_ trackingEventHandler: DesignedSliderTrackingEventHandler) -> Self {
         self.trackingEventHandler = trackingEventHandler
         return self
     }
     
     @discardableResult
-    public func setLayoutSubviewsDecorator(_ layoutSubviewsDecorator: DesignedSliderLayoutSubviewsDecorator) -> Self {
+    public func usingLayoutSubviewsDecorator(_ layoutSubviewsDecorator: DesignedSliderLayoutSubviewsDecorator) -> Self {
         self.layoutSubviewsDecorator = layoutSubviewsDecorator
         return self
     }
     
     @discardableResult
-    public func setThumbRectDecorator(_ thumbRectDecorator: DesignedSliderThumbRectDecorator) -> Self {
+    public func usingThumbRectDecorator(_ thumbRectDecorator: DesignedSliderThumbRectDecorator) -> Self {
         self.thumbRectDecorator = thumbRectDecorator
         return self
     }
     
     @discardableResult
-    public func setThumbImage(_ thumbImage: ImageSet) -> Self {
+    public func usingThumbImage(_ thumbImage: ImageSet) -> Self {
         self.thumbImages = DesignedSliderThumbImage(thumbImage: thumbImage)
         self.thumbImages?.apply(to: self)
         return self
     }
     
     @discardableResult
-    public func setMinimumTrackColors(_ minimumColors: ColorSet) -> Self {
+    public func usingMinimumTrackColors(_ minimumColors: ColorSet) -> Self {
         self.minimumTrackColors = DesignedSliderMinimumTrackColor(colorSet: minimumColors)
         self.minimumTrackColors?.apply(to: self)
         return self
     }
     
     @discardableResult
-    public func setMaximumTrackColors(_ maximumColors: ColorSet) -> Self {
+    public func usingMaximumTrackColors(_ maximumColors: ColorSet) -> Self {
         self.maximumTrackColors = DesignedSliderMaximumTrackColor(colorSet: maximumColors)
         self.maximumTrackColors?.apply(to: self)
         return self
     }
     
     @discardableResult
-    public func setMinimumValue(_ minimumValue: Float) -> Self {
+    public func usingMinimumValue(_ minimumValue: Float) -> Self {
         self.minimumValue = minimumValue
         return self
     }
     
     @discardableResult
-    public func setMaximumValue(_ maximumValue: Float) -> Self {
+    public func usingMaximumValue(_ maximumValue: Float) -> Self {
         self.maximumValue = maximumValue
         return self
     }

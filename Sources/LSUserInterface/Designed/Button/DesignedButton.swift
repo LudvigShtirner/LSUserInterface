@@ -89,11 +89,11 @@ struct DesignedButtonPreviews: PreviewProvider {
     static var previews: some View {
         SwiftUIPreview {
             let button = DesignedButton()
-                .setDrawer(DesignedButtonTransparentTextDrawer())
-                .setTitle(.init(normalText: "Some Text provided to button"))
-                .setCornerRadius(.circled)
-                .setClipsToBounds(true)
-                .setTintColor(.init(color: .random()))
+                .usingDrawer(DesignedButtonTransparentTextDrawer())
+                .usingTitle(.init(normalText: "Some Text provided to button"))
+                .usingCornerRadius(.circled)
+                .usingClipsToBounds(true)
+                .usingTintColor(.init(color: .random()))
             
             button.onEvents([.touchUpInside, .touchCancel, .touchUpOutside, .touchDragExit]) { [weak button] in
                 button?.ls.animation

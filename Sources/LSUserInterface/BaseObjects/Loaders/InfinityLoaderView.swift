@@ -118,9 +118,9 @@ struct InfinityLoaderViewPreviews: PreviewProvider {
             loader.thicknessRatio = 0.4
             
             let button = DesignedButton()
-                .setTitle(.init(normalText: "LoaderView Toggle"))
-                .setBorder(.fixed(width: 2, color: .init(color: .white)))
-                .setCornerRadius(.fixed(8))
+                .usingTitle(.init(normalText: "LoaderView Toggle"))
+                .usingBorder(.fixed(width: 2, color: .init(color: .white)))
+                .usingCornerRadius(.fixed(8))
                 .onEvent(.touchUpInside) { [weak loader] in
                     guard let loader else { return }
                     if loader.isAnimating {

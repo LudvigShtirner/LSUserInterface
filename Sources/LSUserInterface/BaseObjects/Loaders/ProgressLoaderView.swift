@@ -193,8 +193,8 @@ struct ProgressLoaderViewPreviews: PreviewProvider {
     
     static private var button: DesignedButton {
         DesignedButton()
-            .setTitle(.init(normalText: "ProgressView update"))
-            .setBorder(.fixed(width: 2, color: .init(color: .white)))
-            .setCornerRadius(.fixed(8))
+            .usingTitle(.init(normalText: "ProgressView update"))
+            .usingBorder(.fixed(width: 2, color: .init(color: .white)))
+            .usingCornerRadius(.fixed(8))
     }
 }

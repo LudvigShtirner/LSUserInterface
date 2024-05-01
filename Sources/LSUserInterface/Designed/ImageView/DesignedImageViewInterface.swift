@@ -10,14 +10,14 @@ import UIKit
 
 public protocol DesignedImageViewInterface: UIImageView {
     @discardableResult
-    func setTintColor(_ tintColor: ColorMap) -> Self
+    func usingTintColor(_ tintColor: ColorMap) -> Self
     
     @discardableResult
-    func setImage(_ image: UIImage?) -> Self
+    func usingImage(_ image: UIImage?) -> Self
     @discardableResult
-    func setHighlightedImage(_ highlightedImage: UIImage?) -> Self
+    func usingHighlightedImage(_ highlightedImage: UIImage?) -> Self
     @discardableResult
-    func setContentMode(_ contentMode: UIView.ContentMode) -> Self
+    func usingContentMode(_ contentMode: UIView.ContentMode) -> Self
 }
 
 protocol DesignedImageViewInterfaceInternal: DesignedImageViewInterface {
@@ -26,14 +26,14 @@ protocol DesignedImageViewInterfaceInternal: DesignedImageViewInterface {
 
 extension DesignedImageViewInterfaceInternal {
     @discardableResult
-    public func setTintColor(_ tintColor: ColorMap) -> Self {
+    public func usingTintColor(_ tintColor: ColorMap) -> Self {
         lsTintColor = DesignedImageViewTintColor(tintColor: tintColor)
         lsTintColor?.apply(to: self)
         return self
     }
     
     @discardableResult
-    public func setImage(_ image: UIImage?) -> Self {
+    public func usingImage(_ image: UIImage?) -> Self {
         guard let image else {
             self.image = nil
             return self
@@ -47,7 +47,7 @@ extension DesignedImageViewInterfaceInternal {
     }
     
     @discardableResult
-    public func setHighlightedImage(_ highlightedImage: UIImage?) -> Self {
+    public func usingHighlightedImage(_ highlightedImage: UIImage?) -> Self {
         guard let highlightedImage else {
             self.highlightedImage = nil
             return self
@@ -61,7 +61,7 @@ extension DesignedImageViewInterfaceInternal {
     }
     
     @discardableResult
-    public func setContentMode(_ contentMode: UIView.ContentMode) -> Self {
+    public func usingContentMode(_ contentMode: UIView.ContentMode) -> Self {
         self.contentMode = contentMode
         return self
     }

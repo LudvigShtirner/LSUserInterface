@@ -1,6 +1,6 @@
 //
 //  DesignedViewTests.swift
-//  
+//
 //
 //  Created by Алексей Филиппов on 04.12.2022.
 //
@@ -20,10 +20,10 @@ final class DesignedViewTests: XCTestCase {
         let view = DesignedView(frame: CGRect(origin: .zero,
                                               size: CGSize(width: 100.0, height: 100.0)))
         // When
-        view.setCornerRadius(.fixed(kCornerRadius))
-            .setBorder(.fixed(width: kBorderWidth,
-                              color: ColorMap(lightColor: .red,
-                                              darkColor: .blue)))
+        view.usingCornerRadius(.fixed(kCornerRadius))
+            .usingBorder(.fixed(width: kBorderWidth,
+                                color: ColorMap(lightColor: .red,
+                                                darkColor: .blue)))
         // Then
         XCTAssertEqual(view.layer.cornerRadius, kCornerRadius)
         XCTAssertEqual(view.layer.borderWidth, kBorderWidth)

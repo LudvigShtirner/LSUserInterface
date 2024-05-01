@@ -10,15 +10,15 @@ import UIKit
 
 public protocol DesignedLabelInterface: UILabel {
     @discardableResult
-    func setTextColor(_ textColor: ColorMap) -> Self
+    func usingTextColor(_ textColor: ColorMap) -> Self
     @discardableResult
-    func setText(_ text: String) -> Self
+    func usingText(_ text: String) -> Self
     @discardableResult
-    func setFont(_ font: UIFont) -> Self
+    func usingFont(_ font: UIFont) -> Self
     @discardableResult
-    func setNumberOfLines(_ numberOfLines: NumberOfLines) -> Self
+    func usingNumberOfLines(_ numberOfLines: NumberOfLines) -> Self
     @discardableResult
-    func setTextAlignment(_ textAlignment: NSTextAlignment) -> Self
+    func usingTextAlignment(_ textAlignment: NSTextAlignment) -> Self
 }
 
 protocol DesignedLabelInterfaceInternal: DesignedLabelInterface {
@@ -27,32 +27,32 @@ protocol DesignedLabelInterfaceInternal: DesignedLabelInterface {
 
 extension DesignedLabelInterfaceInternal {
     @discardableResult
-    public func setTextColor(_ textColor: ColorMap) -> Self {
+    public func usingTextColor(_ textColor: ColorMap) -> Self {
         lsTextColor = DesignedLabelTextColor(textColor: textColor)
         lsTextColor?.apply(to: self)
         return self
     }
     
     @discardableResult
-    public func setText(_ text: String) -> Self {
+    public func usingText(_ text: String) -> Self {
         self.text = text
         return self
     }
     
     @discardableResult
-    public func setFont(_ font: UIFont) -> Self {
+    public func usingFont(_ font: UIFont) -> Self {
         self.font = font
         return self
     }
     
     @discardableResult
-    public func setNumberOfLines(_ numberOfLines: NumberOfLines) -> Self {
+    public func usingNumberOfLines(_ numberOfLines: NumberOfLines) -> Self {
         self.numberOfLines = numberOfLines.value
         return self
     }
     
     @discardableResult
-    public func setTextAlignment(_ textAlignment: NSTextAlignment) -> Self {
+    public func usingTextAlignment(_ textAlignment: NSTextAlignment) -> Self {
         self.textAlignment = textAlignment
         return self
     }

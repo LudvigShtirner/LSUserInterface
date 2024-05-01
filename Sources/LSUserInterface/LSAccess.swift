@@ -11,6 +11,6 @@ import UIKit
 public struct LSAccess {
     let view: UIView
     
-    var animation: LSViewAnimation { LSViewAnimation(view: view) }
+    public var animation: LSViewAnimation { LSViewAnimation(view: view) }
 }
 

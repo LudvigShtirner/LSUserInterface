@@ -10,27 +10,27 @@ import UIKit
 
 public protocol DesignedButtonInterface: UIButton {
     @discardableResult
-    func setDrawer(_ drawer: DesignedButtonDrawer) -> Self
+    func usingDrawer(_ drawer: DesignedButtonDrawer) -> Self
     
     @discardableResult
-    func setTintColor(_ tintColor: ColorMap) -> Self
+    func usingTintColor(_ tintColor: ColorMap) -> Self
     @discardableResult
-    func setTitleColor(_ titleColor: ColorSet) -> Self
+    func usingTitleColor(_ titleColor: ColorSet) -> Self
     @discardableResult
-    func setBackgroundColors(_ backgroundColors: ColorSet) -> Self
+    func usingBackgroundColors(_ backgroundColors: ColorSet) -> Self
     
     @discardableResult
-    func setImageSet(_ imageSet: ImageSet) -> Self
+    func usingImageSet(_ imageSet: ImageSet) -> Self
     @discardableResult
-    func setBackgroundImageSet(_ imageSet: ImageSet) -> Self
+    func usingBackgroundImageSet(_ imageSet: ImageSet) -> Self
     @discardableResult
-    func setTitle(_ titleSet: TitleSet) -> Self
+    func usingTitle(_ titleSet: TitleSet) -> Self
     @discardableResult
-    func setFont(_ font: UIFont) -> Self
+    func usingFont(_ font: UIFont) -> Self
     @discardableResult
-    func setNumberOfLines(_ numberOfLines: NumberOfLines) -> Self
+    func usingNumberOfLines(_ numberOfLines: NumberOfLines) -> Self
     @discardableResult
-    func setContentInsets(_ contentInsets: UIEdgeInsets) -> Self
+    func usingContentInsets(_ contentInsets: UIEdgeInsets) -> Self
 }
 
 protocol DesignedButtonInterfaceInternal: DesignedButtonInterface {
@@ -42,34 +42,34 @@ protocol DesignedButtonInterfaceInternal: DesignedButtonInterface {
 
 extension DesignedButtonInterfaceInternal {
     @discardableResult
-    public func setDrawer(_ drawer: DesignedButtonDrawer) -> Self {
+    public func usingDrawer(_ drawer: DesignedButtonDrawer) -> Self {
         self.drawer = drawer
         return self
     }
     
     @discardableResult
-    public func setTintColor(_ tintColor: ColorMap) -> Self {
+    public func usingTintColor(_ tintColor: ColorMap) -> Self {
         lsTintColor = DesignedButtonTintColor(colorMap: tintColor)
         lsTintColor?.apply(to: self)
         return self
     }
     
     @discardableResult
-    public func setTitleColor(_ titleColor: ColorSet) -> Self {
+    public func usingTitleColor(_ titleColor: ColorSet) -> Self {
         lsTitleColor = DesignedButtonTitleColor(titleColorSet: titleColor)
         lsTitleColor?.apply(to: self)
         return self
     }
     
     @discardableResult
-    public func setBackgroundColors(_ backgroundColors: ColorSet) -> Self {
+    public func usingBackgroundColors(_ backgroundColors: ColorSet) -> Self {
         lsBackgroundColors = DesignedButtonBackgroundColor(colorSet: backgroundColors)
         lsBackgroundColors?.apply(to: self)
         return self
     }
     
     @discardableResult
-    public func setImageSet(_ imageSet: ImageSet) -> Self {
+    public func usingImageSet(_ imageSet: ImageSet) -> Self {
         setImage(imageSet.normalImage, for: .normal)
         setImage(imageSet.highlightImage, for: .highlighted)
         setImage(imageSet.disabledImage, for: .disabled)
@@ -77,7 +77,7 @@ extension DesignedButtonInterfaceInternal {
     }
     
     @discardableResult
-    public func setBackgroundImageSet(_ imageSet: ImageSet) -> Self {
+    public func usingBackgroundImageSet(_ imageSet: ImageSet) -> Self {
         setBackgroundImage(imageSet.normalImage, for: .normal)
         setBackgroundImage(imageSet.highlightImage, for: .highlighted)
         setBackgroundImage(imageSet.disabledImage, for: .disabled)
@@ -85,7 +85,7 @@ extension DesignedButtonInterfaceInternal {
     }
     
     @discardableResult
-    public func setTitle(_ titleSet: TitleSet) -> Self {
+    public func usingTitle(_ titleSet: TitleSet) -> Self {
         setTitle(titleSet.normalText, for: .normal)
         setTitle(titleSet.highlightText, for: .highlighted)
         setTitle(titleSet.disabledText, for: .disabled)
@@ -93,7 +93,7 @@ extension DesignedButtonInterfaceInternal {
     }
     
     @discardableResult
-    public func setFont(_ font: UIFont) -> Self {
+    public func usingFont(_ font: UIFont) -> Self {
         if titleLabel == nil {
             setTitle("", for: .normal)
         }
@@ -102,13 +102,13 @@ extension DesignedButtonInterfaceInternal {
     }
     
     @discardableResult
-    public func setNumberOfLines(_ numberOfLines: NumberOfLines) -> Self {
+    public func usingNumberOfLines(_ numberOfLines: NumberOfLines) -> Self {
         titleLabel?.numberOfLines = numberOfLines.value
         return self
     }
     
     @discardableResult
-    public func setContentInsets(_ contentInsets: UIEdgeInsets) -> Self {
+    public func usingContentInsets(_ contentInsets: UIEdgeInsets) -> Self {
         self.contentEdgeInsets = contentInsets
         return self
     }
