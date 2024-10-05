@@ -56,14 +56,14 @@ open class BaseCollectionView<
     }
     
     // MARK: - Interface methods
-    func update(isLoading: Bool,
-                isEmpty: Bool) {
+    public func update(isLoading: Bool,
+                       isEmpty: Bool) {
         self.isLoading = isLoading
         changeVisibility(isEmpty: isEmpty)
     }
     
-    #warning("Horizontal only")
-    func scrollToEnd(animated: Bool) {
+#warning("Horizontal only")
+    public func scrollToEnd(animated: Bool) {
         let maxOffset = contentSize.width - bounds.width + contentInset.right
         let scrollToEndPoint = CGPoint(x: max(-contentInset.left, maxOffset),
                                        y: .zero)

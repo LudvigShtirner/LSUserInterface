@@ -13,13 +13,21 @@ open class DesignedLabel: UILabel, DesignedViewInterfaceInternal, DesignedLabelI
     var lsTextColor: DesignedLabelTextColor?
     
     // MARK: - DesignedViewInterfaceInternal
-    var hitTestDecorator: DesignedViewHitTestDecorator?
+    public var hitTestDecorator: DesignedViewHitTestDecorator?
     var lsCornerRadius: DesignedViewCornerRadius?
     var lsBackgroundColor: DesignedViewBackgroundColor?
     var lsBorder: DesignedViewBorder?
     var lsShadow: DesignedViewShadow?
     
     // MARK: - Overrides
+    open override func hitTest(_ point: CGPoint,
+                               with event: UIEvent?) -> UIView? {
+        guard let decorator = hitTestDecorator else {
+            return super.hitTest(point, with: event)
+        }
+        return decorator.hitTest(point, with: event)
+    }
+    
     public override func layoutSubviews() {
         super.layoutSubviews()
         

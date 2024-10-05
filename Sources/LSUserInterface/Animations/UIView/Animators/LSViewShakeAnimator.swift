@@ -66,13 +66,14 @@ import SnapKit
 struct LSViewShakeAnimatorPreviews: PreviewProvider {
     static var previews: some View {
         SwiftUIPreview {
-            let button = DesignedButton()
-                .usingTitle(.init(normalText: "Shake"))
-                .usingTitleColor(.init(normal: .init(color: .white)))
-                .usingBackgroundColors(.init(normal: .init(color: UIColor.magenta)))
-                .usingFont(UIFont.systemFont(ofSize: 24, weight: .bold))
-                .usingCornerRadius(.circled)
-                .usingClipsToBounds(true)
+            let button = DesignedButton().apply {
+                $0.useTitle(normalText: "Shake")
+                $0.useTitleColor(.init(normal: .init(color: .white)))
+                $0.useBackgroundColors(.init(normal: .init(color: UIColor.magenta)))
+                $0.useFont(UIFont.systemFont(ofSize: 24, weight: .bold))
+                $0.useCornerRadius(.circled)
+                $0.clipsToBounds = true
+            }
                 
             button.onEvent(.touchUpInside) { [weak button] in
                 button?.ls.animation.shake(shakeSteps: [
@@ -82,7 +83,7 @@ struct LSViewShakeAnimatorPreviews: PreviewProvider {
                     ShakeStep(value: 3, keyTime: 0.8),
                 ], completion: { [weak button] finished in
                     let color = finished ? UIColor.blue : UIColor.red
-                    button?.usingBackgroundColors(.init(normal: .init(color: color)))
+                    button?.useBackgroundColors(.init(normal: .init(color: color)))
                 })
                 .execute()
             }

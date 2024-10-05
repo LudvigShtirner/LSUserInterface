@@ -16,7 +16,6 @@ public protocol GestureHandler: AnyObject {
 
     var isEnabled: Bool { get set }
     var isActive: Bool { get }
-    var delegate: UIGestureRecognizerDelegate? { get set }
         
     @discardableResult
     func onStart(_ closure: @escaping GestureBlock) -> Self
@@ -35,6 +34,27 @@ public protocol GestureHandler: AnyObject {
     
     @discardableResult
     func insert(into view: UIView) -> Self
+    
+    @discardableResult
+    func onShouldBeginAction(_ closure: @escaping (GestureType) -> Bool) -> Self
+    
+    @discardableResult
+    func onShouldRecognizeSimultaneously(_ closure: @escaping (GestureType, UIGestureRecognizer) -> Bool) -> Self
+    
+    @discardableResult
+    func onShouldRequireFailure(_ closure: @escaping (GestureType, UIGestureRecognizer) -> Bool) -> Self
+    
+    @discardableResult
+    func onShouldBeRequiredToFail(_ closure: @escaping (GestureType, UIGestureRecognizer) -> Bool) -> Self
+    
+    @discardableResult
+    func onShouldReceiveTouch(_ closure: @escaping (GestureType, UITouch) -> Bool) -> Self
+    
+    @discardableResult
+    func onShouldReceivePress(_ closure: @escaping (GestureType, UIPress) -> Bool) -> Self
+    
+    @discardableResult
+    func onShouldReceiveEvent(_ closure: @escaping (GestureType, UIEvent) -> Bool) -> Self
 }
 
 public extension GestureHandler {
@@ -47,14 +67,64 @@ public extension GestureHandler {
         set { gestureRecognizer.isEnabled = newValue }
     }
     
-    var delegate: UIGestureRecognizerDelegate? {
-        get { gestureRecognizer.delegate }
-        set { gestureRecognizer.delegate = newValue }
-    }
-    
+    @discardableResult
     func insert(into view: UIView) -> Self {
         view.addGestureRecognizer(gestureRecognizer)
         return self
     }
 }
 
+protocol GestureHandlerInternal: GestureHandler {
+    var delegate: GestureRecognizerDelegate<GestureType> { get }
+}
+
+extension GestureHandlerInternal {
+    @discardableResult
+    public func onShouldBeginAction(_ closure: @escaping (GestureType) -> Bool) -> Self {
+        delegate.shouldBeginAction = closure
+        gestureRecognizer.delegate = delegate
+        return self
+    }
+    
+    @discardableResult
+    public func onShouldRecognizeSimultaneously(_ closure: @escaping (GestureType, UIGestureRecognizer) -> Bool) -> Self {
+        delegate.shouldRecognizeSimultaneously = closure
+        gestureRecognizer.delegate = delegate
+        return self
+    }
+    
+    @discardableResult
+    public func onShouldRequireFailure(_ closure: @escaping (GestureType, UIGestureRecognizer) -> Bool) -> Self {
+        delegate.shouldRequireFailure = closure
+        gestureRecognizer.delegate = delegate
+        return self
+    }
+    
+    @discardableResult
+    public func onShouldBeRequiredToFail(_ closure: @escaping (GestureType, UIGestureRecognizer) -> Bool) -> Self {
+        delegate.shouldBeRequiredToFail = closure
+        gestureRecognizer.delegate = delegate
+        return self
+    }
+    
+    @discardableResult
+    public func onShouldReceiveTouch(_ closure: @escaping (GestureType, UITouch) -> Bool) -> Self {
+        delegate.shouldReceiveTouch = closure
+        gestureRecognizer.delegate = delegate
+        return self
+    }
+    
+    @discardableResult
+    public func onShouldReceivePress(_ closure: @escaping (GestureType, UIPress) -> Bool) -> Self {
+        delegate.shouldReceivePress = closure
+        gestureRecognizer.delegate = delegate
+        return self
+    }
+    
+    @discardableResult
+    public func onShouldReceiveEvent(_ closure: @escaping (GestureType, UIEvent) -> Bool) -> Self {
+        delegate.shouldReceiveEvent = closure
+        gestureRecognizer.delegate = delegate
+        return self
+    }
+}

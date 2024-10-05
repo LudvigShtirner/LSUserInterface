@@ -52,8 +52,10 @@ struct LSViewConstraintsAnimatorPreviews: PreviewProvider {
         SwiftUIPreview {
             let view = DesignedView()
             
-            let innerView = DesignedView()
-                .usingBackgroundColor(.init(color: .red))
+            let innerView = DesignedView().apply {
+                $0.useBackgroundColor(.init(color: .red))
+            }
+                
             view.addSubview(innerView)
             innerView.snp.makeConstraints { make in
                 make.center.equalToSuperview()

@@ -117,11 +117,11 @@ struct InfinityLoaderViewPreviews: PreviewProvider {
             loader.roundedCorners = false
             loader.thicknessRatio = 0.4
             
-            let button = DesignedButton()
-                .usingTitle(.init(normalText: "LoaderView Toggle"))
-                .usingBorder(.fixed(width: 2, color: .init(color: .white)))
-                .usingCornerRadius(.fixed(8))
-                .onEvent(.touchUpInside) { [weak loader] in
+            let button = DesignedButton().apply {
+                $0.useTitle(normalText: "LoaderView Toggle")
+                $0.useBorder(.fixed(width: 2, color: .init(color: .white)))
+                $0.useCornerRadius(.fixed(8))
+                $0.onEvent(.touchUpInside) { [weak loader] in
                     guard let loader else { return }
                     if loader.isAnimating {
                         loader.stopAnimation()
@@ -129,6 +129,7 @@ struct InfinityLoaderViewPreviews: PreviewProvider {
                         loader.startAnimation()
                     }
                 }
+            }
             view.addSubview(button)
             button.snp.makeConstraints { make in
                 make.centerX.equalToSuperview()

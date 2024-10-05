@@ -8,7 +8,10 @@
 import UIKit
 
 /// Обработчик pan жестов
-public final class PanGestureHandler: GestureHandler {
+public final class PanGestureHandler: GestureHandlerInternal {
+    // MARK: - Dependencies
+    lazy var delegate = GestureRecognizerDelegate<GestureType>()
+    
     // MARK: - Data
     private var panGR: UIPanGestureRecognizer!
     private var beganAction: GestureBlock?

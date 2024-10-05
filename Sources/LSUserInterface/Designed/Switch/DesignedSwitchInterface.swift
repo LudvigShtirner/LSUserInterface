@@ -9,11 +9,7 @@
 import UIKit
 
 public protocol DesignedSwitchInterface: UISwitch {
-    @discardableResult
-    func usingIsOn(_ isOn: Bool) -> Self
-    
-    @discardableResult
-    func usingIsOnColor(_ onColor: ColorMap) -> Self
+    func useIsOnColor(_ onColor: ColorMap)
 }
 
 protocol DesignedSwitchInterfaceInternal: DesignedSwitchInterface {
@@ -21,16 +17,8 @@ protocol DesignedSwitchInterfaceInternal: DesignedSwitchInterface {
 }
 
 extension DesignedSwitchInterfaceInternal {
-    @discardableResult
-    public func usingIsOn(_ isOn: Bool) -> Self {
-        self.isOn = isOn
-        return self
-    }
-    
-    @discardableResult
-    public func usingIsOnColor(_ onColor: ColorMap) -> Self {
+    public func useIsOnColor(_ onColor: ColorMap) {
         self.onColor = DesignedSwitchOnColor(onColor: onColor)
         self.onColor?.apply(to: self)
-        return self
     }
 }

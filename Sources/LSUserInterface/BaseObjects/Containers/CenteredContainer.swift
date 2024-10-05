@@ -12,6 +12,7 @@ import UIKit
 
 public final class CenteredContainer: DesignedView {
     private let content: UIView
+    private let viewController: UIViewController?
     private let width: Width
     private let height: Height
     
@@ -21,6 +22,17 @@ public final class CenteredContainer: DesignedView {
         self.content = content
         self.width = width
         self.height = height
+        self.viewController = nil
+        super.init()
+    }
+    
+    public init(contentVC: UIViewController,
+                width: Width = .none,
+                height: Height = .none) {
+        self.content = contentVC.view
+        self.width = width
+        self.height = height
+        self.viewController = contentVC
         super.init()
     }
     

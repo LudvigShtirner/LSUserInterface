@@ -9,31 +9,15 @@
 import UIKit
 
 public protocol DesignedViewInterface: UIView {
-    @discardableResult
-    func usingHitTestDecorator(_ decorator: DesignedViewHitTestDecorator) -> Self
+    var hitTestDecorator: DesignedViewHitTestDecorator? { get set }
     
-    @discardableResult
-    func usingBackgroundColor(_ backgroundColor: ColorMap) -> Self
-    @discardableResult
-    func usingCornerRadius(_ cornerRadius: CornerRadius) -> Self
-    @discardableResult
-    func usingBorder(_ border: Border) -> Self
-    @discardableResult
-    func usingShadow(_ shadow: Shadow) -> Self
-    
-    @discardableResult
-    func usingClipsToBounds(_ clipsToBounds: Bool) -> Self
-    @discardableResult
-    func usingUserInteractionEnabled(_ enabled: Bool) -> Self
-    @discardableResult
-    func usingHidden(_ isHidden: Bool) -> Self
-    @discardableResult
-    func usingAlpha(_ alpha: CGFloat) -> Self
+    func useBackgroundColor(_ backgroundColor: ColorMap)
+    func useCornerRadius(_ cornerRadius: CornerRadius)
+    func useBorder(_ border: Border)
+    func useShadow(_ shadow: Shadow)
 }
 
 protocol DesignedViewInterfaceInternal: DesignedViewInterface {
-    var hitTestDecorator: DesignedViewHitTestDecorator? { get set }
-    
     var lsCornerRadius: DesignedViewCornerRadius? { get set }
     var lsBackgroundColor: DesignedViewBackgroundColor? { get set }
     var lsBorder: DesignedViewBorder? { get set }
@@ -41,67 +25,31 @@ protocol DesignedViewInterfaceInternal: DesignedViewInterface {
 }
 
 extension DesignedViewInterfaceInternal {
-    public func usingHitTestDecorator(_ decorator: DesignedViewHitTestDecorator) -> Self {
-        self.hitTestDecorator = decorator
-        return self
-    }
-    
-    public func usingBackgroundColor(_ backgroundColor: ColorMap) -> Self {
+    public func useBackgroundColor(_ backgroundColor: ColorMap) {
         self.lsBackgroundColor = DesignedViewBackgroundColor(value: backgroundColor)
         self.lsBackgroundColor?.apply(to: self)
-        return self
     }
     
-    public func usingCornerRadius(_ cornerRadius: CornerRadius) -> Self {
+    public func useCornerRadius(_ cornerRadius: CornerRadius) {
         self.lsCornerRadius = DesignedViewCornerRadius(value: cornerRadius)
         self.lsCornerRadius?.apply(to: self)
-        return self
     }
     
-    public func usingBorder(_ border: Border) -> Self {
+    public func useBorder(_ border: Border) {
         self.lsBorder = DesignedViewBorder(border: border)
         self.lsBorder?.apply(to: self)
-        return self
     }
     
-    public func usingShadow(_ shadow: Shadow) -> Self {
+    public func useShadow(_ shadow: Shadow) {
         self.lsShadow = DesignedViewShadow(value: shadow)
         self.lsShadow?.apply(to: self)
-        return self
-    }
-    
-    public func usingClipsToBounds(_ clipsToBounds: Bool) -> Self {
-        self.clipsToBounds = clipsToBounds
-        return self
-    }
-    
-    public func usingUserInteractionEnabled(_ enabled: Bool) -> Self {
-        isUserInteractionEnabled = enabled
-        return self
-    }
-    
-    public func usingHidden(_ isHidden: Bool) -> Self {
-        self.isHidden = isHidden
-        return self
-    }
-    
-    public func usingAlpha(_ alpha: CGFloat) -> Self {
-        self.alpha = alpha
-        return self
     }
 }
 
-//
-//extension UIView {
-//    @discardableResult
-//    public func apply<T: UIView>(_ closure: @escaping (T) -> Void) -> T {
-//        closure(self)
-//        return self
-//    }
-//}
-//
-//final class AAA: UIViewController {
-//    private let view = BaseView().apply {
-//        $0.backgroundColor = .red
-//    }
-//}
+extension NSObjectProtocol {
+    @discardableResult
+    public func apply(_ closure: @escaping (Self) -> Void) -> Self {
+        closure(self)
+        return self
+    }
+}

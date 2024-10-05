@@ -15,7 +15,5 @@ public protocol NibReusable: UIView, ClassIdentifiable {
 }
 
 public extension NibReusable {
-    static var nibName: String {
-        classIdentifier
-    }
+    static var nibName: String { className }
 }

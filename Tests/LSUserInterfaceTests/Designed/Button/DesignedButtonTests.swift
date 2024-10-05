@@ -22,17 +22,19 @@ final class DesignedButtonTests: XCTestCase {
         let button = DesignedButton(frame: CGRect(origin: .zero,
                                                   size: CGSize(width: 100.0, height: 100.0)))
         // When
-        button
-            .usingCornerRadius(.fixed(kCornerRadius))
-            .usingBorder(.changeable(width: kBorderWidth,
+        button.apply {
+            $0.useCornerRadius(.fixed(kCornerRadius))
+            $0.useBorder(.changeable(width: kBorderWidth,
                                      colors: ColorSet(normal: ColorMap(lightColor: .red,
                                                                        darkColor: .blue))))
-            .usingTintColor(.init(lightColor: .green, darkColor: .brown))
-            .usingImageSet(.init(normalImage: .checkmark))
-            .usingTitle(.init(normalText: kTestText))
-            .usingFont(.systemFont(ofSize: kFontSize))
-            .usingTitleColor(.init(normal: ColorMap(lightColor: .white,
-                                                  darkColor: .black)) )
+            $0.useTintColor(.init(lightColor: .green, darkColor: .brown))
+            $0.useImageSet(.init(normalImage: .checkmark))
+            $0.useTitle(normalText: kTestText)
+            $0.useFont(.systemFont(ofSize: kFontSize))
+            $0.useTitleColor(.init(normal: ColorMap(lightColor: .white,
+                                                    darkColor: .black)) )
+        }
+        
         // Then
         XCTAssertEqual(button.layer.cornerRadius, kCornerRadius)
         XCTAssertEqual(button.layer.borderWidth, kBorderWidth)

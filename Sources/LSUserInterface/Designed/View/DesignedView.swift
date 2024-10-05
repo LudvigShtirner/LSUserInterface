@@ -10,7 +10,7 @@ import UIKit
 
 open class DesignedView: BaseView, DesignedViewInterfaceInternal {
     // MARK: - DesignedViewInterface
-    var hitTestDecorator: DesignedViewHitTestDecorator?
+    public var hitTestDecorator: DesignedViewHitTestDecorator?
     var lsCornerRadius: DesignedViewCornerRadius?
     var lsBackgroundColor: DesignedViewBackgroundColor?
     var lsBorder: DesignedViewBorder?

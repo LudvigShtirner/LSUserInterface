@@ -8,7 +8,10 @@
 import UIKit
 
 /// Обработчик двойных нажатий
-public final class DoubleTapGestureHandler: GestureHandler {
+public final class DoubleTapGestureHandler: GestureHandlerInternal {
+    // MARK: - Dependencies
+    lazy var delegate = GestureRecognizerDelegate<GestureType>()
+    
     // MARK: - Data
     private var tapGR: UITapGestureRecognizer!
     private var beganAction: GestureBlock?
@@ -18,11 +21,10 @@ public final class DoubleTapGestureHandler: GestureHandler {
     private var cancelledAction: GestureBlock?
     
     // MARK: - Inits
-    public init(delegate: UIGestureRecognizerDelegate? = nil) {
+    public init() {
         tapGR = UITapGestureRecognizer(target: self,
                                        action: #selector(handleDoubleTap(_:)))
         tapGR.numberOfTapsRequired = 2
-        tapGR.delegate = delegate
     }
     
     // MARK: - GestureHandler

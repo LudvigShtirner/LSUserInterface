@@ -9,16 +9,8 @@
 import UIKit
 
 public protocol DesignedLabelInterface: UILabel {
-    @discardableResult
-    func usingTextColor(_ textColor: ColorMap) -> Self
-    @discardableResult
-    func usingText(_ text: String) -> Self
-    @discardableResult
-    func usingFont(_ font: UIFont) -> Self
-    @discardableResult
-    func usingNumberOfLines(_ numberOfLines: NumberOfLines) -> Self
-    @discardableResult
-    func usingTextAlignment(_ textAlignment: NSTextAlignment) -> Self
+    func useTextColor(_ textColor: ColorMap)
+    func useNumberOfLines(_ numberOfLines: NumberOfLines)
 }
 
 protocol DesignedLabelInterfaceInternal: DesignedLabelInterface {
@@ -26,34 +18,12 @@ protocol DesignedLabelInterfaceInternal: DesignedLabelInterface {
 }
 
 extension DesignedLabelInterfaceInternal {
-    @discardableResult
-    public func usingTextColor(_ textColor: ColorMap) -> Self {
+    public func useTextColor(_ textColor: ColorMap) {
         lsTextColor = DesignedLabelTextColor(textColor: textColor)
         lsTextColor?.apply(to: self)
-        return self
     }
     
-    @discardableResult
-    public func usingText(_ text: String) -> Self {
-        self.text = text
-        return self
-    }
-    
-    @discardableResult
-    public func usingFont(_ font: UIFont) -> Self {
-        self.font = font
-        return self
-    }
-    
-    @discardableResult
-    public func usingNumberOfLines(_ numberOfLines: NumberOfLines) -> Self {
+    public func useNumberOfLines(_ numberOfLines: NumberOfLines) {
         self.numberOfLines = numberOfLines.value
-        return self
-    }
-    
-    @discardableResult
-    public func usingTextAlignment(_ textAlignment: NSTextAlignment) -> Self {
-        self.textAlignment = textAlignment
-        return self
     }
 }

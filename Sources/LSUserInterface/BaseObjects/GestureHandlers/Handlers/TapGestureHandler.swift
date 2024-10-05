@@ -8,7 +8,10 @@
 import UIKit
 
 /// Обработчик одинарных нажатий
-public final class TapGestureHandler: GestureHandler {
+public final class TapGestureHandler: GestureHandlerInternal {
+    // MARK: - Dependencies
+    lazy var delegate = GestureRecognizerDelegate<GestureType>()
+    
     // MARK: - Data
     private var tapGR: UITapGestureRecognizer!
     private var endedAction: GestureBlock?
@@ -56,16 +59,8 @@ public final class TapGestureHandler: GestureHandler {
     @objc
     private func handleTap(_ tap: UITapGestureRecognizer) {
         switch tap.state {
-        case .began:
-            print("OnStart")
-        case .changed:
-            print("onChange")
         case .ended:
             endedAction?(tap)
-        case .failed:
-            print("onFail")
-        case .cancelled:
-            print("onCancel")
         default: break
         }
     }

@@ -18,7 +18,7 @@ public extension UITableView {
     /// tableView.registerCell(ExampleTableViewCell.self)
     /// ```
     func registerCell<T: UITableViewCell>(_: T.Type) {
-        register(T.self, forCellReuseIdentifier: T.classIdentifier)
+        register(T.self, forCellReuseIdentifier: T.className)
     }
     
     /// Register Header or Footer view for UITableView pool
@@ -28,7 +28,7 @@ public extension UITableView {
     /// table.registerView(ExampleHeaderView.self)
     /// ```
     func registerView<T: UITableViewHeaderFooterView>(_: T.Type) {
-        register(T.self, forHeaderFooterViewReuseIdentifier: T.classIdentifier)
+        register(T.self, forHeaderFooterViewReuseIdentifier: T.className)
     }
     
     /// Dequeue cell from pool or create a new one
@@ -42,8 +42,8 @@ public extension UITableView {
     /// - Warning: Application will be crashed if cell isn't registered
     /// - Returns: instance of expected Cell class
     func dequeueCell<T: UITableViewCell>(for indexPath: IndexPath) -> T {
-        guard let cell = dequeueReusableCell(withIdentifier: T.classIdentifier, for: indexPath) as? T else {
-            assertionFailure("Could not dequeue cell with identifier: \(T.classIdentifier)")
+        guard let cell = dequeueReusableCell(withIdentifier: T.className, for: indexPath) as? T else {
+            assertionFailure("Could not dequeue cell with identifier: \(T.className)")
             return T.init()
         }
         return cell
@@ -60,8 +60,8 @@ public extension UITableView {
     /// - Warning: Application will be crashed if view isn't registered
     /// - Returns: instance of expected SupplementaryView class
     func dequeueView<T: UITableViewHeaderFooterView>() -> T {
-        guard let view = dequeueReusableHeaderFooterView(withIdentifier: T.classIdentifier) as? T else {
-            assertionFailure("Could not dequeue reusableView with identifier: \(T.classIdentifier)")
+        guard let view = dequeueReusableHeaderFooterView(withIdentifier: T.className) as? T else {
+            assertionFailure("Could not dequeue reusableView with identifier: \(T.className)")
             return T.init()
         }
         return view

@@ -18,7 +18,7 @@ public extension UICollectionView {
     /// collectionView.registerCell(ExampleCollectionViewCell.self)
     /// ```
     func registerCell<Cell: UICollectionViewCell>(_: Cell.Type) {
-        register(Cell.self, forCellWithReuseIdentifier: Cell.classIdentifier)
+        register(Cell.self, forCellWithReuseIdentifier: Cell.className)
     }
     
     /// Register nib cell for UICollectionView pool
@@ -29,7 +29,7 @@ public extension UICollectionView {
     /// ```
     func registerNibCell<Cell: NibReusable>(_ cell: Cell.Type) {
       let nib = UINib(nibName: cell.nibName, bundle: Bundle(for: cell))
-      register(nib, forCellWithReuseIdentifier: cell.classIdentifier)
+      register(nib, forCellWithReuseIdentifier: cell.className)
     }
     
     /// Register supplementary view for UICollectionView pool
@@ -42,7 +42,7 @@ public extension UICollectionView {
                                                       forSupplementaryViewOfKind kind: SupplementaryViewKind) {
         register(View.self,
                  forSupplementaryViewOfKind: kind.identifier,
-                 withReuseIdentifier: View.classIdentifier)
+                 withReuseIdentifier: View.className)
     }
     
     /// Зарегистрировать вспомогательное отображение секции
@@ -53,7 +53,7 @@ public extension UICollectionView {
       let nib = UINib(nibName: view.nibName, bundle: Bundle(for: view))
       register(nib,
                forSupplementaryViewOfKind: kind.identifier,
-               withReuseIdentifier: view.classIdentifier)
+               withReuseIdentifier: view.className)
     }
     
     /// Dequeue cell from pool or create a new one
@@ -67,8 +67,8 @@ public extension UICollectionView {
     /// ```
     /// - Returns: instance of expected Cell class
     func dequeueCell<T: UICollectionViewCell>(for indexPath: IndexPath) -> T {
-        guard let cell = dequeueReusableCell(withReuseIdentifier: T.classIdentifier, for: indexPath) as? T else {
-            assertionFailure("Could not dequeue cell with identifier: \(T.classIdentifier)")
+        guard let cell = dequeueReusableCell(withReuseIdentifier: T.className, for: indexPath) as? T else {
+            assertionFailure("Could not dequeue cell with identifier: \(T.className)")
             return T.init()
         }
         return cell
@@ -86,10 +86,10 @@ public extension UICollectionView {
     func dequeueView<T: UIView>(forSupplementaryViewOfKind kind: SupplementaryViewKind,
                                 indexPath: IndexPath) -> T where T: Identifiable {
         let view = dequeueReusableSupplementaryView(ofKind: kind.identifier,
-                                                    withReuseIdentifier: T.classIdentifier,
+                                                    withReuseIdentifier: T.className,
                                                     for: indexPath)
         guard let result = view as? T else {
-            assertionFailure("Could not dequeue SupplementaryView with identifier: \(T.classIdentifier)")
+            assertionFailure("Could not dequeue SupplementaryView with identifier: \(T.className)")
             return T.init()
         }
         return result

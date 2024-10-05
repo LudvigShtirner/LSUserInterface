@@ -9,30 +9,37 @@
 import SupportCode
 // Apple
 import UIKit
+import Combine
 
 public final class ProgressLoaderView: DesignedView {
     // MARK: - Data
-    private var progressTimer: ProgressTimer?
+    private let progressTimer = ProgressTimer()
     
     // MARK: - Proxies
     private static let updateLayer: (ProgressLoaderView, Any) -> Void = { (instance, _) in instance.progressLayer!.setNeedsDisplay() }
     
-    @ProxyWithAction(\.progressLayer.trackTintColor, extraAction: ProgressLoaderView.updateLayer)
+    @ProxyWithAction(\.progressLayer.trackTintColor,
+                      extraAction: ProgressLoaderView.updateLayer)
     public var trackTintColor: UIColor
     
-    @ProxyWithAction(\.progressLayer.progressTintColor, extraAction: ProgressLoaderView.updateLayer)
+    @ProxyWithAction(\.progressLayer.progressTintColor,
+                      extraAction: ProgressLoaderView.updateLayer)
     public var progressTintColor: UIColor
     
-    @ProxyWithAction(\.progressLayer.innerTintColor, extraAction: ProgressLoaderView.updateLayer)
+    @ProxyWithAction(\.progressLayer.innerTintColor,
+                      extraAction: ProgressLoaderView.updateLayer)
     public var innerTintColor: UIColor?
     
-    @ProxyWithAction(\.progressLayer.roundedCorners, extraAction: ProgressLoaderView.updateLayer)
+    @ProxyWithAction(\.progressLayer.roundedCorners, 
+                      extraAction: ProgressLoaderView.updateLayer)
     public var roundedCorners: Bool
     
-    @ProxyWithAction(\.progressLayer.thicknessRatio, extraAction: ProgressLoaderView.updateLayer)
+    @ProxyWithAction(\.progressLayer.thicknessRatio,
+                      extraAction: ProgressLoaderView.updateLayer)
     public var thicknessRatio: CGFloat
     
-    @ProxyWithAction(\.progressLayer.clockwise, extraAction: ProgressLoaderView.updateLayer)
+    @ProxyWithAction(\.progressLayer.clockwise, 
+                      extraAction: ProgressLoaderView.updateLayer)
     public var clockwise: Bool
     
     public var progress: CGFloat { progressLayer.progress }
@@ -40,6 +47,9 @@ public final class ProgressLoaderView: DesignedView {
     var isAnimating: Bool {
         progressLayer.animation(forKey: AnimationKeys.progress) != nil
     }
+    
+    // MARK: - Data
+    private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Life cycle
     public override init() {
@@ -97,19 +107,24 @@ private extension ProgressLoaderView {
             return CFTimeInterval(abs(max(progress - self.progress, 0.3)))
         }()
         
-        progressTimer?.invalidate()
+        progressTimer.stop()
         
         let currentProgress = progressLayer.progress
-        progressTimer = ProgressTimer(updateStep: 0.03,
-                                      finishTime: animationDuration)
-        progressTimer?.configureAndStart { [weak self] progress in
-            self?.progressLayer.progress = (pinnedProgress - currentProgress) * progress + currentProgress
-            self?.progressLayer.setNeedsDisplay()
-            if progress.isAlmostEqual(to: 1) {
-                self?.progressTimer?.invalidate()
-                completion?()
-            }
-        }
+        progressTimer.start(updateStep: 0.03,
+                            finishTime: animationDuration,
+                            handle: { notifier in
+            notifier.receiveOnMainQueue()
+                .sink { [weak self] progress in
+                    self?.progressLayer.progress = (pinnedProgress - currentProgress) * (progress / animationDuration) + currentProgress
+                    print("(\(pinnedProgress) - \(currentProgress)) * \(progress) + \(currentProgress) = \(self!.progressLayer.progress)")
+                    self?.progressLayer.setNeedsDisplay()
+                    if progress.isAlmostEqual(to: 1) {
+                        self?.progressTimer.stop()
+                        completion?()
+                    }
+                }
+                .store(in: &cancellables)
+        })
     }
     
     func callCompletionIfHas(animation: CAAnimation) {
@@ -154,28 +169,28 @@ struct ProgressLoaderViewPreviews: PreviewProvider {
             let view = UIView()
             view.backgroundColor = .lightGray
             
-            let progress = Self.progress
+            let progressView = Self.progressView
             
-            view.addSubview(progress)
-            progress.snp.makeConstraints { make in
+            view.addSubview(progressView)
+            progressView.snp.makeConstraints { make in
                 make.center.equalToSuperview()
                 make.width.height.equalTo(50)
             }
             
             let button = Self.button
-                .onEvent(.touchUpInside) { [weak progress] in
-                    guard let progress else { return }
-                    var newProgress = progress.progress + 0.1
+                .onEvent(.touchUpInside) { [weak progressView] in
+                    guard let progressView else { return }
+                    var newProgress = progressView.progress + 0.1
                     newProgress = newProgress > 1.0 ? .zero : newProgress
-                    progress.updateProgress(newProgress,
-                                            animated: .has(duration: 0.3))
+                    progressView.updateProgress(newProgress,
+                                                animated: .has(duration: 0.3))
                 }
             view.addSubview(button)
             button.snp.makeConstraints { make in
                 make.centerX.equalToSuperview()
                 make.width.equalTo(240)
                 make.height.equalTo(44)
-                make.top.equalTo(progress.snp.bottom).offset(16)
+                make.top.equalTo(progressView.snp.bottom).offset(16)
             }
             return view
         }
@@ -183,7 +198,7 @@ struct ProgressLoaderViewPreviews: PreviewProvider {
         .edgesIgnoringSafeArea(.vertical)
     }
     
-    static private var progress: ProgressLoaderView {
+    static private var progressView: ProgressLoaderView {
         let progress = ProgressLoaderView()
         progress.clockwise = true
         progress.roundedCorners = false
@@ -192,9 +207,10 @@ struct ProgressLoaderViewPreviews: PreviewProvider {
     }
     
     static private var button: DesignedButton {
-        DesignedButton()
-            .usingTitle(.init(normalText: "ProgressView update"))
-            .usingBorder(.fixed(width: 2, color: .init(color: .white)))
-            .usingCornerRadius(.fixed(8))
+        DesignedButton().apply {
+            $0.useTitle(normalText: "ProgressView update")
+            $0.useBorder(.fixed(width: 2, color: .init(color: .white)))
+            $0.useCornerRadius(.fixed(8))
+        }
     }
 }

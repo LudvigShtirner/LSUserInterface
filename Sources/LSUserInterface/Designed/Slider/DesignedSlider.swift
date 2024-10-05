@@ -10,17 +10,18 @@ import UIKit
 
 open class DesignedSlider: BaseSlider, DesignedViewInterfaceInternal, DesignedSliderInterfaceInternal {
     // MARK: - DesignedSliderInterfaceInternal
-    var sliderDrawer: DesignedSliderDrawer?
-    var trackingEventHandler: DesignedSliderTrackingEventHandler?
-    var layoutSubviewsDecorator: DesignedSliderLayoutSubviewsDecorator?
-    var thumbRectDecorator: DesignedSliderThumbRectDecorator?
+    public var sliderDrawer: DesignedSliderDrawer?
+    public var trackingEventHandler: DesignedSliderTrackingEventHandler?
+    public var layoutSubviewsDecorator: DesignedSliderLayoutSubviewsDecorator?
+    public var thumbRectDecorator: DesignedSliderThumbRectDecorator?
     
     var thumbImages: DesignedSliderThumbImage?
+    var thumbColors: DesignedSliderThumbColors?
     var minimumTrackColors: DesignedSliderMinimumTrackColor?
     var maximumTrackColors: DesignedSliderMaximumTrackColor?
     
     // MARK: - DesignedViewInterfaceInternal
-    var hitTestDecorator: DesignedViewHitTestDecorator?
+    public var hitTestDecorator: DesignedViewHitTestDecorator?
     var lsCornerRadius: DesignedViewCornerRadius?
     var lsBackgroundColor: DesignedViewBackgroundColor?
     var lsBorder: DesignedViewBorder?
@@ -31,7 +32,7 @@ open class DesignedSlider: BaseSlider, DesignedViewInterfaceInternal, DesignedSl
         didSet {
             minimumTrackColors?.apply(to: self)
             maximumTrackColors?.apply(to: self)
-            thumbImages?.apply(to: self)
+            thumbColors?.apply(to: self)
         }
     }
     
@@ -39,7 +40,7 @@ open class DesignedSlider: BaseSlider, DesignedViewInterfaceInternal, DesignedSl
         didSet {
             minimumTrackColors?.apply(to: self)
             maximumTrackColors?.apply(to: self)
-            thumbImages?.apply(to: self)
+            thumbColors?.apply(to: self)
         }
     }
     
@@ -50,6 +51,8 @@ open class DesignedSlider: BaseSlider, DesignedViewInterfaceInternal, DesignedSl
         lsBackgroundColor?.apply(to: self)
         lsBorder?.apply(to: self)
         lsShadow?.apply(to: self)
+        thumbColors?.apply(to: self)
+        thumbImages?.apply(to: self)
     }
     
     open override func layoutSubviews() {
@@ -68,8 +71,8 @@ open class DesignedSlider: BaseSlider, DesignedViewInterfaceInternal, DesignedSl
     }
     
     open override func draw(_ rect: CGRect) {
-        guard let context = UIGraphicsGetCurrentContext(),
-                let drawer = sliderDrawer else {
+        guard let drawer = sliderDrawer,
+              let context = UIGraphicsGetCurrentContext() else {
             super.draw(rect)
             return
         }

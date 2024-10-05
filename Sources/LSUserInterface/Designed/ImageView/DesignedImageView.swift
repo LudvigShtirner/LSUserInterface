@@ -13,7 +13,7 @@ open class DesignedImageView: UIImageView, DesignedViewInterfaceInternal, Design
     var lsTintColor: DesignedImageViewTintColor?
     
     // MARK: - DesignedViewInterfaceInternal
-    var hitTestDecorator: DesignedViewHitTestDecorator?
+    public var hitTestDecorator: DesignedViewHitTestDecorator?
     var lsCornerRadius: DesignedViewCornerRadius?
     var lsBackgroundColor: DesignedViewBackgroundColor?
     var lsBorder: DesignedViewBorder?

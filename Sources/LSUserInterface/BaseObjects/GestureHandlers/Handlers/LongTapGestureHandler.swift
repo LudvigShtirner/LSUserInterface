@@ -8,7 +8,10 @@
 import UIKit
 
 // Обработчик длительных нажатий
-public final class LongTapGestureHandler: GestureHandler {
+public final class LongTapGestureHandler: GestureHandlerInternal {
+    // MARK: - Dependencies
+    lazy var delegate = GestureRecognizerDelegate<GestureType>()
+    
     // MARK: - Data
     private var longTapGR: UILongPressGestureRecognizer!
     private var beganAction: GestureBlock?

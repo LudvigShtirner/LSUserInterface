@@ -24,7 +24,7 @@ struct DesignedSliderThumbImage: DesignedParameter, DesignedParameterApplyable {
     typealias Element = UISlider
     func apply(to element: Element) {
         element.setThumbImage(thumbImage.normalImage, for: .normal)
-        element.setThumbImage(thumbImage.highlightImage, for: .highlighted)
-        element.setThumbImage(thumbImage.disabledImage, for: .disabled)
+        element.setThumbImage(thumbImage.highlightImage ?? thumbImage.normalImage, for: .highlighted)
+        element.setThumbImage(thumbImage.disabledImage ?? thumbImage.normalImage, for: .disabled)
     }
 }

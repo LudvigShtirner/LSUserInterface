@@ -8,7 +8,10 @@
 import UIKit
 
 /// Обработчик pinch жестов
-public final class PinchGestureHandler: GestureHandler {
+public final class PinchGestureHandler: GestureHandlerInternal {
+    // MARK: - Dependencies
+    lazy var delegate = GestureRecognizerDelegate<GestureType>()
+    
     // MARK: - Data
     private var pinchGR: UIPinchGestureRecognizer!
     private var beganAction: GestureBlock?

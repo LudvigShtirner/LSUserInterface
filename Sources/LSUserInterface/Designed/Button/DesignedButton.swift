@@ -10,15 +10,15 @@ import UIKit
 // Pods
 import SnapKit
 
-open class DesignedButton: BaseButton, DesignedViewInterfaceInternal, DesignedButtonInterfaceInternal {
+open class DesignedButton: BaseButton, DesignedViewInterfaceInternal {
     // MARK: - DesignedButtonInterfaceInternal
-    var drawer: DesignedButtonDrawer?
+    public var drawer: DesignedButtonDrawer?
     var lsTintColor: DesignedButtonTintColor?
     var lsTitleColor: DesignedButtonTitleColor?
     var lsBackgroundColors: DesignedButtonBackgroundColor?
     
     // MARK: - DesignedViewInterfaceInternal
-    var hitTestDecorator: DesignedViewHitTestDecorator?
+    public var hitTestDecorator: DesignedViewHitTestDecorator?
     var lsCornerRadius: DesignedViewCornerRadius?
     var lsBackgroundColor: DesignedViewBackgroundColor?
     var lsBorder: DesignedViewBorder?
@@ -32,15 +32,16 @@ open class DesignedButton: BaseButton, DesignedViewInterfaceInternal, DesignedBu
     // MARK: - Overrides
     open override var isHighlighted: Bool {
         didSet {
+            guard isHighlighted != oldValue else { return }
             lsTitleColor?.apply(to: self)
-            lsBackgroundColor?.apply(to: self)
+            lsBackgroundColors?.apply(to: self)
         }
     }
     
     open override var isEnabled: Bool {
         didSet {
             lsTitleColor?.apply(to: self)
-            lsBackgroundColor?.apply(to: self)
+            lsBackgroundColors?.apply(to: self)
         }
     }
     
@@ -64,6 +65,14 @@ open class DesignedButton: BaseButton, DesignedViewInterfaceInternal, DesignedBu
         setNeedsDisplay()
     }
     
+    open override func hitTest(_ point: CGPoint,
+                               with event: UIEvent?) -> UIView? {
+        guard let decorator = hitTestDecorator else {
+            return super.hitTest(point, with: event)
+        }
+        return decorator.hitTest(point, with: event)
+    }
+    
     open override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -82,18 +91,68 @@ open class DesignedButton: BaseButton, DesignedViewInterfaceInternal, DesignedBu
     }
 }
 
+extension DesignedButton: DesignedButtonInterface {
+    public func useTintColor(_ tintColor: ColorMap) {
+        lsTintColor = DesignedButtonTintColor(colorMap: tintColor)
+        lsTintColor?.apply(to: self)
+    }
+    
+    public func useTitleColor(_ titleColor: ColorSet) {
+        lsTitleColor = DesignedButtonTitleColor(titleColorSet: titleColor)
+        lsTitleColor?.apply(to: self)
+    }
+    
+    public func useBackgroundColors(_ backgroundColors: ColorSet) {
+        lsBackgroundColors = DesignedButtonBackgroundColor(colorSet: backgroundColors)
+        lsBackgroundColors?.apply(to: self)
+    }
+    
+    public func useImageSet(_ imageSet: ImageSet) {
+        setImage(imageSet.normalImage, for: .normal)
+        setImage(imageSet.highlightImage, for: .highlighted)
+        setImage(imageSet.disabledImage, for: .disabled)
+    }
+    
+    public func useBackgroundImageSet(_ imageSet: ImageSet) {
+        setBackgroundImage(imageSet.normalImage, for: .normal)
+        setBackgroundImage(imageSet.highlightImage, for: .highlighted)
+        setBackgroundImage(imageSet.disabledImage, for: .disabled)
+    }
+    
+    public func useTitle(normalText: String,
+                         highlightText: String? = nil,
+                         disabledText: String? = nil) {
+        setTitle(normalText, for: .normal)
+        setTitle(highlightText, for: .highlighted)
+        setTitle(disabledText, for: .disabled)
+    }
+    
+    public func useFont(_ font: UIFont) {
+        if titleLabel == nil {
+            setTitle("", for: .normal)
+        }
+        titleLabel?.font = font
+    }
+    
+    public func useNumberOfLines(_ numberOfLines: NumberOfLines) {
+        titleLabel?.numberOfLines = numberOfLines.value
+    }
+}
+
 // MARK: - SwiftUI Preview
 import SwiftUI
 
 struct DesignedButtonPreviews: PreviewProvider {
     static var previews: some View {
         SwiftUIPreview {
-            let button = DesignedButton()
-                .usingDrawer(DesignedButtonTransparentTextDrawer())
-                .usingTitle(.init(normalText: "Some Text provided to button"))
-                .usingCornerRadius(.circled)
-                .usingClipsToBounds(true)
-                .usingTintColor(.init(color: .random()))
+            let button = DesignedButton().apply {
+                $0.drawer = DesignedButtonTransparentTextDrawer()
+                $0.useTitle(normalText: "Some Text provided to button")
+                $0.useCornerRadius(.circled)
+                $0.clipsToBounds = true
+                $0.useTintColor(.init(color: .random()))
+            }
+                
             
             button.onEvents([.touchUpInside, .touchCancel, .touchUpOutside, .touchDragExit]) { [weak button] in
                 button?.ls.animation

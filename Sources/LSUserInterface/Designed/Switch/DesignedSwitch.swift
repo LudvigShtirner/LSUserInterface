@@ -10,7 +10,7 @@ import UIKit
 
 open class DesignedSwitch: BaseSwitch, DesignedViewInterfaceInternal, DesignedSwitchInterfaceInternal {
     // MARK: - DesignedViewInterfaceInternal
-    var hitTestDecorator: DesignedViewHitTestDecorator?
+    public var hitTestDecorator: DesignedViewHitTestDecorator?
     var lsCornerRadius: DesignedViewCornerRadius?
     var lsBackgroundColor: DesignedViewBackgroundColor?
     var lsBorder: DesignedViewBorder?
@@ -20,6 +20,14 @@ open class DesignedSwitch: BaseSwitch, DesignedViewInterfaceInternal, DesignedSw
     var onColor: DesignedSwitchOnColor?
     
     // MARK: - Overrides
+    open override func hitTest(_ point: CGPoint,
+                               with event: UIEvent?) -> UIView? {
+        guard let decorator = hitTestDecorator else {
+            return super.hitTest(point, with: event)
+        }
+        return decorator.hitTest(point, with: event)
+    }
+    
     open override func layoutSubviews() {
         super.layoutSubviews()
         

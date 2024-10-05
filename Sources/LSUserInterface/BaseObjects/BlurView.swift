@@ -10,7 +10,7 @@ import SnapKit
 // Apple
 import UIKit
 
-public final class BlurView: BaseView {
+public final class BlurView: DesignedView {
     // MARK: - UI
     private let effectView = UIVisualEffectView()
     
@@ -23,16 +23,15 @@ public final class BlurView: BaseView {
         super.init(frame: .zero)
     }
     
-    // MARK: - BaseView
+    // MARK: - Overrides
     public override func setupUI() {
         addSubview(effectView)
         effectView.effect = effect
     }
     
-    public override func setupConstraints() {
-        effectView.snp.makeConstraints { make in
-            make.directionalEdges.equalToSuperview()
-        }
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        effectView.frame = bounds
     }
 }
 
