@@ -23,6 +23,7 @@ struct DesignedSliderThumbImage: DesignedParameter, DesignedParameterApplyable {
     // MARK: - DesignedParameterApplyable
     typealias Element = UISlider
     func apply(to element: Element) {
+        element.thumbTintColor = .clear
         element.setThumbImage(thumbImage.normalImage, for: .normal)
         element.setThumbImage(thumbImage.highlightImage ?? thumbImage.normalImage, for: .highlighted)
         element.setThumbImage(thumbImage.disabledImage ?? thumbImage.normalImage, for: .disabled)

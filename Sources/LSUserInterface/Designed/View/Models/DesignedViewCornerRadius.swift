@@ -29,6 +29,28 @@ public struct DesignedViewCornerRadius: DesignedParameter, DesignedParameterAppl
             element.layer.cornerRadius = cGFloat
         case .circled:
             element.layer.cornerRadius = element.bounds.minSide.half
+        case .masked(let corners, let radius):
+            element.layer.maskedCorners = corners.caCornerMask
+            element.layer.cornerRadius = radius
         }
+    }
+}
+
+extension UIRectCorner {
+    var caCornerMask: CACornerMask {
+        var cornersMask = CACornerMask()
+        if self.contains(.topLeft) {
+            cornersMask.insert(.layerMinXMinYCorner)
+        }
+        if self.contains(.topRight) {
+            cornersMask.insert(.layerMaxXMinYCorner)
+        }
+        if self.contains(.bottomLeft) {
+            cornersMask.insert(.layerMinXMaxYCorner)
+        }
+        if self.contains(.bottomRight) {
+            cornersMask.insert(.layerMaxXMaxYCorner)
+        }
+        return cornersMask
     }
 }

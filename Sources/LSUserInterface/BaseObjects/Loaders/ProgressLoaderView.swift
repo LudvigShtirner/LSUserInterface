@@ -116,7 +116,6 @@ private extension ProgressLoaderView {
             notifier.receiveOnMainQueue()
                 .sink { [weak self] progress in
                     self?.progressLayer.progress = (pinnedProgress - currentProgress) * (progress / animationDuration) + currentProgress
-                    print("(\(pinnedProgress) - \(currentProgress)) * \(progress) + \(currentProgress) = \(self!.progressLayer.progress)")
                     self?.progressLayer.setNeedsDisplay()
                     if progress.isAlmostEqual(to: 1) {
                         self?.progressTimer.stop()

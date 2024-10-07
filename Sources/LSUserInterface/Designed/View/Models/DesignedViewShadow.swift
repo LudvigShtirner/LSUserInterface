@@ -31,16 +31,25 @@ public struct DesignedViewShadow: DesignedParameter, DesignedParameterApplyable 
                 return element.bounds.minSide.half
             case .fixed(let value):
                 return value
+            case .masked(_, let radius):
+                return radius
+            }
+        }()
+        let corners: UIRectCorner = {
+            switch value.radius {
+            case .circled, .fixed:
+                return .allCorners
+            case .masked(let corners, _):
+                return corners
             }
         }()
         layer.shadowColor = value.color.color(for: element).cgColor
         layer.shadowRadius = cornerRadius
         layer.shadowOpacity = value.opacity
         layer.shadowOffset = value.offset
-        #warning("Убрать комменты")
-//        layer.shadowPath = UIBezierPath(roundedRect: element.bounds,
-//                                        byRoundingCorners: [.allCorners],
-//                                        cornerRadii: .init(width: cornerRadius,
-//                                                           height: cornerRadius)).cgPath
+        layer.shadowPath = UIBezierPath(roundedRect: element.bounds,
+                                        byRoundingCorners: corners,
+                                        cornerRadii: .init(width: cornerRadius,
+                                                           height: cornerRadius)).cgPath
     }
 }
