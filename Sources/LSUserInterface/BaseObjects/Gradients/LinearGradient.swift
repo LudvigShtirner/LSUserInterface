@@ -113,8 +113,8 @@ struct LinearGradientPreviews: PreviewProvider {
     static var previews: some View {
         SwiftUIPreview {
             LinearGradient(config: LinearGradient.Config(startColor: ColorMap(color: .red),
-                                                         endColor: ColorMap(color: .red.withAlphaComponent(0)),
-                                                         startFrom: LinearGradient.Direction.bottomRight))
+                                                         endColor: ColorMap(color: .blue.withAlphaComponent(0.2)),
+                                                         startFrom: LinearGradient.Direction.bottom))
         }
         .previewLayout(.fixed(width: 375, height: 375))
         .edgesIgnoringSafeArea(.vertical)

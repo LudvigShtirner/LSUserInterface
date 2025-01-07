@@ -94,6 +94,6 @@ open class BaseCollectionView<
     // MARK: - Private methods
     private func changeVisibility(isEmpty: Bool) {
         loadingView.isHidden = !isLoading
-        emptyView.isHidden = !isEmpty
+        emptyView.isHidden = !isEmpty || isLoading
     }
 }

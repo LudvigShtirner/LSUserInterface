@@ -23,8 +23,6 @@ final class LSCollectionViewDataSourceBase: NSObject {
     private var dataSource: UICollectionViewDiffableDataSource<LSCollectionViewSectionModelErased, LSCollectionViewCellModelErased>!
     private var currentSnapshot = NSDiffableDataSourceSnapshot<LSCollectionViewSectionModelErased, LSCollectionViewCellModelErased>()
     
-    private let cellSizeType: CollectionCellSizeType
-    
     private var snapshot = LSCollectionViewSnapshot(sections: [])
     private var sections: [any LSCollectionViewSectionModel] { snapshot.sections }
     
@@ -32,7 +30,6 @@ final class LSCollectionViewDataSourceBase: NSObject {
     init(collectionView: UICollectionView,
          cellSizeType: CollectionCellSizeType,
          layoutType: CollectionViewLayoutType) {
-        self.cellSizeType = cellSizeType
         self.cellSizeDefiner = LSCollectionViewCellSizeDefiner(collectionView: collectionView,
                                                                cellSizeType: cellSizeType,
                                                                layoutType: layoutType)

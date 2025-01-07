@@ -34,7 +34,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: supportCode.url, branch: "main"),
-        .package(url: snapKit.url, (.init(5, 0, 0) ..< .init(6, 0, 0)))
+        .package(url: snapKit.url, .upToNextMajor(from: "5.0.1"))
     ],
     targets: [
         .target(name: lsUserInterface,

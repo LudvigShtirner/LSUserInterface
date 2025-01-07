@@ -23,6 +23,8 @@ public protocol LSCollectionViewCellModel: Identifiable, Hashable where ID == St
     var didEndDisplayAction: VoidBlock? { get }
     
     var isEditable: Bool { get }
+    
+    var exampleCell: BaseCollectionViewCell { get }
 }
 
 public enum Highlightable {

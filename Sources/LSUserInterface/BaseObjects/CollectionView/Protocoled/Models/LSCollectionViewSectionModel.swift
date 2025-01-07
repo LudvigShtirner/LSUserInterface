@@ -10,7 +10,7 @@ import UIKit
 
 public protocol LSCollectionViewSectionModel: Hashable {
     associatedtype CellModel: LSCollectionViewCellModel
-    var models: [CellModel] { get set }
+    var models: [CellModel] { get }
     
     var sectionId: String { get }
     

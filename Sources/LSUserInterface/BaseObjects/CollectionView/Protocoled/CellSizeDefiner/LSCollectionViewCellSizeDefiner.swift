@@ -74,16 +74,14 @@ private extension LSCollectionViewCellSizeDefiner {
             let allWidth = collectionView.bounds.width
             let availableWidth = allWidth - section.insets.horizontalInsets - CGFloat(itemsInRow - 1) * interItemSpacing
             let width = floor(availableWidth / CGFloat(itemsInRow))
-            let height = anotherSide.getValue(side: width,
-                                              horizontal: false)
+            let height = anotherSide.getValue(side: width, cell: model.exampleCell, isHorizontal: false)
             return CGSize(width: width,
                           height: height)
         case .horizontal:
             let allHeight = collectionView.bounds.height
             let availableHeight = allHeight - section.insets.horizontalInsets - CGFloat(itemsInRow - 1) * interItemSpacing
             let height = availableHeight / CGFloat(itemsInRow)
-            let width = anotherSide.getValue(side: height,
-                                             horizontal: true)
+            let width = anotherSide.getValue(side: height, cell: model.exampleCell, isHorizontal: true)
             return CGSize(width: width,
                           height: height)
         @unknown default:
